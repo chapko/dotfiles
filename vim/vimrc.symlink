@@ -1,4 +1,263 @@
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+set encoding=utf-8
+
+execute pathogen#infect()
+
+" syntax highlighting
 syntax on
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+" enable file type detection
+filetype on
+
+" enable loading the plugin files for specific file types
+filetype plugin on
+
+" enable loading the indent file for specific file types
+filetype indent on
+
+" change <leader> to comma
+let mapleader=','
+
+
+set shiftwidth=4        " indent width for >>, <<, etc.
+set softtabstop=4       " soft tab width
+set tabstop=4           " tab width
+set expandtab           " use spaces for indenting
+set autoindent          " copy indent from current line when starting a new line
+set smartindent
+set copyindent          " copy the previous indentation on autoindenting
+set nowrap
+set scrolloff=2         " minimal number of screen lines to keep above and below
+                        " the cursor
+set hlsearch            " highlight all search matches
+set incsearch           " show found patters during typing
+set history=50          " keep 50 lines of command line history
+set ruler               " show the cursor position all the time
+set number              " show line number
+set showcmd             " display incomplete commands
+set synmaxcol=2048      " maximum column in which to search for syntax items
+set foldcolumn=3        " display gutter line with floding areas
+set foldmethod=indent   " automatically fold by indent level
+set foldlevelstart=99   " ... but have folds open by default
+set modeline            " support modeline comments (like vim: tw=8 noet:)
+set autoread            " reload file after it has been changed outside
+set ignorecase          " ignore case when searching
+set smartcase           " ignore case if pattern is all lowercase
+set colorcolumn=80      " line at columb 88
+set textwidth=80        " for line wrapping with `gq`
+
+" foramt options
+" t - autowrap text
+" c - autowrap comments
+" r - insert comment leader on <Enter>
+" o - insert comment leader on 'o' or 'O'
+" q - comments formatting with 'gq'
+" n - recognize number lists
+" j - smart comments joining
+set formatoptions=tcroqnj
+
+" enable whitespace characters displaying
+set list
+" ws chars configuration
+set listchars=eol:↵,tab:↦—,trail:·,extends:…,precedes:…,nbsp:•
+
+set wildignore+=*/cache/*,*/logs/*,*.log
+set wildignore+=*\\cache\\*,*\\logs\\*
+
+"set stl=%f\ %m\ %r%{fugitive#statusline()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
+
+" always display status line
+set laststatus=2
+
+if has("gui_running")
+    if has("gui_gtk2")
+        set guifont=DejaVu\ Sans\ Mono\ 11
+    elseif has("gui_macvim")
+        set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+        set guifont=DejaVu\ Sans\ Mono:h11
+    endif
+
+    set guioptions-=m       " hide menu bar
+    set guioptions-=T       " hide toolbar
+    set guioptions-=r       " hide right scrollbar
+    set guioptions-=L       " hide left scrollbar
+endif
+
+" NoMatchParen is a command to the loaded plugin to ask it to stop matching.
+" Setting "loaded_matchparen", on the other hand, stops the plugin from
+" ever loading (by making it think that it's already running).
+"let loaded_matchparen=1
+
+" Show the bookmarks table on startup
+let NERDTreeShowBookmarks=1
+" always chdir with changing root dir
+let NERDTreeChDirMode=2
+" Ignore wildignored files
+let NERDTreeRespectWildIgnore=1
+" Close nerdtree after opening file
+let NERDTreeQuitOnOpen=1
+" Ignore ./ and ../ dirs
+let NERDTreeIgnore=['\.\.$', '\.$']
+
+" Use utf8 characters for nerdtree
+let NERDTreeDirArrows=1
+
+
+command! W :w
+
+imap jj <esc>
+cmap jj <esc>
+
+" Turn off highlight search
+nmap <silent> <leader>n :nohls<CR>
+
+" more natural navigation on wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+" window resize
+noremap <silent> <C-F9>  :vertical resize -3<CR>
+noremap <silent> <C-F10> :resize +3<CR>
+noremap <silent> <C-F11> :resize -3<CR>
+noremap <silent> <C-F12> :vertical resize +3<CR>
+noremap <silent> <C-S-F9>  :vertical resize -1<CR>
+noremap <silent> <C-S-F10> :resize +1<CR>
+noremap <silent> <C-S-F11> :resize -1<CR>
+noremap <silent> <C-S-F12> :vertical resize +1<CR>
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+if has("vms")
+    set nobackup          " do not keep a backup file, use versions instead
+else
+    set backup            " keep a backup file
+    set backupdir-=.
+    set backupdir^=~/.vim/tmp,/tmp
+endif
+
+" directories for swp files
+set dir-=.
+set dir^=~/.vim/swp
+
+
+"" Crossplatform hack
+"if has("gui_running")
+"  " GUI is running or is about to start.
+"  " Maximize gvim window.
+"  set lines=999 columns=999
+"endif
+
+" maximized gui window (Windows only)
+" http://superuser.com/questions/140419/how-to-start-gvim-maximized
+if has("win32")
+    au GUIEnter * simalt ~x
+endif
+
+if !exists("*ToggleWhiteSpaceIgnore")
+  function ToggleWhiteSpaceIgnore()
+      if &diffopt =~ 'iwhite'
+          set diffopt-=iwhite
+      else
+          set diffopt+=iwhite
+      endif
+  endfunction
+endif
+
+nmap <silent> <leader>i :call ToggleWhiteSpaceIgnore()<CR>
+
+" toggle wrapping
+nmap <silent> <leader>w :setlocal wrap!<CR>
+
+" add ; at the end of the line
+nmap <silent> <leader>; msA;<esc>`s:delmarks s<CR>
+
+" buffer commands
+nmap <silent> <leader>bd :bd<CR>
+nmap <silent> <leader>bn :bn<CR>
+nmap <silent> <leader>bp :bp<CR>
+" reload buffer
+nmap <leader>br :bdelete<space><bar><space>edit<space>#<CR>
+
+" jump to the first non-blank character of the line
+nmap 0 ^
+
+" color scheme
+set background=dark
+colo desert
+
+if has("gui_running")
+    set background=light
+    let g:solarized_visibility='low'
+    colo solarized
+endif
+
+if &diff
+    nmap <leader>dr :diffg RE
+    nmap <leader>dl :diffg LO
+endif
+
+
+"-----------------------------------------------------------------------------
+" NERD Tree
+"-----------------------------------------------------------------------------
+" Toggle the NERD Tree on and off
+nmap <silent> <leader>t :NERDTreeToggle<CR>
+
+" Reveal current file in the nerd tree panel
+map <silent> <leader>r :NERDTreeFind<CR>
+
+"-----------------------------------------------------------------------------
+" vim trailing whitespace
+"-----------------------------------------------------------------------------
+nmap <silent> <leader>fw :FixWhitespace<CR>
+
+"-----------------------------------------------------------------------------
+" delimit mate
+"-----------------------------------------------------------------------------
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
+
+
+"-----------------------------------------------------------------------------
+" multiple cursors
+"-----------------------------------------------------------------------------
+" remap Ctrl-p to Ctrl-Shift-n (Ctrl-p for CtrlP plugin)
+let g:multi_cursor_prev_key='<C-S-n>'
+
+"-----------------------------------------------------------------------------
+" Emmet
+"-----------------------------------------------------------------------------
+let g:user_emmet_leader_key = '<c-e>'
+imap <C-Space> <C-e>,
+
+"-----------------------------------------------------------------------------
+" Syntastic
+"-----------------------------------------------------------------------------
+
+" Hide warnings about angular directives
+let g:syntastic_html_tidy_ignore_errors = [
+    \'proprietary attribute ',
+    \'<input> attribute "name" lacks value',
+    \'is not recognized!',
+    \'discarding unexpected'
+    \]
+
+
+"-----------------------------------------------------------------------------
+" other
+"-----------------------------------------------------------------------------
+
+au BufNewFile,BufRead *.less set ft=less
+au BufNewFile,BufRead *.go set ft=go
+
+" Load local configuration from the current folder
+if filereadable(".vimrc") && !(getcwd() == expand('~'))
+    so .vimrc
+endif
+
+so ~/.vimmacros
+

@@ -1,7 +1,8 @@
+# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%m:%3~$(git_info_for_prompt)%# '
+   export EDITOR='vim'
 else
-  export PS1='%3~$(git_info_for_prompt)%# '
+   export EDITOR='gvim'
 fi
 
 export LSCOLORS="exfxcxdxbxegedabagacad"
@@ -15,6 +16,9 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+
+# Ignore duplicate commands in history
+setopt HIST_IGNORE_DUPS
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
 setopt NO_LIST_BEEP
@@ -39,10 +43,6 @@ setopt complete_aliases
 
 zle -N newtab
 
-bindkey '^[^[[D' backward-word
-bindkey '^[^[[C' forward-word
-bindkey '^[[5D' beginning-of-line
-bindkey '^[[5C' end-of-line
-bindkey '^[[3~' delete-char
-bindkey '^[^N' newtab
-bindkey '^?' backward-delete-char
+# vi mode
+bindkey -v
+

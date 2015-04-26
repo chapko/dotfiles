@@ -17,28 +17,36 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 
-# Ignore duplicate commands in history
-setopt HIST_IGNORE_DUPS
-setopt NO_BG_NICE # don't nice background tasks
-setopt NO_HUP
-setopt NO_LIST_BEEP
-setopt LOCAL_OPTIONS # allow functions to have local options
-setopt LOCAL_TRAPS # allow functions to have local traps
-setopt HIST_VERIFY
-setopt SHARE_HISTORY # share history between sessions ???
-setopt EXTENDED_HISTORY # add timestamps to history
-setopt PROMPT_SUBST
-setopt CORRECT
-setopt COMPLETE_IN_WORD
-setopt IGNORE_EOF
 
-setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
-setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
-setopt HIST_REDUCE_BLANKS
+setopt hist_ignore_dups     # ignore duplicate commands in history
+setopt no_bg_nice           # don't nice background tasks
+setopt no_hup               # don't send HUP signal to running jobs when the
+                            # shell exits
+
+setopt no_list_beep         # don't beep on ambigious completion
+setopt local_options        # allow functions to have local options
+setopt local_traps          # allow functions to have local traps
+
+setopt hist_verify          # Whenever the user enters a line with history
+                            # expansion, don't execute the line directly;
+                            # instead, perform history expansion and reload the
+                            # line into the editing buffer.
+
+setopt share_history        # share history between sessions ???
+setopt extended_history     # add timestamps to history
+setopt prompt_subst
+setopt correct
+setopt complete_in_word
+setopt ignore_eof
+
+setopt append_history       # adds history
+setopt inc_append_history   # adds history incrementally
+setopt hist_ignore_all_dups # don't record dupes in history
+setopt hist_reduce_blanks
 
 # don't expand aliases _before_ completion has finished
 #   like: git comm-[tab]
+# alias completions should be defined explicitly (in completion.zsh)
 setopt complete_aliases
 
 zle -N newtab

@@ -185,6 +185,8 @@ nmap <leader>br :bdelete<space><bar><space>edit<space>#<CR>
 " jump to the first non-blank character of the line
 nmap 0 ^
 
+nmap <silent> <leader>fp :let @+ = expand("%")<CR>
+
 " color scheme
 set background=dark
 colo desert

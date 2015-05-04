@@ -1,0 +1,4 @@
+usewine32 () {
+    export WINEPREFIX=~/.wine32
+    export WINEARCH=win32
+}

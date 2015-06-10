@@ -1,0 +1,20 @@
+#!/bin/sh
+
+USER="$1"
+DIR="$2"
+
+
+if [ -z "$DIR" ]; then
+    echo "missing operand";
+    exit 1;
+fi
+
+if [ -d "$DIR" ]; then
+    chown -R "$USER" "$DIR"
+    chgrp -R http "$DIR"
+    chmod -R 750 "$DIR"
+    chmod g+s "$DIR"
+else
+    echo "'$DIR' is not a directory"
+    exit 2
+fi

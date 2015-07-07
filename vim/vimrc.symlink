@@ -63,8 +63,8 @@ set list
 " ws chars configuration
 set listchars=eol:↵,tab:↦—,trail:·,extends:…,precedes:…,nbsp:•
 
-set wildignore+=*/cache/*,*/logs/*,*.log
-set wildignore+=*\\cache\\*,*\\logs\\*
+set wildignore+=*/cache/*,*/logs/*,*.log,*/node_modules/*
+set wildignore+=*\\cache\\*,*\\logs\\*,*\\node_modules\\*
 
 "set stl=%f\ %m\ %r%{fugitive#statusline()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
 
@@ -96,7 +96,7 @@ let NERDTreeShowBookmarks=1
 " always chdir with changing root dir
 let NERDTreeChDirMode=2
 " Ignore wildignored files
-let NERDTreeRespectWildIgnore=1
+let NERDTreeRespectWildIgnore=0
 " Close nerdtree after opening file
 let NERDTreeQuitOnOpen=1
 " Ignore ./ and ../ dirs

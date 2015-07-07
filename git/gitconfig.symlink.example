@@ -60,6 +60,10 @@
     dt = difftool
     mt = mergetool
 
+    ignore = update-index --skip-worktree
+    unignore = update-index --no-skip-worktree
+    listignored = !git ls-files -v | grep ^[sS]
+
     promote = !$DOTFILES/bin/git-promote
     rank-contributors = !$DOTFILES/bin/git-rank-contributors
     count   = !git shortlog -sn

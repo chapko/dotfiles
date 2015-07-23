@@ -210,10 +210,12 @@ nmap <silent> <leader>t :NERDTreeToggle<CR>
 " Reveal current file in the nerd tree panel
 map <silent> <leader>r :NERDTreeFind<CR>
 
+
 "-----------------------------------------------------------------------------
 " vim trailing whitespace
 "-----------------------------------------------------------------------------
 nmap <silent> <leader>fw :FixWhitespace<CR>
+
 
 "-----------------------------------------------------------------------------
 " delimit mate
@@ -228,22 +230,35 @@ let delimitMate_expand_space = 1
 " remap Ctrl-p to Ctrl-Shift-n (Ctrl-p for CtrlP plugin)
 let g:multi_cursor_prev_key='<C-S-n>'
 
+
+"-----------------------------------------------------------------------------
+" Color Scheme Switcher
+"-----------------------------------------------------------------------------
+
+" Disable default key mapping (<F8> <S-F8>)
+let g:colorscheme_switcher_define_mappings = 0
+
+
 "-----------------------------------------------------------------------------
 " Emmet
 "-----------------------------------------------------------------------------
 let g:user_emmet_leader_key = '<c-e>'
 imap <C-Space> <C-e>,
 
+
 "-----------------------------------------------------------------------------
 " Syntastic
 "-----------------------------------------------------------------------------
 
 " Hide warnings about angular directives
+" and {{ handlebars }} in urls
 let g:syntastic_html_tidy_ignore_errors = [
     \'proprietary attribute ',
     \'<input> attribute "name" lacks value',
     \'is not recognized!',
-    \'discarding unexpected'
+    \'discarding unexpected',
+    \'escaping malformed URI reference',
+    \"plain text isn't allowed in <head> elements"
     \]
 
 "set statusline+=%#warningmsg#
@@ -260,6 +275,19 @@ let g:syntastic_warning_symbol = "⚠"
 
 let g:syntastic_javascript_checkers = ['jshint']
 autocmd FileType javascript.jsx let b:syntastic_checkers = ['eslint']
+
+
+"-----------------------------------------------------------------------------
+" Tagbar
+"-----------------------------------------------------------------------------
+
+nnoremap <silent> <F8> :TagbarToggle<CR>
+let g:tagbar_width = 30
+let g:tagbar_compact = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+
+
 "-----------------------------------------------------------------------------
 " other
 "-----------------------------------------------------------------------------
@@ -267,10 +295,13 @@ autocmd FileType javascript.jsx let b:syntastic_checkers = ['eslint']
 au BufNewFile,BufRead *.less set ft=less
 au BufNewFile,BufRead *.go set ft=go
 
-" Load local configuration from the current folder
+" Load local configuration from the current folder except home folder
 if filereadable(".vimrc") && !(getcwd() == expand('~'))
     so .vimrc
 endif
 
-so ~/.vimmacros
+" Seprarte file for permanent macros
+if filereadable(expand("~/.vimmacros"))
+  so ~/.vimmacros
+endif
 

@@ -66,6 +66,8 @@ set listchars=eol:↵,tab:↦—,trail:·,extends:…,precedes:…,nbsp:•
 set wildignore+=*/cache/*,*/logs/*,*.log,*/node_modules/*
 set wildignore+=*\\cache\\*,*\\logs\\*,*\\node_modules\\*
 
+set path=.
+
 "set stl=%f\ %m\ %r%{fugitive#statusline()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
 
 " always display status line
@@ -158,17 +160,6 @@ if has("win32")
     au GUIEnter * simalt ~x
 endif
 
-if !exists("*ToggleWhiteSpaceIgnore")
-  function ToggleWhiteSpaceIgnore()
-      if &diffopt =~ 'iwhite'
-          set diffopt-=iwhite
-      else
-          set diffopt+=iwhite
-      endif
-  endfunction
-endif
-
-nmap <silent> <leader>i :call ToggleWhiteSpaceIgnore()<CR>
 
 " toggle wrapping
 nmap <silent> <leader>w :setlocal wrap!<CR>
@@ -195,10 +186,20 @@ if has("gui_running")
 endif
 colo solarized
 
-if &diff
-    nmap <leader>dr :diffg RE
-    nmap <leader>dl :diffg LO
+" diff
+if !exists("*ToggleWhiteSpaceIgnore")
+  function ToggleWhiteSpaceIgnore()
+      if &diffopt =~ 'iwhite'
+          set diffopt-=iwhite
+      else
+          set diffopt+=iwhite
+      endif
+  endfunction
 endif
+
+nmap <silent> <leader>i :call ToggleWhiteSpaceIgnore()<CR>
+nmap <leader>dt :diffthis<CR>
+nmap <leader>do :diffoff<CR>
 
 
 "-----------------------------------------------------------------------------
@@ -258,7 +259,8 @@ let g:syntastic_html_tidy_ignore_errors = [
     \'is not recognized!',
     \'discarding unexpected',
     \'escaping malformed URI reference',
-    \"plain text isn't allowed in <head> elements"
+    \"plain text isn't allowed in <head> elements",
+    \'missing </a> before <div>'
     \]
 
 "set statusline+=%#warningmsg#
@@ -286,6 +288,13 @@ let g:tagbar_width = 30
 let g:tagbar_compact = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
+
+"
+"-----------------------------------------------------------------------------
+" Ack.vim
+"-----------------------------------------------------------------------------
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 
 "-----------------------------------------------------------------------------

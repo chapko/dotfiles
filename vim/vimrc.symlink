@@ -74,13 +74,8 @@ set path=.
 set laststatus=2
 
 if has("gui_running")
-    if has("gui_gtk2")
-        set guifont=DejaVu\ Sans\ Mono\ 11
-    elseif has("gui_macvim")
-        set guifont=Menlo\ Regular:h14
-    elseif has("gui_win32")
-        set guifont=DejaVu\ Sans\ Mono:h11
-    endif
+    " for the font configuration use `:set guifont=*` command which opens font
+    " selector dialog
 
     set guioptions-=m       " hide menu bar
     set guioptions-=T       " hide toolbar
@@ -312,5 +307,10 @@ endif
 " Seprarte file for permanent macros
 if filereadable(expand("~/.vimmacros"))
   so ~/.vimmacros
+endif
+
+" local machine overrides
+if filereadable(expand("~/.vimrclocal"))
+  so ~/.vimrclocal
 endif
 

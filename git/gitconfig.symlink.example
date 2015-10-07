@@ -15,7 +15,7 @@
 
 [alias]
     lgg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --abbrev-commit -20
+    lg = log -20 --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --abbrev-commit
 
     purr = pull --rebase
     ush = push  # gitp ush
@@ -26,6 +26,7 @@
     cb = checkout -b
 
     ca = commit -a
+    cm = commit -m
     cam = commit -am
 
     fixup = commit --amend --no-edit
@@ -93,3 +94,5 @@
 [help]
     autocorrect = 1
 
+[credential]
+    helper = /usr/share/git/credential/gnome-keyring/git-credential-gnome-keyring

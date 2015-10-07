@@ -38,7 +38,7 @@ set ruler               " show the cursor position all the time
 set number              " show line number
 set showcmd             " display incomplete commands
 set synmaxcol=2048      " maximum column in which to search for syntax items
-set foldcolumn=3        " display gutter line with floding areas
+set foldcolumn=0        " display gutter line with floding areas
 set foldmethod=indent   " automatically fold by indent level
 set foldlevelstart=99   " ... but have folds open by default
 set modeline            " support modeline comments (like vim: tw=8 noet:)
@@ -68,7 +68,7 @@ set wildignore+=*\\cache\\*,*\\logs\\*,*\\node_modules\\*
 
 set path=.
 
-"set stl=%f\ %m\ %r%{fugitive#statusline()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
+set stl=%f\ %m\ %r%{fugitive#statusline()}\%=Line:%l/%L\ [%p%%]\ Col:%4v
 
 " always display status line
 set laststatus=2
@@ -166,8 +166,12 @@ nmap <silent> <leader>; msA;<esc>`s:delmarks s<CR>
 nmap <silent> <leader>bd :bd<CR>
 nmap <silent> <leader>bn :bn<CR>
 nmap <silent> <leader>bp :bp<CR>
+
 " reload buffer
 nmap <leader>br :bdelete<space><bar><space>edit<space>#<CR>
+
+nmap <silent> <leader>lo :lopen<CR>
+nmap <silent> <leader>lc :lclose<CR>
 
 " jump to the first non-blank character of the line
 nmap 0 ^
@@ -263,7 +267,7 @@ let g:syntastic_html_tidy_ignore_errors = [
 "set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_loc_list_height = 6
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
@@ -272,6 +276,25 @@ let g:syntastic_warning_symbol = "⚠"
 
 let g:syntastic_javascript_checkers = ['jshint']
 autocmd FileType javascript.jsx let b:syntastic_checkers = ['eslint']
+
+
+"-----------------------------------------------------------------------------
+" fugitive
+"-----------------------------------------------------------------------------
+
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gb :Gblame<CR>
+nmap <leader>gd :Gdiff<CR>
+
+
+"-----------------------------------------------------------------------------
+" Tabular
+"-----------------------------------------------------------------------------
+
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
 
 
 "-----------------------------------------------------------------------------
@@ -284,7 +307,7 @@ let g:tagbar_compact = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
-"
+
 "-----------------------------------------------------------------------------
 " Ack.vim
 "-----------------------------------------------------------------------------

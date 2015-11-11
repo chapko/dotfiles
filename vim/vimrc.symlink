@@ -68,7 +68,7 @@ set wildignore+=*\\cache\\*,*\\logs\\*,*\\node_modules\\*
 
 set path=.
 
-set stl=%f\ %m\ %r%{fugitive#statusline()}\%=Line:%l/%L\ [%p%%]\ Col:%4v
+set stl=%f\ %m\ %r%{fugitive#statusline()}\%=\ %L\ %4l:%-2v\ %y
 
 " always display status line
 set laststatus=2
@@ -293,8 +293,8 @@ nmap <leader>gd :Gdiff<CR>
 
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a: :Tabularize /:\zs/l0l1<CR>
+vmap <Leader>a: :Tabularize /:\zs/l0l1<CR>
 
 
 "-----------------------------------------------------------------------------

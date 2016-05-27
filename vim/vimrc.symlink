@@ -36,6 +36,7 @@ set incsearch           " show found patters during typing
 set history=50          " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set number              " show line number
+set relativenumber      " use relative line numbers (relative to the current)
 set showcmd             " display incomplete commands
 set synmaxcol=2048      " maximum column in which to search for syntax items
 set foldcolumn=0        " display gutter line with floding areas
@@ -105,6 +106,7 @@ let NERDTreeDirArrows=1
 
 command! W :w
 command! Vimrc :e ~/.vimrc
+command! Tidy :%!tidy -q -i --show-errors 0
 
 imap jj <esc>
 cmap jj <esc>

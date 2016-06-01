@@ -19,7 +19,7 @@ filetype indent on
 
 " change <leader> to comma
 let mapleader=','
-
+nnoremap <space> ,
 
 set shiftwidth=4        " indent width for >>, <<, etc.
 set softtabstop=4       " soft tab width
@@ -161,8 +161,9 @@ endif
 " toggle wrapping
 nmap <silent> <leader>w :setlocal wrap!<CR>
 
-" add ; at the end of the line
+" add ; or , at the end of the line
 nmap <silent> <leader>; msA;<esc>`s:delmarks s<CR>
+nnoremap <silent> <leader>' msA,<esc>`s:delmarks s<CR>
 
 " buffer commands
 nmap <silent> <leader>bd :bd<CR>
@@ -174,6 +175,7 @@ nmap <leader>br :bdelete<space><bar><space>edit<space>#<CR>
 
 nmap <silent> <leader>lo :lopen<CR>
 nmap <silent> <leader>lc :lclose<CR>
+nmap <silent> <leader>pc :pc<CR>
 
 " jump to the first non-blank character of the line
 nmap 0 ^
@@ -315,6 +317,13 @@ let g:tagbar_autoclose = 1
 "-----------------------------------------------------------------------------
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+
+"-----------------------------------------------------------------------------
+" tern_for_vim
+"-----------------------------------------------------------------------------
+
+let g:tern_show_signature_in_pum = 1
 
 
 "-----------------------------------------------------------------------------

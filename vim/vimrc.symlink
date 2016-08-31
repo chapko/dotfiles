@@ -38,7 +38,7 @@ set ruler               " show the cursor position all the time
 set number              " show line number
 set relativenumber      " use relative line numbers (relative to the current)
 set showcmd             " display incomplete commands
-set synmaxcol=2048      " maximum column in which to search for syntax items
+set synmaxcol=200       " maximum column in which to search for syntax items
 set foldcolumn=0        " display gutter line with floding areas
 set foldmethod=indent   " automatically fold by indent level
 set foldlevelstart=99   " ... but have folds open by default
@@ -295,10 +295,12 @@ nmap <leader>gd :Gdiff<CR>
 " Tabular
 "-----------------------------------------------------------------------------
 
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
 nmap <Leader>a: :Tabularize /:\zs/l0l1<CR>
 vmap <Leader>a: :Tabularize /:\zs/l0l1<CR>
+nmap <Leader>a> :Tabularize /=><CR>
+vmap <Leader>a> :Tabularize /=><CR>
 
 
 "-----------------------------------------------------------------------------

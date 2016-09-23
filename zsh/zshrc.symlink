@@ -66,7 +66,11 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30
 
 
 function nenv {
-   export NODE_ENV="$@";
+  if [ -z "$1" ]; then
+    echo "NODE_ENV=$NODE_ENV";
+  else
+    export NODE_ENV="$@";
+  fi
 }
 
 # GREP_OPTIONS is deprecated
@@ -120,3 +124,8 @@ done
 unset config_files
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:|?=** m:{a-z\-}={A-Z\_}'

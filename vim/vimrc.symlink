@@ -3,6 +3,8 @@
 set nocompatible
 set encoding=utf-8
 
+let g:pathogen_blacklist = []
+
 execute pathogen#infect()
 
 " syntax highlighting
@@ -48,6 +50,7 @@ set ignorecase          " ignore case when searching
 set smartcase           " ignore case if pattern is all lowercase
 set colorcolumn=80      " line at columb 88
 set textwidth=80        " for line wrapping with `gq`
+set keywordprg=":help"
 
 " foramt options
 " t - autowrap text
@@ -56,8 +59,9 @@ set textwidth=80        " for line wrapping with `gq`
 " o - insert comment leader on 'o' or 'O'
 " q - comments formatting with 'gq'
 " n - recognize number lists
+" l - don't brake already long lines in insert mode
 " j - smart comments joining
-set formatoptions=tcroqnj
+set formatoptions=tcroqnjl
 
 " enable whitespace characters displaying
 set list
@@ -67,9 +71,8 @@ set listchars=eol:↵,tab:↦—,trail:·,extends:…,precedes:…,nbsp:•
 set wildignore+=*/cache/*,*/logs/*,*.log,*/node_modules/*
 set wildignore+=*\\cache\\*,*\\logs\\*,*\\node_modules\\*
 
-set path=.
-
-set stl=%f\ %m\ %r%{fugitive#statusline()}\%=\ %L\ %4l:%-2v\ %y
+" default status line
+set statusline=%f\ %m\ %r%{fugitive#statusline()}\%=\ %L\ %4l:%-2v\ %y
 
 " always display status line
 set laststatus=2
@@ -190,15 +193,13 @@ endif
 colo solarized
 
 " diff
-if !exists("*ToggleWhiteSpaceIgnore")
-  function ToggleWhiteSpaceIgnore()
-      if &diffopt =~ 'iwhite'
-          set diffopt-=iwhite
-      else
-          set diffopt+=iwhite
-      endif
-  endfunction
-endif
+function! ToggleWhiteSpaceIgnore()
+    if &diffopt =~ 'iwhite'
+        set diffopt-=iwhite
+    else
+        set diffopt+=iwhite
+    endif
+endfunction
 
 nmap <silent> <leader>i :call ToggleWhiteSpaceIgnore()<CR>
 nmap <leader>dt :diffthis<CR>
@@ -326,6 +327,13 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 "-----------------------------------------------------------------------------
 
 let g:tern_show_signature_in_pum = 1
+
+
+"-----------------------------------------------------------------------------
+" vim-javascript
+"-----------------------------------------------------------------------------
+
+let g:javascript_plugin_jsdoc = 1
 
 
 "-----------------------------------------------------------------------------

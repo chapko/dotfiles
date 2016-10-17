@@ -50,6 +50,7 @@ set ignorecase          " ignore case when searching
 set smartcase           " ignore case if pattern is all lowercase
 set colorcolumn=80      " line at columb 88
 set textwidth=80        " for line wrapping with `gq`
+set spell               " spell checking
 set keywordprg=":help"
 
 " foramt options

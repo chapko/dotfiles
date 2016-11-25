@@ -28,64 +28,98 @@ set softtabstop=4       " soft tab width
 set tabstop=4           " tab width
 set expandtab           " use spaces for indenting
 set autoindent          " copy indent from current line when starting a new line
-set smartindent
-set copyindent          " copy the previous indentation on autoindenting
-set nowrap
-set scrolloff=2         " minimal number of screen lines to keep above and below
-                        " the cursor
+set smartindent         " make indent smarter
+set copyindent          " copy the previous indentation on auto-indenting
+
+set nowrap              " do not wrap long lines
+set sidescroll=1        " scroll long lines by 1 char
+set sidescrolloff=10    " horizontal scroll context
+set scrolloff=2         " vertical scroll context
+set virtualedit=block   " cursor can be positioned anywhere in V-Block mode
+
+set number              " show line number
+set nocursorline        " don't highlight cursor line
+set nocursorcolumn      " don't highlight cursor column
+set relativenumber      " use relative line numbers (relative to the current)
+set signcolumn="auto"   " display signs column only when necessary
+
 set hlsearch            " highlight all search matches
 set incsearch           " show found patters during typing
-set history=50          " keep 50 lines of command line history
-set ruler               " show the cursor position all the time
-set number              " show line number
-set relativenumber      " use relative line numbers (relative to the current)
-set showcmd             " display incomplete commands
-set synmaxcol=200       " maximum column in which to search for syntax items
-set foldcolumn=0        " display gutter line with floding areas
-set foldmethod=indent   " automatically fold by indent level
-set foldlevelstart=99   " ... but have folds open by default
-set modeline            " support modeline comments (like vim: tw=8 noet:)
-set autoread            " reload file after it has been changed outside
 set ignorecase          " ignore case when searching
 set smartcase           " ignore case if pattern is all lowercase
-set colorcolumn=80      " line at columb 88
-set textwidth=80        " for line wrapping with `gq`
-set spell               " spell checking
-set keywordprg=":help"
+set wrapscan            " searching wraps around the end of the file
 
-" foramt options
-" t - autowrap text
-" c - autowrap comments
+set history=50          " keep 50 lines of command line history
+set synmaxcol=200       " maximum column in which to search for syntax items
+set colorcolumn=80      " line at column 80
+set textwidth=80        " for line wrapping with `gq`
+
+set foldcolumn=0        " display gutter line with folding areas
+set foldmethod=indent   " automatically fold by indent level
+set foldlevelstart=99   " make all folds open by default
+
+set modeline            " support modeline comments (like vim: tw=8 noet:)
+set autoread            " reload file after it has been changed outside
+
+set list                " show whitespaces
+set listchars=eol:↵,tab:↦—,trail:·,extends:…,precedes:…,nbsp:•
+
+set breakindent         " wrapped lines are indented
+set showbreak=…\        " display '… ' at the beginning of wrapped lines
+set breakindentopt=min:20,shift:0,sbr
+
+set nojoinspaces        " do not insert 2 spaces after '.', '?', and '!' with a
+                        " join command
+set spell               " spell checking
+
+set laststatus=2        " always display status line
+
+set keywordprg=":help"  " K invokes this command for the word under cursor
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+set backup              " keep a backup file
+set backupdir=~/.vim/tmp,/tmp
+
+set dir-=.              " directories for swap files
+set dir^=~/.vim/swp
+
+" use "+ register by default
+set clipboard^=unnamedplus
+
+set showcmd
+set showmode
+
+
+" format options
+" t - auto-wrap text
+" c - auto-wrap comments
 " r - insert comment leader on <Enter>
 " o - insert comment leader on 'o' or 'O'
 " q - comments formatting with 'gq'
+" a - auto-format paragraphs
 " n - recognize number lists
 " l - don't brake already long lines in insert mode
 " j - smart comments joining
-set formatoptions=tcroqnjl
+set formatoptions=tcroqanjl
 
-" enable whitespace characters displaying
-set list
-" ws chars configuration
-set listchars=eol:↵,tab:↦—,trail:·,extends:…,precedes:…,nbsp:•
+set wildchar=<Tab>
+set wildmenu
+set wildmode=full
+set wildignore=""
 
-set wildignore+=*/cache/*,*/logs/*,*.log,*/node_modules/*
-set wildignore+=*\\cache\\*,*\\logs\\*,*\\node_modules\\*
-
-" default status line
-set statusline=%f\ %m\ %r%{fugitive#statusline()}\%=\ %L\ %4l:%-2v\ %y
-
-" always display status line
-set laststatus=2
+set completeopt-=preview
 
 if has("gui_running")
     " for the font configuration use `:set guifont=*` command which opens font
     " selector dialog
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 14
 
-    set guioptions-=m       " hide menu bar
-    set guioptions-=T       " hide toolbar
-    set guioptions-=r       " hide right scrollbar
-    set guioptions-=L       " hide left scrollbar
+    " GUI options
+    " e - use GUI tabs
+    " i - use Vim icon
+    set guioptions=ei
 endif
 
 " NoMatchParen is a command to the loaded plugin to ask it to stop matching.
@@ -132,36 +166,6 @@ noremap <silent> <C-S-F10> :resize +1<CR>
 noremap <silent> <C-S-F11> :resize -1<CR>
 noremap <silent> <C-S-F12> :vertical resize +1<CR>
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-if has("vms")
-    set nobackup          " do not keep a backup file, use versions instead
-else
-    set backup            " keep a backup file
-    set backupdir-=.
-    set backupdir^=~/.vim/tmp,/tmp
-endif
-
-" directories for swp files
-set dir-=.
-set dir^=~/.vim/swp
-
-
-"" Crossplatform hack
-"if has("gui_running")
-"  " GUI is running or is about to start.
-"  " Maximize gvim window.
-"  set lines=999 columns=999
-"endif
-
-" maximized gui window (Windows only)
-" http://superuser.com/questions/140419/how-to-start-gvim-maximized
-if has("win32")
-    au GUIEnter * simalt ~x
-endif
-
-
 " toggle wrapping
 nmap <silent> <leader>w :setlocal wrap!<CR>
 
@@ -189,7 +193,7 @@ nmap <silent> <leader>fp :let @+ = expand("%")<CR>
 " color scheme
 set background=light
 if has("gui_running")
-  let g:solarized_visibility='low'
+    let g:solarized_visibility='low'
 endif
 colo solarized
 
@@ -268,10 +272,6 @@ let g:syntastic_html_tidy_ignore_errors = [
     \'missing </a> before <div>'
     \]
 
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_loc_list_height = 6
@@ -338,24 +338,23 @@ let g:javascript_plugin_jsdoc = 1
 
 
 "-----------------------------------------------------------------------------
+" vim-airline
+"-----------------------------------------------------------------------------
+
+let g:airline_powerline_fonts=1
+
+"-----------------------------------------------------------------------------
 " other
 "-----------------------------------------------------------------------------
 
 au BufNewFile,BufRead *.less set ft=less
 au BufNewFile,BufRead *.go set ft=go
 
-" Load local configuration from the current folder except home folder
-if filereadable(".vimrc") && !(getcwd() == expand('~'))
-    so .vimrc
-endif
-
-" Seprarte file for permanent macros
-if filereadable(expand("~/.vimmacros"))
-  so ~/.vimmacros
-endif
-
 " local machine overrides
 if filereadable(expand("~/.vimrclocal"))
-  so ~/.vimrclocal
+    so ~/.vimrclocal
 endif
 
+set exrc                " read .vimrc, .exrc, and .gvimrc in the current
+                        " directory
+set secure              " make exrc secure

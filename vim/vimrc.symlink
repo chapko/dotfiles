@@ -98,11 +98,11 @@ set showmode
 " r - insert comment leader on <Enter>
 " o - insert comment leader on 'o' or 'O'
 " q - comments formatting with 'gq'
-" a - auto-format paragraphs
+" a - auto-format paragraphs (disabled)
 " n - recognize number lists
 " l - don't brake already long lines in insert mode
 " j - smart comments joining
-set formatoptions=tcroqanjl
+set formatoptions=tcroqnjl
 
 set wildchar=<Tab>
 set wildmenu
@@ -253,7 +253,6 @@ let g:colorscheme_switcher_define_mappings = 0
 " Emmet
 "-----------------------------------------------------------------------------
 let g:user_emmet_leader_key = '<c-e>'
-imap <C-Space> <C-e>,
 
 
 "-----------------------------------------------------------------------------
@@ -281,6 +280,9 @@ let g:syntastic_error_symbol = "✖"
 let g:syntastic_warning_symbol = "⚠"
 
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_go_checkers = ['go', 'gofmt', 'golint']
+let g:syntastic_sh_checkers = ['sh', 'shellcheck']
+
 autocmd FileType javascript.jsx let b:syntastic_checkers = ['eslint']
 
 
@@ -346,6 +348,8 @@ let g:airline_powerline_fonts=1
 "-----------------------------------------------------------------------------
 " other
 "-----------------------------------------------------------------------------
+
+let g:UltiSnipsExpandTrigger="<c-cr>"
 
 au BufNewFile,BufRead *.less set ft=less
 au BufNewFile,BufRead *.go set ft=go

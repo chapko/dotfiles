@@ -4,4 +4,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
 
-compdef sc=systemctl
+if type systemctl > /dev/null; then
+   compdef sc=systemctl
+fi

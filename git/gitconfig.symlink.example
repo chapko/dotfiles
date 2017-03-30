@@ -39,6 +39,7 @@
     b = branch
     # last commit of each branch
     bl = for-each-ref --format='%(color:green)%(authorname) %(color:reset)[%(color:blue)%(refname:short)%(color:reset)] - %(color:reset)%(subject)' refs/heads
+    blr = for-each-ref --format='%(color:green)%(authorname) %(color:reset)[%(color:blue)%(refname:short)%(color:reset)] - %(color:reset)%(subject)' refs/remotes/origin
     copyb = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD) && echo $branch | tr -d '\n' | tr -d ' ' | xclip; };f"
 
     # new branch
@@ -84,6 +85,10 @@
 
 [merge]
     defaultToUpstream = true
+    tool = vimdiff
+
+[diff]
+    tool = meld
 
 [mergetool]
     # keepBackup = false

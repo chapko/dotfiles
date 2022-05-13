@@ -11,10 +11,10 @@ setup_ohmyzsh() {
   fmt_error() {
     echo "Error:" "$*" >&2
   }
-  echo "Installing Oh My Zsh..."
+  echo "Sertting up Oh My Zsh..."
   if [ -d "$ZSH" ]; then
     echo "Oh My Zsh is already installed"
-    exit 0
+    return
   fi
 
   # copied from https://github.com/ohmyzsh/ohmyzsh/blob/dfee71c7735b739d6db478b2353752aeb6bc1ae2/tools/install.sh#L254
@@ -65,4 +65,27 @@ setup_ohmyzsh() {
   echo
 }
 
+setup_vim() {
+  echo 'Setting up vim...'
+
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+  # neovim
+  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+  nvim +'PlugInstall --sync' +qa
+
+  if [[ "$(< /proc/sys/kernel/osrelease)" == *microsoft* ]]; then
+    echo "WSL detected. Installing win32yank..."
+    curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+    unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
+    chmod +x /tmp/win32yank.exe
+    mv /tmp/win32yank.exe $HOME/.local/bin/
+  fi
+}
+
 setup_ohmyzsh
+setup_vim
+

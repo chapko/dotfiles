@@ -15,7 +15,7 @@
 
 [merge]
     defaultToUpstream = true
-    tool = nvimdiff3
+    tool = nvimdiff
 
 [mergetool]
     prompt = false

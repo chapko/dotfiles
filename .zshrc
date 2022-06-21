@@ -63,20 +63,20 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+export NVM_AUTOLOAD=1
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode docker aws)
+plugins=(z vi-mode docker nvm aws)
 
 source $ZSH/oh-my-zsh.sh
 
 
 # User configuration
 # ==================
-
-EDITOR=nvim
 
 # Theme
 # -----
@@ -96,6 +96,10 @@ MODE_INDICATOR="%{$fg_bold[magenta]%}[vi] %{$reset_color%}"
 
 LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;44:tw=30;42:ow=30;45:'
 
+export EDITOR=nvim
+
+# https://stackoverflow.com/a/40528629
+export GPG_TTY=$(tty)
 
 # Aliases
 # -------
@@ -117,8 +121,8 @@ export PATH="$PATH:$HOME/.local/bin"
 zstyle ':completion:*' verbose true # display completions with descriptions
 zstyle ':completion:*' matcher-list '' 'r:|=*' 'l:|=* r:|=*'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 eval "$(pyenv init -)"
+
+# pnpm
+export PNPM_HOME="/home/eugene/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"

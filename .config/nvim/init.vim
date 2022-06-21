@@ -3,17 +3,53 @@
 
 call plug#begin()
 
+" common deps
+Plug 'nvim-lua/plenary.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
 " color scheme
-Plug 'altercation/vim-colors-solarized'
+Plug 'folke/tokyonight.nvim'
 
 " auto-detect indentation
 Plug 'tpope/vim-sleuth'
+" git
+Plug 'tpope/vim-fugitive'
+" quotes/brackets
+Plug 'tpope/vim-surround'
 
-if has('nvim')
-  " Tree view
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'kyazdani42/nvim-tree.lua'
-endif
+" powerline
+Plug 'nvim-lualine/lualine.nvim'
+"
+" bufferline
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+
+" comments
+Plug 'terrortylor/nvim-comment'
+
+" syntax parsing
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-telescope/telescope.nvim'
+
+" lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'b0o/SchemaStore.nvim'
+
+" Tree view
+Plug 'kyazdani42/nvim-tree.lua'
+
+" Terminal
+Plug 'akinsho/toggleterm.nvim', { 'tag': 'v1.*' }
+
+" Cosmic ui
+Plug 'MunifTanjim/nui.nvim'
+Plug 'CosmicNvim/cosmic-ui'
 
 call plug#end()
 "}}}
@@ -32,6 +68,8 @@ set expandtab           " use spaces for indenting
 set autoindent          " copy indent from current line when starting a new line
 set smartindent         " make indent smarter
 set copyindent          " copy the previous indentation on auto-indenting
+set colorcolumn=80      " line at column 80
+set textwidth=80        " for line wrapping with `gq`
 
 set nowrap              " do not wrap long lines
 set sidescroll=1        " scroll long lines by 1 char
@@ -43,6 +81,8 @@ set number              " show line number
 set nocursorline        " don't highlight cursor line
 set nocursorcolumn      " don't highlight cursor column
 set relativenumber      " use relative line numbers (relative to the current)
+" always display line gutter (to prevent screen jumping on linter errors
+set signcolumn=yes
 
 set hlsearch            " highlight all search matches
 set incsearch           " show found patters during typing
@@ -52,8 +92,6 @@ set wrapscan            " searching wraps around the end of the file
 
 set history=50          " keep 50 lines of command line history
 set synmaxcol=200       " maximum column in which to search for syntax items
-set colorcolumn=80      " line at column 80
-set textwidth=80        " for line wrapping with `gq`
 
 set foldcolumn=0        " display gutter line with folding areas
 set foldmethod=indent   " automatically fold by indent level
@@ -63,25 +101,11 @@ set modeline            " support modeline comments (like vim: tw=8 noet:)
 set autoread            " reload file after it has been changed outside
 
 set list                " show whitespaces
-set listchars=eol:↙,tab:╶─,trail:·,extends:…,precedes:…,nbsp:•
+set listchars=eol:\ ,tab:╶─,trail:·,extends:…,precedes:…,nbsp:• "↙
 set breakindent         " wrapped lines are indented
 set showbreak=…\        " display '… ' at the beginning of wrapped lines
 set breakindentopt=min:20,shift:0,sbr
 set fillchars=fold:\    " use ' ' for fold lines instead of more intrusive '-'
-
-" do not insert 2 spaces after '.', '?', and '!' with a join command
-set nojoinspaces
-set spell               " spell checking
-
-set laststatus=2        " always display status line
-
-set keywordprg=":help"  " K invokes this command for the word under cursor
-
-" use "+ register by default
-set clipboard^=unnamedplus
-
-set noshowcmd
-set noshowmode
 
 " format options
 " t - auto-wrap text
@@ -95,23 +119,37 @@ set noshowmode
 " 1 - don't break line after one-letter word
 " j - smart comments joining
 set formatoptions=tcroqnl1j
+set nojoinspaces        " do not insert 2 spaces after '.', '?', and '!' with a join command
 
-set completeopt=menu,menuone,noselect
 
 set wildchar=<Tab>
 set wildmenu
-set wildmode=full
+set wildmode=longest:full
 set wildignore=""
 set wildignorecase
 
+set termguicolors
 set background=light
-colorscheme solarized
+colorscheme tokyonight
+
+" use "+ register by default
+set clipboard^=unnamedplus
+set noshowcmd
+set noshowmode
+set mouse=a             " enable mouse
+set laststatus=2        " always display status line
+set spell               " spell checking
+set completeopt=menu,menuone,noselect
+
+" set guicursor=
+
+" K invokes this command for the word under cursor
+autocmd FileType vim setlocal keywordprg=:help
 
 "}}}
 
 " Functions {{{
 " --------------------------------------
-
 function! IsWSL()
   if has("unix")
     let lines = readfile("/proc/version")
@@ -130,21 +168,17 @@ function! ToggleWhiteSpaceIgnore()
   endif
 endfunction
 
-if IsWSL()
-"  let g:clipboard = {
-"        
-"      }
-endif
 "}}}
 
 " Commands {{{
 " --------------------------------------
-"}}}
+command Vimrc :e ~/.config/nvim/init.vim
+command R :so ~/.config/nvim/init.vim
 
+"}}}
 
 " Mappings {{{
 " --------------------------------------
-
 nnoremap ; :
 " ; and , - next and prev character for f and t
 nnoremap <Space> ;
@@ -155,6 +189,8 @@ cmap jj <esc>
 
 " Turn off highlight search
 nmap <silent> <leader>n :nohls<CR>
+
+nmap Y yy
 
 " shortcut for "very magic" patterns
 nnoremap <A-/> /\v
@@ -182,6 +218,10 @@ nnoremap <silent> <leader>, msA,<esc>`s:delmarks s<CR>
 
 " buffer commands
 nmap <silent> <leader>bd :bdelete<CR>
+nmap <silent> <leader>bn :bnext<CR>
+nmap <silent> <C-w>] :bnext<CR>
+nmap <silent> <leader>bp :bprevious<CR>
+nmap <silent> <C-w>[ :bprevious<CR>
 
 " 'le' is short for location expand (lo with comma leader is not easy)
 nmap <silent> <leader>le :lopen<CR>
@@ -206,26 +246,47 @@ nmap <leader>do :diffoff<CR>
 
 "}}}
 
-
 " Plugins config {{{
 " --------------------------------------
 
-" NvimTree
-if has('nvim')
-  lua << EOF
-  require('nvim-tree').setup()
+" neosolarized config
+" hi SignColumn ctermbg=7 ctermfg=11 guibg=#eee8d5 guifg=#657b83
+" hi DiagnosticError ctermfg=1 guifg=#dc322f
+" hi DiagnosticSignError ctermbg=7 ctermfg=1 guibg=#eee8d5 guifg=#dc322f
+" hi DiagnosticWarn ctermfg=3 guifg=#b58900
+" hi DiagnosticSignWarn ctermbg=7 ctermfg=3 guibg=#eee8d5 guifg=#b58900
+" hi DiagnosticInfo ctermfg=4 guifg=#268bd2
+" hi DiagnosticSignInfo ctermbg=7 ctermfg=4 guibg=#eee8d5 guifg=#268bd2
+" hi DiagnosticHint ctermfg=2 guifg=#859900
+" hi DiagnosticSignHint ctermbg=7 ctermfg=2 guibg=#eee8d5 guifg=#859900
+     
+sign define DiagnosticSignError text= texthl=DiagnosticSignError
+sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn
+sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo
+sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
+
+" fugitive
+nmap <leader>gs :Git<CR>
+nmap <leader>gb :Gtt blame<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gl :Gllog<CR>
+
+" nvim-tree
+nmap <leader>t :NvimTreeToggle<CR>
+nmap <leader>r :NvimTreeFindFile<CR>
+
+" Telescope
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fc <cmd>lua require('telescope.builtin').highlights()<cr>
+
+lua << EOF
+require('init');
 EOF
-  nmap <leader>t :NvimTreeToggle<CR>
-  nmap <leader>r :NvimTreeFindFile<CR>
-endif
 
 
-"}}}
-
-
-" Plugins config {{{
-" --------------------------------------
 "}}}
 
 " vim: foldmethod=marker foldlevel=1 ts=2 sw=2:
-

@@ -70,7 +70,7 @@ export NVM_AUTOLOAD=1
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode docker nvm aws)
+plugins=(z vi-mode docker docker-compose nvm aws dotenv)
 
 source $ZSH/oh-my-zsh.sh
 

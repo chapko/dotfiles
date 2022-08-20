@@ -4,6 +4,7 @@ local luasnip = require('luasnip')
 local cosmic_ui = require('cosmic-ui')
 local null_ls = require('null-ls')
 local util = require('vim.lsp.util')
+
 -- TODO: setup luasnip
 
 
@@ -72,7 +73,6 @@ local on_attach = function(client, bufnr)
 
   if (DISABLED_FORMATTERS[client.name] ~= true) then
     function format()
-      print('FORMAT')
       local params = util.make_formatting_params({})
       client.request('textDocument/formatting', params, nil, bufnr)
     end
@@ -80,8 +80,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>f', format, bufopts)
   end
 end
-
-
 
 lsp.sumneko_lua.setup {
   capabilities = capabilities,
@@ -116,6 +114,17 @@ lsp.jsonls.setup {
     json = {
       schemas = require('schemastore').json.schemas(),
       validate = { enable = true },
+    },
+  },
+}
+
+lsp.yamlls.setup {
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yml",
+      },
     },
   },
 }

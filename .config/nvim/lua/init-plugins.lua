@@ -14,14 +14,14 @@ require('nvim-tree').setup {
         open_file = {
             quit_on_open = true,
         },
-    },
+    }
 }
 
 
 require('nvim_comment').setup()
 
 require('lualine').setup {
-    options = { theme = 'iceberg' }
+    options = { theme = 'tokyonight' }
 }
 
 require('bufferline').setup {

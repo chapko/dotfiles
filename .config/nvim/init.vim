@@ -130,6 +130,9 @@ set wildignorecase
 
 set termguicolors
 set background=light
+
+let g:tokyonight_italic_comments = 0
+let g:tokyonight_italic_keywords = 0
 colorscheme tokyonight
 
 " use "+ register by default
@@ -222,6 +225,7 @@ nmap <silent> <leader>bn :bnext<CR>
 nmap <silent> <C-w>] :bnext<CR>
 nmap <silent> <leader>bp :bprevious<CR>
 nmap <silent> <C-w>[ :bprevious<CR>
+" nmap <silent> <leader>bo
 
 " 'le' is short for location expand (lo with comma leader is not easy)
 nmap <silent> <leader>le :lopen<CR>
@@ -248,6 +252,11 @@ nmap <leader>do :diffoff<CR>
 
 " Plugins config {{{
 " --------------------------------------
+
+augroup Formatting
+  au!
+  au BufWritePre * :lua vim.lsp.buf.format({ filter = function (client) return client.name == 'null-ls' end })
+augroup END
 
 " neosolarized config
 " hi SignColumn ctermbg=7 ctermfg=11 guibg=#eee8d5 guifg=#657b83

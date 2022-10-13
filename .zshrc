@@ -115,7 +115,7 @@ alias mv="mv -i"
 alias e="$EDITOR"
 
 export LANG=en_US.UTF-8
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
 # zstyle
 zstyle ':completion:*' verbose true # display completions with descriptions
@@ -126,3 +126,7 @@ eval "$(pyenv init -)"
 # pnpm
 export PNPM_HOME="/home/eugene/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
+
+# Load Angular CLI autocompletion.
+# source <(ng completion script)

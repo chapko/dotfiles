@@ -114,6 +114,9 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias e="$EDITOR"
 
+alias gitp="git"
+alias qgit="git"
+
 export LANG=en_US.UTF-8
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
@@ -127,6 +130,9 @@ eval "$(pyenv init -)"
 export PNPM_HOME="/home/eugene/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
+if [[ -f "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+fi
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)

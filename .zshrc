@@ -63,14 +63,12 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-export NVM_AUTOLOAD=1
-
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode docker docker-compose nvm aws dotenv)
+plugins=(z vi-mode docker docker-compose nvm aws dotenv terraform)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -123,6 +121,8 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 # zstyle
 zstyle ':completion:*' verbose true # display completions with descriptions
 zstyle ':completion:*' matcher-list '' 'r:|=*' 'l:|=* r:|=*'
+
+zstyle ':omz:plugins:nvm' autoload yes
 
 eval "$(pyenv init -)"
 

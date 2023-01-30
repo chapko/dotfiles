@@ -104,5 +104,20 @@
 [include]
     path = ~/.gitconfig.local
 
+    # ~/.gitconfig.local
+    # ---
+    # [user]
+    #     name = ...
+    #     email = ...
+    # [includeIf "gitdir:~/work"]
+    #     path = ~/.gitconfig.d/work
+
+    # ~/.gitconfig.d/work
+    # ---
+    # [user]
+    #     singingKey = ...
+    # [commit]
+    #     gpgsign = true
+
 [gpg]
     program = gpg2

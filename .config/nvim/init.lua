@@ -34,23 +34,39 @@ vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true })
 
 -- diff side with base
 vim.keymap.set("n", "<A-1>", function()
-    -- vim.api
+    print 'TODO <A-1>';
 end, {});
 
-vim.api.nvim_set_keymap("n", "<A-3>", ":lua print('A-3')<CR>", {});
+vim.keymap.set("n", "<A-3>", function()
+    print 'TODO <A-3>'
+end, {});
 
 -- diff all
-vim.api.nvim_set_keymap("n", "<A-2>", ":lua print('A-2')<CR>", {});
+vim.keymap.set("n", "<A-2>", function()
+    print "TODO <A-2>"
+end, {});
 
 -- diff side with conflict
-vim.api.nvim_set_keymap("n", "<A-q>", ":lua print('A-q')<CR>", {});
-vim.api.nvim_set_keymap("n", "<A-e>", ":lua print('A-e')<CR>", {});
+vim.keymap.set("n", "<A-q>", function()
+    print "TODO <A-q>"
+end, {});
+vim.keymap.set("n", "<A-e>", function()
+    print "TODO <A-e>"
+end, {});
 
 -- use left/right/both/none
-vim.api.nvim_set_keymap("n", "<A-a>", ":lua print('A-a')<CR>", {});
-vim.api.nvim_set_keymap("n", "<A-d>", ":lua print('A-d')<CR>", {});
-vim.api.nvim_set_keymap("n", "<A-w>", ":lua print('A-w')<CR>", {});
-vim.api.nvim_set_keymap("n", "<A-s>", ":lua print('A-s')<CR>", {});
+vim.keymap.set("n", "<A-a>", function()
+    print "TODO <A-a>"
+end, {});
+vim.keymap.set("n", "<A-d>", function()
+    print "TODO <A-d>"
+end, {});
+vim.keymap.set("n", "<A-w>", function()
+    print "TODO <A-w>"
+end, {});
+vim.keymap.set("n", "<A-s>", function()
+    print "TODO <A-s>"
+end, {});
 
 vim.api.nvim_set_keymap("n", ",do", ":diffoff<CR>", { noremap = true, silent = true });
 vim.api.nvim_set_keymap("n", ",dt", ":diffthis<CR>", { noremap = true, silent = true });
@@ -191,8 +207,8 @@ vim.cmd [[autocmd FileType vim setlocal keywordprg=:help]]
 
 -- Commands {{{
 
-vim.api.nvim_create_user_command('Vimrc', 'e ~/.config/nvim/init.lua', {})
-vim.api.nvim_create_user_command('R', 'so ~/.config/nvim/init.lua', {})
+vim.api.nvim_create_user_command('Vimrc', 'edit ~/.config/nvim/init.lua', {})
+vim.api.nvim_create_user_command('R', 'source ~/.config/nvim/init.lua', {})
 
 -- }}}
 
@@ -231,37 +247,68 @@ require("lazy").setup({
             vim.cmd [[colorscheme tokyonight]]
         end,
     },
-    "tpope/vim-surround",
-    "tpope/vim-repeat",
+    { "tpope/vim-surround" },
+    { "tpope/vim-repeat" },
     {
         "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup()
             vim.api.nvim_set_keymap("n", "<C-/>", "gcc", {})
             vim.api.nvim_set_keymap("v", "<C-/>", "gc",  {})
+
+            vim.api.nvim_set_keymap("n", "<C-_>", "gcc", {})
+            vim.api.nvim_set_keymap("v", "<C-_>", "gc",  {})
         end,
     },
-    "chapko/vim-fugitive", -- fork with 4-pane mergetool
+    {
+        "windwp/nvim-autopairs",
+        config = true,
+    },
+    { "chapko/vim-fugitive" }, -- fork with 4-pane mergetool
     {
         "nvim-lualine/lualine.nvim",
-        config = function()
-            require('lualine').setup({
-                options = {
-                    theme = 'tokyonight'
-                }
-            })
-        end,
+        opts = {
+            -- TODO disable %
+            -- TODO short mode name
+            -- TODO full path
+            -- TODO shorter branch name
+            options = {
+                theme = "tokyonight"
+            }
+        },
     },
     -- "akinsho/bufferline.nvim",
     {
+        -- TODO use nvim-telescope/telescope-file-browser.nvim
         "nvim-tree/nvim-tree.lua",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
-            require("nvim-tree").setup()
+            require("nvim-tree").setup({
+                view = {
+                    side = "left"
+                },
+                diagnostics = {
+                    enable = true,
+                },
+                renderer = {
+                    indent_markers = {
+                        enable = true,
+                    },
+                },
+                actions = {
+                    open_file = {
+                        quit_on_open = true,
+                    },
+                }
+            })
 
             vim.api.nvim_set_keymap("n", ",t", ":NvimTreeToggle<CR>", {
+                silent = true,
+                noremap = true,
+            })
+            vim.api.nvim_set_keymap("n", ",r", ":NvimTreeFindFile<CR>", {
                 silent = true,
                 noremap = true,
             })

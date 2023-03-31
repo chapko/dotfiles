@@ -1,14 +1,66 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+
+-- Keymaps {{{
+
 vim.keymap.set({ "i", "c" }, "jj", "<ESC>", { noremap = true })
 vim.keymap.set({ "i", "c" }, "jk", "<ESC>", { noremap = true })
+
 vim.keymap.set("n", ";", ":", { noremap = true })
+vim.keymap.set("n", "Y", "yy", { noremap = true })
+vim.keymap.set("n", ",n", ":nohlsearch<CR>", { silent = true })
+vim.keymap.set("n", ",w", ":setlocal wrap!<CR>", { silent = true })
 
 vim.keymap.set("n", "<S-Space>", ";", { noremap = true })
 vim.keymap.set("n", "<C-Space>", ",", { noremap = true })
 
-vim.keymap.set("n", "Y", "yy", { noremap = true })
+-- very magic (:h \v)
+vim.keymap.set("n", "<A-/>", "/\\v", { noremap = true })
+
+-- more natural navigation on wrapped lines
+vim.keymap.set("n", "j", "gj", { noremap = true })
+vim.keymap.set("n", "k", "gk", { noremap = true })
+
+vim.keymap.set("i", "<C-r><C-r>", "<C-r>+", { noremap = true })
+
+vim.keymap.set("n", "<A-h>", "<C-w>h", { noremap = true })
+vim.keymap.set("n", "<A-j>", "<C-w>j", { noremap = true })
+vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true })
+vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true })
+
+
+-- Diff {{{
+
+-- diff side with base
+vim.keymap.set("n", "<A-1>", function()
+    -- vim.api
+end, {});
+
+vim.api.nvim_set_keymap("n", "<A-3>", ":lua print('A-3')<CR>", {});
+
+-- diff all
+vim.api.nvim_set_keymap("n", "<A-2>", ":lua print('A-2')<CR>", {});
+
+-- diff side with conflict
+vim.api.nvim_set_keymap("n", "<A-q>", ":lua print('A-q')<CR>", {});
+vim.api.nvim_set_keymap("n", "<A-e>", ":lua print('A-e')<CR>", {});
+
+-- use left/right/both/none
+vim.api.nvim_set_keymap("n", "<A-a>", ":lua print('A-a')<CR>", {});
+vim.api.nvim_set_keymap("n", "<A-d>", ":lua print('A-d')<CR>", {});
+vim.api.nvim_set_keymap("n", "<A-w>", ":lua print('A-w')<CR>", {});
+vim.api.nvim_set_keymap("n", "<A-s>", ":lua print('A-s')<CR>", {});
+
+vim.api.nvim_set_keymap("n", ",do", ":diffoff<CR>", { noremap = true, silent = true });
+vim.api.nvim_set_keymap("n", ",dt", ":diffthis<CR>", { noremap = true, silent = true });
+
+-- }}}
+
+-- }}}
+
+
+-- Options {{{
 
 local options = {
     tabstop = 4,                -- tab width
@@ -89,7 +141,7 @@ local options = {
 
     showcmd = true,             -- TODO
     showmode = true,            -- TODO
-    spell = false, -- true,
+    spell = true,
     mouse = "a",
     laststatus = 2,             -- TODO
     completeopt = { "menu", "menuone", "noselect" },
@@ -120,13 +172,34 @@ local options = {
     splitright = true,
 }
 
+-- {{{2
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+-- }}}
+
+-- }}}
+
+
+-- Autocmd {{{
 
 vim.cmd [[autocmd BufRead ~/.config/nvim/*.lua setlocal keywordprg=:help]]
 vim.cmd [[autocmd FileType vim setlocal keywordprg=:help]]
 
+-- }}}
+
+
+-- Commands {{{
+
+vim.api.nvim_create_user_command('Vimrc', 'e ~/.config/nvim/init.lua', {})
+vim.api.nvim_create_user_command('R', 'so ~/.config/nvim/init.lua', {})
+
+-- }}}
+
+
+-- Plugins {{{
+
+-- Bootstrap {{{
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -139,20 +212,67 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
+-- }}}
 
 require("lazy").setup({
-    "tpope/vim-surround",
-    "tpope/vim-repeat",
     {
         "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.opt.background = "light"
-            vim.cmd [[colorscheme tokyonight-day]]
+            -- vim.opt.background = "light"
+            require("tokyonight").setup({
+                style = "day",
+                styles = {
+                    keywords = { italic = false },
+                }
+            })
+
+            vim.cmd [[colorscheme tokyonight]]
+        end,
+    },
+    "tpope/vim-surround",
+    "tpope/vim-repeat",
+    {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+            vim.api.nvim_set_keymap("n", "<C-/>", "gcc", {})
+            vim.api.nvim_set_keymap("v", "<C-/>", "gc",  {})
+        end,
+    },
+    "chapko/vim-fugitive", -- fork with 4-pane mergetool
+    {
+        "nvim-lualine/lualine.nvim",
+        config = function()
+            require('lualine').setup({
+                options = {
+                    theme = 'tokyonight'
+                }
+            })
+        end,
+    },
+    -- "akinsho/bufferline.nvim",
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function()
+            require("nvim-tree").setup()
+
+            vim.api.nvim_set_keymap("n", ",t", ":NvimTreeToggle<CR>", {
+                silent = true,
+                noremap = true,
+            })
         end,
     },
 })
+
+-- }}}
+
+
+-- GUI {{{2
 
 if vim.g.neovide then
     vim.o.guifont = "FiraCode NF,Segoe UI Emoji:h14"
@@ -161,3 +281,7 @@ if vim.g.neovide then
     vim.g.neovide_cursor_trail_size = 0.15
     vim.g.neovide_refresh_rate = 144
 end
+
+-- }}}
+
+-- vim: foldmethod=marker foldlevel=1 nospell:

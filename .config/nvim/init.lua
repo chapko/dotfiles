@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Keymaps {{{
 
@@ -29,6 +31,8 @@ vim.keymap.set("n", "<A-j>", "<C-w>j", { noremap = true })
 vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true })
 vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true })
 
+vim.keymap.set("n", "<M-{>", ":tabprevious<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<M-}>", ":tabnext<CR>", { silent = true, noremap = true })
 
 -- Diff {{{
 
@@ -70,12 +74,10 @@ end, {});
 
 vim.api.nvim_set_keymap("n", ",do", ":diffoff<CR>", { noremap = true, silent = true });
 vim.api.nvim_set_keymap("n", ",dt", ":diffthis<CR>", { noremap = true, silent = true });
-
--- }}}
-
 -- }}}
 
 
+-- ------- }}}
 -- Options {{{
 
 local options = {
@@ -155,7 +157,7 @@ local options = {
 
     clipboard = { 'unnamedplus' }, -- use "+ register by default
 
-    showcmd = true,             -- TODO
+    showcmd = false,             -- TODO
     showmode = true,            -- TODO
     spell = true,
     mouse = "a",
@@ -163,6 +165,7 @@ local options = {
     completeopt = { "menu", "menuone", "noselect" },
 
     termguicolors = true,
+    background = "light",
 
     -- backspace
     -- conceallevel
@@ -194,25 +197,22 @@ for k, v in pairs(options) do
 end
 -- }}}
 
--- }}}
 
-
+-- ------- }}}
 -- Autocmd {{{
 
 vim.cmd [[autocmd BufRead ~/.config/nvim/*.lua setlocal keywordprg=:help]]
 vim.cmd [[autocmd FileType vim setlocal keywordprg=:help]]
 
--- }}}
 
-
+-- -------- }}}
 -- Commands {{{
 
 vim.api.nvim_create_user_command('Vimrc', 'edit ~/.config/nvim/init.lua', {})
 vim.api.nvim_create_user_command('R', 'source ~/.config/nvim/init.lua', {})
 
--- }}}
 
-
+-- ------- }}}
 -- Plugins {{{
 
 -- Bootstrap {{{
@@ -236,15 +236,33 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
         config = function()
-            -- vim.opt.background = "light"
             require("tokyonight").setup({
-                style = "day",
+                style = "light",
                 styles = {
                     keywords = { italic = false },
                 }
             })
 
             vim.cmd [[colorscheme tokyonight]]
+        end,
+    },
+    {
+        "navarasu/onedark.nvim",
+        lazy = true,
+        priority = 1000,
+        config = function()
+            local onedark = require("onedark")
+            local c = require("onedark.palette").light
+
+            onedark.setup({
+                style = "light",
+                highlights = {
+                    NvimTreeNormal = { fg = c.fg, bg = c.bg0 },
+                    NvimTreeEndOfBuffer = { fg = c.bg_d, bg = c.bg0 },
+                    NvimTreeIndentMarker = { fg = c.grey }
+                }
+            })
+            onedark.load()
         end,
     },
     { "tpope/vim-surround" },
@@ -264,7 +282,15 @@ require("lazy").setup({
         "windwp/nvim-autopairs",
         config = true,
     },
-    { "chapko/vim-fugitive" }, -- fork with 4-pane mergetool
+    {
+        "chapko/vim-fugitive", -- fork with 4-pane mergetool
+        config = function()
+            vim.api.nvim_set_keymap("n", ",mt", ":Git mergetool -y<CR>", {
+                silent = true,
+                noremap = true,
+            })
+        end
+    }, 
     {
         "nvim-lualine/lualine.nvim",
         opts = {
@@ -273,29 +299,77 @@ require("lazy").setup({
             -- TODO full path
             -- TODO shorter branch name
             options = {
-                theme = "tokyonight"
+                theme = "tokyonight",
+                -- theme = "onedark"
+                -- disabled_filetypes = { 'NvimTree' },
+                globalstatus = false,
+            },
+            sections = {
+                lualine_a = {
+                    { 'mode', fmt = function(str) return str:sub(1,1) end },
+                },
+                lualine_b = {
+                    'branch',
+                    'diff',
+                    -- 'diagnostics',
+                },
+                lualine_x = { 'diagnostics', 'encoding', 'fileformat', 'filetype' },
+                lualine_y = {},
+                lualine_z = { 'location' },
+            },
+            inactive_sections = {
+                lualine_c = {
+                    {
+                        'filename',
+                        path = 1,
+                        fmt = function (str)
+                            local abs_path = vim.fn.expand('%:p')
+                            local pattern = '^fugitive://.*%.git//'
+                            if abs_path:find(pattern) then
+                                return abs_path:gsub(pattern, "")
+                            end
+                            return str
+                        end
+                    },
+                },
+            },
+        },
+    },
+    {
+        "akinsho/bufferline.nvim",
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        },
+        opts = {
+            options = {
+                mode = 'tabs',
+                diagnostics = 'nvim_lsp',
+                diagnostics_indicator = function(_, _, diagnostics_dict)
+                    local s = ''
+                    for e, n in pairs(diagnostics_dict) do
+                        local sym = e == 'error' and ' ' or (e == 'warning' and ' ' or false)
+                        if sym then
+                            s = s .. ' ' .. n .. sym
+                        end
+                    end
+                    return s
+                end,
             }
         },
     },
-    -- "akinsho/bufferline.nvim",
     {
-        -- TODO use nvim-telescope/telescope-file-browser.nvim
         "nvim-tree/nvim-tree.lua",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
             require("nvim-tree").setup({
+                -- open_on_setup = true, -- TODO: deprecated
                 view = {
                     side = "left"
                 },
                 diagnostics = {
                     enable = true,
-                },
-                renderer = {
-                    indent_markers = {
-                        enable = true,
-                    },
                 },
                 actions = {
                     open_file = {
@@ -314,12 +388,54 @@ require("lazy").setup({
             })
         end,
     },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        config = function ()
+            require('nvim-treesitter.configs').setup({
+                auto_install = true,
+                highlight = { enable = true },
+                indent = { enable = true },
+            })
+        end,
+    },
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function ()
+            local ignore_patterns = {
+                "node_modules/",
+                "%.git/branches/",
+                "%.git/objects/",
+                "%.git/lfs/",
+                "%.git/logs/",
+                "%.git/refs/",
+                "%.git/rr%-cache/",
+                "%.git/index$",
+            }
+            require('telescope').setup({
+                pickers = {
+                    find_files = {
+                        file_ignore_patterns = ignore_patterns
+                    }
+                }
+            })
+
+            local builtin = require('telescope.builtin')
+            vim.keymap.set('n', '<leader>jf', function ()
+                builtin.find_files({
+                    hidden = true
+                })
+            end, {})
+            vim.keymap.set('n', '<leader>jg', builtin.live_grep, {})
+            vim.keymap.set('n', '<leader>jh', builtin.help_tags, {})
+        end,
+    },
 })
 
--- }}}
 
-
--- GUI {{{2
+-- --- }}}
+-- GUI {{{
 
 if vim.g.neovide then
     vim.o.guifont = "FiraCode NF,Segoe UI Emoji:h14"

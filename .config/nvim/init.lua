@@ -24,9 +24,21 @@ require("lazy").setup({
         { import = "plugins" },
     },
     install = { colorscheme = { "tokyonight" } },
+    checker = { enabled = true },
     defaults = { lazy = true },
+    perfomance = {
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                "netrwPlugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 });
-
 
 if vim.g.neovide then
     vim.o.guifont = "FiraCode NF,Segoe UI Emoji:h14"

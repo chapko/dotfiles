@@ -7,6 +7,7 @@ return {
             style = "light",
             styles = {
                 keywords = { italic = false },
+                comments = { italic = vim.g.neovide or false },
             },
         },
         config = function(_, opts)

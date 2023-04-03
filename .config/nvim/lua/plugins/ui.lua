@@ -78,7 +78,7 @@ return {
             'NvimTreeFindFile',
         },
         opts = {
-            -- open_on_setup = true, -- TODO: deprecated
+            respect_buf_cwd = true,
             view = {
                 side = "left"
             },

@@ -6,6 +6,11 @@ return {
   colorscheme = "catppuccin",
   plugins = {
     {
+      "laytan/cloak.nvim",
+      event = editing_events,
+      config = true,
+    },
+    {
       "tpope/vim-surround",
       event = editing_events,
     },
@@ -17,6 +22,27 @@ return {
       "chapko/vim-fugitive", -- fork with 4-pane mergetool
       event = "BufEnter",
     },
+    {
+      "iamcco/markdown-preview.nvim",
+      cmd = "MarkdownPreview",
+      build = ":call mkdp#util#install()",
+    },
+    -- {
+    --   "toppair/peek.nvim",
+    --   build = "deno task --quiet build:fast",
+    --   cmd = "Peek",
+    --   opts = function()
+    --     return {
+    --       app = { "cmd.exe", "/c", "start" },
+    --     }
+    --   end,
+    --   config = function(_, opts)
+    --     require("peek").setup(opts)
+    --
+    --     vim.api.nvim_create_user_command("Peek", require("peek").open, {})
+    --     vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+    --   end,
+    -- },
     {
       "catppuccin/nvim",
       lazy = false,
@@ -77,7 +103,7 @@ return {
           return {
             -- alpha logo
             DashboardHeader = {
-              fg = c.red,
+              fg = c.overlay0,
               style = { "bold" },
             },
           }
@@ -121,14 +147,11 @@ return {
       "goolord/alpha-nvim",
       opts = function(_, opts)
         opts.section.header.val = {
-          [[   __       __   ]],
-          [[  / <`     '> \  ]],
-          [[ (  / @   @ \  ) ]],
-          [[  \(_ _\_/_ _)/  ]],
-          [[(\ `-/     \-' /)]],
-          [[ "===\     /===" ]],
-          [[  .==')___(`==.  ]],
-          [[ ' .='     `=  ` ]],
+          [[  \    /  ]],
+          [[          ]],
+          [[──  🦀  ──]],
+          [[          ]],
+          [[  /    \  ]],
         }
       end,
     },
@@ -143,12 +166,58 @@ return {
         i["<C-p>"] = actions.move_selection_previous
       end,
     },
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      opts = {
+        filesystem = {
+          filtered_items = {
+            visible = true,
+            never_show_by_pattern = {
+              "*/.git/branches",
+              "*/.git/objects",
+              "*/.git/lfs",
+              "*/.git/logs",
+              "*/.git/refs",
+              "*/.git/rr-cache",
+              "*/.git/index",
+            },
+          },
+        },
+      },
+    },
+    {
+      "nvim-telescope/telescope.nvim",
+      opts = function(_, opts)
+        local ignore_patterns = {
+          "node_modules/",
+          "%.git/branches/",
+          "%.git/objects/",
+          "%.git/lfs/",
+          "%.git/logs/",
+          "%.git/refs/",
+          "%.git/rr%-cache/",
+          "%.git/index$",
+        }
+        return vim.tbl_extend("force", opts, {
+          pickers = {
+            find_files = {
+              file_ignore_patterns = ignore_patterns,
+            },
+            live_grep = {
+              file_ignore_patterns = ignore_patterns,
+            },
+          },
+        })
+        -- opts.pickers.find_files.file_ignore_patterns = ignore_patterns
+        -- opts.pickers.live_grep.file_ignore_patterns = ignore_patterns
+      end,
+    },
   },
   options = {
     opt = {
-      textwidth = 88, -- for line wrapping with `gq`
+      textwidth = 88,     -- for line wrapping with `gq`
       colorcolumn = "+0", -- line at column 80
-      list = true, -- display whitespace characters
+      list = true,        -- display whitespace characters
       listchars = {
         eol = " ",
         tab = "╶─",
@@ -170,9 +239,27 @@ return {
       "<cmd>Git mergetool -y<cr>",
       desc = "Run mergetool",
     }
+    n["<leader>gw"] = {
+      "<cmd>Git blame<cr>",
+      desc = "Toggle blame",
+    }
 
     n["<M-`>"] = n["<F7>"]
     t["<M-`>"] = n["<F7>"]
+    t["<C-l>"] = nil
+
     return mapping
+  end,
+  polish = function()
+    vim.api.nvim_create_user_command("Vimrc", "edit ~/.config/nvim/lua/user/init.lua", {})
+
+    --- @diagnostic disable-next-line: undefined-field
+    if vim.g.neovide then
+      vim.o.guifont = "FiraCode NF,Segoe UI Emoji:h14"
+      vim.g.neovide_cursor_animation_length = 0.075
+      vim.g.neovide_cursor_antialiasing = true
+      vim.g.neovide_cursor_trail_size = 0.15
+      vim.g.neovide_refresh_rate = 144
+    end
   end,
 }

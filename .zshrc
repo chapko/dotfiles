@@ -1,3 +1,7 @@
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    tmux attach || exec tmux new-session
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -68,10 +72,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode docker docker-compose nvm aws dotenv terraform)
+
+plugins=(z fzf vi-mode docker docker-compose dotenv nvm)
 
 source $ZSH/oh-my-zsh.sh
-
 
 # User configuration
 # ==================
@@ -99,9 +103,6 @@ export EDITOR=nvim
 # https://stackoverflow.com/a/40528629
 export GPG_TTY=$(tty)
 
-# Aliases
-# -------
-
 # Pass all aliases to `sudo`
 # http://serverfault.com/a/178956/253138
 alias sudo="sudo "
@@ -118,25 +119,25 @@ alias qgit="git"
 export LANG=en_US.UTF-8
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
-# zstyle
 zstyle ':completion:*' verbose true # display completions with descriptions
 zstyle ':completion:*' matcher-list '' 'r:|=*' 'l:|=* r:|=*'
 
+# nvm
 zstyle ':omz:plugins:nvm' autoload yes
+zstyle ':omz:plugins:nvm' lazy yes
 
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
 
 # pnpm
 export PNPM_HOME="/home/eugene/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-
-if [[ -f "$HOME/.zshrc.local" ]]; then
-  source "$HOME/.zshrc.local"
-fi
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+if [[ -f "$HOME/.zshrc.local" ]]; then
+    source "$HOME/.zshrc.local"
+fi

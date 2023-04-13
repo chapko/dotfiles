@@ -1,5 +1,5 @@
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    tmux attach || exec tmux new-session
+    tmux new-session # do not exec to be able to exit from tmux to the zsh
 fi
 
 # If you come from bash you might have to change your $PATH.

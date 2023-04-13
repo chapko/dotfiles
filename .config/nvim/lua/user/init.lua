@@ -1,4 +1,4 @@
--- Config for AstroNvim v3.7.0
+-- Config for AstroNvim v4.7.0
 
 local editing_events = { "BufReadPost", "BufNewFile" }
 
@@ -182,6 +182,11 @@ return {
               "*/.git/index",
             },
           },
+          window = {
+            mappings = {
+              ["/"] = "noop",
+            },
+          },
         },
       },
     },
@@ -235,18 +240,27 @@ return {
     n["Y"] = { "yy" }
     n[";"] = { ":" }
 
-    n["<leader>gm"] = {
-      "<cmd>Git mergetool -y<cr>",
-      desc = "Run mergetool",
-    }
+    n["<C-w><C-p>"] = { "<cmd>pclose<cr>", desc = "Close preview" }
+
     n["<leader>gw"] = {
       "<cmd>Git blame<cr>",
       desc = "Toggle blame",
     }
 
+    -- terminal
     n["<M-`>"] = n["<F7>"]
     t["<M-`>"] = n["<F7>"]
     t["<C-l>"] = nil
+
+    -- fugitive
+    n[",g"] = { name = " Fugitive" }
+    n[",gb"] = { "<cmd>Git blame<cr>", desc = "Blame" }
+    n[",gd"] = { "<cmd>vertical Gdiffsplit<cr>", desc = "Diff" }
+    n[",gl"] = { "<cmd>Git log --oneline<cr>", desc = "Log" }
+    n[",gm"] = {
+      "<cmd>Git mergetool -y<cr>",
+      desc = "Run mergetool",
+    }
 
     return mapping
   end,

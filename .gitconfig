@@ -1,7 +1,7 @@
 [core]
     editor = 'nvim'
     excludesfile = ~/.gitconfig.d/.gitignore
-    pager = less -SFX
+    pager = delta --features latte  # "[[ -n $TODO_CHECK_IF_INSIDE_NVIM ]] && delta --features latte || delta --features solarized"
     autocrlf = false
 
 [init]
@@ -13,19 +13,63 @@
 [push]
     default = simple
 
+[rerere]
+    enabled = true
+
 [merge]
     defaultToUpstream = true
     tool = nvimdiff
+    conflictstyle = diff3
 
 [mergetool]
     prompt = false
     keepBackup = false
 
-[rerere]
-    enabled = true
+[difftool]
+    prompt = false
+
+[apply]
+    whitespace = warn
 
 [commit]
     verbose = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    light = true
+    side-by-side = true
+    true-color = always
+
+[delta "latte"]
+    minus-style = syntax "#f5e9e9"
+    minus-emph-style = syntax "#f5cbcb"
+    plus-style = syntax "#e1f5e7"
+    plus-emph-style = syntax "#b1edc2"
+
+[delta "solarized"]
+    minus-style = syntax "#f5e9e9"
+    minus-emph-style = syntax "#f5cbcb"
+    plus-style = syntax "#e1f5e7"
+    plus-emph-style = syntax "#b1edc2"
+
+[color]
+    diff = auto
+    branch = auto
+    interactive = auto
+    showbranch = auto
+    status = auto
+
+[color "diff"]
+    meta = reverse  # separate files more obviously
+
+[diff]
+    colorMoved = default
+
+[gpg]
+    program = gpg2
 
 [alias]
     lgg = log --color --graph --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -39,6 +83,7 @@
 
     ch = checkout
 
+    c = commit
     ca = commit -a
     cm = commit -m
     cam = commit -am
@@ -85,22 +130,6 @@
     gi = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi"
     count = !git shortlog -sn
 
-[color]
-    diff = auto
-    branch = auto
-    interactive = auto
-    showbranch = auto
-    status = auto
-
-[color "diff"]
-    meta = reverse
-
-[apply]
-    whitespace = warn
-
-[difftool]
-    prompt = false
-
 [include]
     path = ~/.gitconfig.local
 
@@ -118,6 +147,3 @@
     #     singingKey = ...
     # [commit]
     #     gpgsign = true
-
-[gpg]
-    program = gpg2

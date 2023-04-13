@@ -106,6 +106,10 @@ return {
               fg = c.overlay0,
               style = { "bold" },
             },
+            Folded = {
+              fg = c.overlay0,
+              bg = c.crust,
+            },
           }
         end,
       },

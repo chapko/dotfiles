@@ -103,6 +103,8 @@ export EDITOR=nvim
 # https://stackoverflow.com/a/40528629
 export GPG_TTY=$(tty)
 
+export BAT_THEME="Solarized (light)"
+
 # Pass all aliases to `sudo`
 # http://serverfault.com/a/178956/253138
 alias sudo="sudo "

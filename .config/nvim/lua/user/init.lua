@@ -27,22 +27,6 @@ return {
       cmd = "MarkdownPreview",
       build = ":call mkdp#util#install()",
     },
-    -- {
-    --   "toppair/peek.nvim",
-    --   build = "deno task --quiet build:fast",
-    --   cmd = "Peek",
-    --   opts = function()
-    --     return {
-    --       app = { "cmd.exe", "/c", "start" },
-    --     }
-    --   end,
-    --   config = function(_, opts)
-    --     require("peek").setup(opts)
-    --
-    --     vim.api.nvim_create_user_command("Peek", require("peek").open, {})
-    --     vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
-    --   end,
-    -- },
     {
       "catppuccin/nvim",
       lazy = false,
@@ -225,7 +209,7 @@ return {
   options = {
     opt = {
       textwidth = 88,     -- for line wrapping with `gq`
-      colorcolumn = "+0", -- line at column 80
+      colorcolumn = "+0", -- line at 'textwidth' column
       list = true,        -- display whitespace characters
       listchars = {
         eol = " ",
@@ -252,19 +236,30 @@ return {
     }
 
     -- terminal
-    n["<M-`>"] = n["<F7>"]
-    t["<M-`>"] = n["<F7>"]
+    local toggle_term_cmd = {
+      function()
+        local utils = require "astronvim.utils"
+        local Path = require "plenary.path"
+        local cwd = Path:new(vim.loop.cwd())
+        local folder = cwd:make_relative(cwd:parents()[1])
+        utils.toggle_term_cmd("tmux attach -t '" .. folder .. "' || tmux new-session -s '" .. folder .. "'")
+      end,
+      desc = "Toggle terminal",
+    }
+    n["<M-`>"] = toggle_term_cmd
+    t["<M-`>"] = toggle_term_cmd
     t["<C-l>"] = nil
+
+    n[",d"] = { name = "Diff" }
+    n[",do"] = { "<cmd>diffoff<cr>", desc = ":diffoff" }
+    n[",dt"] = { "<cmd>diffthis<cr>", desc = ":diffthis" }
 
     -- fugitive
     n[",g"] = { name = " Fugitive" }
     n[",gb"] = { "<cmd>Git blame<cr>", desc = "Blame" }
     n[",gd"] = { "<cmd>vertical Gdiffsplit<cr>", desc = "Diff" }
     n[",gl"] = { "<cmd>Git log --oneline<cr>", desc = "Log" }
-    n[",gm"] = {
-      "<cmd>Git mergetool -y<cr>",
-      desc = "Run mergetool",
-    }
+    n[",gm"] = { "<cmd>Git mergetool -y<cr>", desc = "Run mergetool" }
 
     return mapping
   end,

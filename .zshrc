@@ -73,7 +73,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(z fzf vi-mode docker docker-compose dotenv nvm)
+plugins=(z fzf vi-mode docker docker-compose dotenv nvm truecolor-test)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,6 +98,7 @@ MODE_INDICATOR="%{$fg_bold[magenta]%}[vi] %{$reset_color%}"
 
 LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;44:tw=30;42:ow=30;45:'
 
+export COLORTERM=truecolor
 export EDITOR=nvim
 
 # https://stackoverflow.com/a/40528629

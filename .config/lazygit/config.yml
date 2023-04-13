@@ -1,0 +1,30 @@
+gui:
+  sidePanelWidth: 0.25
+  expandFocusedSidePanel: true
+  showIcons: true
+  theme:
+    activeBorderColor:
+      - "#40a02b" # Green
+      - bold
+    inactiveBorderColor:
+      - "#4c4f69" # Text
+    optionsTextColor:
+      - "#1e66f5" # Blue
+    selectedLineBgColor:
+      - "#ccd0da" # Surface0
+    selectedRangeBgColor:
+      - "#ccd0da" # Surface0
+    cherryPickedCommitBgColor:
+      - "#179299" # Teal
+    cherryPickedCommitFgColor:
+      - "#1e66f5" # Blue
+    unstagedChangesColor:
+      - red # Red
+    defaultFgColor:
+      - black
+git:
+  paging:
+    pager: delta --paging=never
+  branchLogCmd: "git log --color=always --graph --abbrev-commit --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' {{branchName}} --"
+  allBranchesLogCmd: "git log --color=always --graph --abbrev-commit --all --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+  autoFetch: false

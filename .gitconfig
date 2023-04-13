@@ -1,7 +1,7 @@
 [core]
     editor = 'nvim'
     excludesfile = ~/.gitconfig.d/.gitignore
-    pager = delta --features latte  # "[[ -n $TODO_CHECK_IF_INSIDE_NVIM ]] && delta --features latte || delta --features solarized"
+    pager = delta
     autocrlf = false
 
 [init]
@@ -42,18 +42,10 @@
     light = true
     side-by-side = true
     true-color = always
-
-[delta "latte"]
-    minus-style = syntax "#f5e9e9"
-    minus-emph-style = syntax "#f5cbcb"
-    plus-style = syntax "#e1f5e7"
-    plus-emph-style = syntax "#b1edc2"
-
-[delta "solarized"]
-    minus-style = syntax "#f5e9e9"
-    minus-emph-style = syntax "#f5cbcb"
-    plus-style = syntax "#e1f5e7"
-    plus-emph-style = syntax "#b1edc2"
+    minus-style = syntax "#efe2e6"  # ff00000f
+    minus-emph-style = syntax "#f1c3c6"
+    plus-style = syntax "#e0f1e6"  # 00ff000f
+    plus-emph-style = syntax "#c2f3c6"
 
 [color]
     diff = auto

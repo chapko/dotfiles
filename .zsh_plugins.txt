@@ -1,0 +1,9 @@
+ohmyzsh/ohmyzsh path:lib/compfix.zsh
+ohmyzsh/ohmyzsh path:lib/git.zsh
+ohmyzsh/ohmyzsh path:lib/nvm.zsh
+ohmyzsh/ohmyzsh path:lib/spectrum.zsh
+ohmyzsh/ohmyzsh path:lib/theme-and-appearance.zsh
+
+ohmyzsh/ohmyzsh path:plugins/docker kind:fpath
+ohmyzsh/ohmyzsh path:plugins/docker-compose kind:fpath
+ohmyzsh/ohmyzsh path:plugins/vi-mode

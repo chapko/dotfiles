@@ -20,6 +20,7 @@ zstyle ':completion:*' cache-path "$HOME/.zsh/cache"
 
 zstyle ':completion:*:*:*:*:globbed-files' list-colors ${LS_COLORS}
 zstyle ':completion:*:*:*:*:options' list-colors '=(#b)*(-- *)=34=0' '=*=34'
+zstyle ':completion:*:*:git:argument-1:*' list-colors '=(#b)*(-- *)=34=0' '=*=34'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 zstyle ':completion:*:*:*:*:heads' list-colors '=(#b)([0-9a-zA-Z/_-]#)*=0=33'

@@ -394,16 +394,16 @@ font:
   # When set to `true`, selected text will be copied to the primary clipboard.
   #save_to_clipboard: false
 
-#cursor:
+cursor:
   # Cursor style
-  #style:
+  style:
     # Cursor shape
     #
     # Values for `shape`:
     #   - ▇ Block
     #   - _ Underline
     #   - | Beam
-    #shape: Block
+    shape: Block
 
     # Cursor blinking state
     #
@@ -420,7 +420,7 @@ font:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  #vi_mode_style: None
+  vi_mode_style: None
 
   # Cursor blinking interval in milliseconds.
   #blink_interval: 750
@@ -909,7 +909,4 @@ font:
 
   # Highlight window damage information.
   #highlight_damage: false
-
-# env:
-#   TERM: xterm-256color
 

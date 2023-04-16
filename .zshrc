@@ -30,7 +30,7 @@ antidote load
 compinit
 handle_completion_insecurities &|
 
-export COLORTERM=truecolor
+# export COLORTERM=truecolor
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export GPG_TTY=$(tty)      # https://stackoverflow.com/a/40528629
@@ -54,4 +54,6 @@ eval "$(zoxide init zsh --cmd z --hook pwd)"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-source "$NVM_DIR/nvm.sh"
+if [ -d "$NVM_DIR" ]; then
+    source "$NVM_DIR/nvm.sh"
+fi

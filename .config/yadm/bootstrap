@@ -3,87 +3,19 @@
 set -e
 
 setup_ohmyzsh() {
-  ZSH="$HOME/.oh-my-zsh"
-  BRANCH="master"
-  REMOTE="https://github.com/ohmyzsh/ohmyzsh.git"
-  FMT_BLUE=""
-  FMT_RESET=""
-  fmt_error() {
-    echo "Error:" "$*" >&2
-  }
-  echo "Sertting up Oh My Zsh..."
-  if [ -d "$ZSH" ]; then
-    echo "Oh My Zsh is already installed"
-    return
-  fi
-
-  # copied from https://github.com/ohmyzsh/ohmyzsh/blob/dfee71c7735b739d6db478b2353752aeb6bc1ae2/tools/install.sh#L254
-
-  # Prevent the cloned repository from having insecure permissions. Failing to do
-  # so causes compinit() calls to fail with "command not found: compdef" errors
-  # for users with insecure umasks (e.g., "002", allowing group writability). Note
-  # that this will be ignored under Cygwin by default, as Windows ACLs take
-  # precedence over umasks except for filesystems mounted with option "noacl".
-  umask g-w,o-w
-
-  echo "${FMT_BLUE}Cloning Oh My Zsh...${FMT_RESET}"
-
-  command_exists git || {
-    fmt_error "git is not installed"
-    exit 1
-  }
-
-  ostype=$(uname)
-  if [ -z "${ostype%CYGWIN*}" ] && git --version | grep -q msysgit; then
-    fmt_error "Windows/MSYS Git is not supported on Cygwin"
-    fmt_error "Make sure the Cygwin git package is installed and is first on the \$PATH"
-    exit 1
-  fi
-
-  # Manual clone with git config options to support git < v1.7.2
-  git init --quiet "$ZSH" && cd "$ZSH" \
-  && git config core.eol lf \
-  && git config core.autocrlf false \
-  && git config fsck.zeroPaddedFilemode ignore \
-  && git config fetch.fsck.zeroPaddedFilemode ignore \
-  && git config receive.fsck.zeroPaddedFilemode ignore \
-  && git config oh-my-zsh.remote origin \
-  && git config oh-my-zsh.branch "$BRANCH" \
-  && git remote add origin "$REMOTE" \
-  && git fetch --depth=1 origin \
-  && git checkout -b "$BRANCH" "origin/$BRANCH" || {
-    [ ! -d "$ZSH" ] || {
-      cd -
-      rm -rf "$ZSH" 2>/dev/null
-    }
-    fmt_error "git clone of oh-my-zsh repo failed"
-    exit 1
-  }
-  # Exit installation directory
-  cd -
-
-  echo
+    if  [ ! -d ~/.antidote ]; then
+        git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+    fi
 }
 
 setup_vim() {
-  echo 'Setting up vim...'
-
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-  # neovim
-  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-  nvim +'PlugInstall --sync' +qa
-
-  if [[ "$(< /proc/sys/kernel/osrelease)" == *microsoft* ]]; then
-    echo "WSL detected. Installing win32yank..."
-    curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
-    unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
-    chmod +x /tmp/win32yank.exe
-    mv /tmp/win32yank.exe $HOME/.local/bin/
-  fi
+    (
+        cd ~/.config/nvim
+	git init
+	git remote add origin https://github.com/AstroNvim/AstroNvim
+	git fetch --depth 1
+	git checkout main
+    )
 }
 
 setup_ohmyzsh

@@ -227,6 +227,7 @@ return {
 
     n["Y"] = { "yy" }
     n[";"] = { ":" }
+    n[",p"] = { '"0p' }
 
     n["<C-w><C-p>"] = { "<cmd>pclose<cr>", desc = "Close preview" }
 

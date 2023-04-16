@@ -205,6 +205,14 @@ return {
         -- opts.pickers.live_grep.file_ignore_patterns = ignore_patterns
       end,
     },
+    {
+      "folke/which-key.nvim",
+      opts = {
+        plugins = {
+          registers = false,
+        },
+      },
+    },
   },
   options = {
     opt = {

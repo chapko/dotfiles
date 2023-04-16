@@ -1,19 +1,46 @@
+# rosewater = '#b4462d', -- '#dc8a78',
+# flamingo  = '#b54a4a', -- '#dd7878',
+# pink      = '#b34295', -- '#ea76cb',
+# mauve     = '#824dc7', -- '#8839ef',
+# red       = '#b00c0c', -- '#d20f39',
+# maroon    = '#6d2228', -- '#e64553',
+# peach     = '#a66611', -- '#fe640b',
+# yellow    = '#a36d00', -- '#df8e1d',
+# green     = '#478a38', -- '#40a02b',
+# teal      = '#3e7174', -- '#179299',
+# sky       = '#1c7497', -- '#04a5e5',
+# sapphire  = '#367681', -- '#209fb5',
+# blue      = '#3c64b4', -- '#1e66f5',
+# lavender  = '#5466c9', -- '#7287fd',
+# text      = '#676b8e', -- '#4c4f69',
+# subtext1  = '#686c87', -- '#5c5f77',
+# subtext0  = '#6c6f85', -- '#6c6f85',
+# overlay2  = '#7c7f93', -- '#7c7f93',
+# overlay1  = '#8c8fa1', -- '#8c8fa1',
+# overlay0  = '#9ca0b0', -- '#9ca0b0',
+# surface2  = '#acb0be', -- '#acb0be',
+# surface1  = '#bcc0cc', -- '#bcc0cc',
+# surface0  = '#ccd0da', -- '#ccd0da',
+# base      = '#eff1f5', -- '#eff1f5',
+# mantle    = '#e6e9ef', -- '#e6e9ef',
+# crust     = '#dce0e8', -- '#dce0e8',
+
 colors:
     # Default colors
     primary:
         background: "#EFF1F5" # base
-        foreground: "#4C4F69" # text
+        foreground: "#676b8e" # text
         # Bright and dim foreground colors
-        dim_foreground: "#4C4F69" # text
-        bright_foreground: "#4C4F69" # text
+        dim_foreground: "#676b8e" # text
+        bright_foreground: "#676b8e" # text
 
     # Cursor colors
     cursor:
         text: "#EFF1F5" # base
-        cursor: "#DC8A78" # rosewater
+        cursor: "#b4462d" # rosewater
     vi_mode_cursor:
         text: "#EFF1F5" # base
-        cursor: "#7287FD" # lavender
+        cursor: "#5466c9" # lavender
 
     # Search colors
     search:
@@ -22,7 +49,7 @@ colors:
             background: "#6C6F85" # subtext0
         focused_match:
             foreground: "#EFF1F5" # base
-            background: "#40A02B" # green
+            background: "#478a38" # green
         footer_bar:
             foreground: "#EFF1F5" # base
             background: "#6C6F85" # subtext0
@@ -31,7 +58,7 @@ colors:
     hints:
         start:
             foreground: "#EFF1F5" # base
-            background: "#DF8E1D" # yellow
+            background: "#a36d00" # yellow
         end:
             foreground: "#EFF1F5" # base
             background: "#6C6F85" # subtext0
@@ -44,36 +71,36 @@ colors:
     # Normal colors
     normal:
         black: "#5C5F77" # subtext1
-        red: "#D20F39" # red
-        green: "#40A02B" # green
-        yellow: "#DF8E1D" # yellow
-        blue: "#1E66F5" # blue
-        magenta: "#EA76CB" # pink
-        cyan: "#179299" # teal
+        red: "#b00c0c" # red
+        green: "#478a38" # green
+        yellow: "#a36d00" # yellow
+        blue: "#3c64b4" # blue
+        magenta: "#b34295" # pink
+        cyan: "#3e7174" # teal
         white: "#ACB0BE" # surface2
 
     # Bright colors
     bright:
         black: "#6C6F85" # subtext0
-        red: "#D20F39" # red
-        green: "#40A02B" # green
-        yellow: "#DF8E1D" # yellow
-        blue: "#1E66F5" # blue
-        magenta: "#EA76CB" # pink
-        cyan: "#179299" # teal
+        red: "#b00c0c" # red
+        green: "#478a38" # green
+        yellow: "#a36d00" # yellow
+        blue: "#3c64b4" # blue
+        magenta: "#b34295" # pink
+        cyan: "#3e7174" # teal
         white: "#BCC0CC" # surface1
 
     # Dim colors
     dim:
-        black: "#5C5F77" # subtext1
-        red: "#D20F39" # red
-        green: "#40A02B" # green
-        yellow: "#DF8E1D" # yellow
-        blue: "#1E66F5" # blue
-        magenta: "#EA76CB" # pink
-        cyan: "#179299" # teal
+        black: "#686c87" # subtext1
+        red: "#b00c0c" # red
+        green: "#478a38" # green
+        yellow: "#a36d00" # yellow
+        blue: "#3c64b4" # blue
+        magenta: "#b34295" # pink
+        cyan: "#3e7174" # teal
         white: "#ACB0BE" # surface2
 
     indexed_colors:
-        - { index: 16, color: "#FE640B" }
-        - { index: 17, color: "#DC8A78" }
+        - { index: 16, color: "#a66611" }
+        - { index: 17, color: "#b4462d" }

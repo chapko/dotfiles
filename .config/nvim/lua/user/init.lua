@@ -256,6 +256,7 @@ return {
 
     -- fugitive
     n[",g"] = { name = " Fugitive" }
+    n[",gs"] = { "<cmd>Git<cr>", desc = "Status" }
     n[",gb"] = { "<cmd>Git blame<cr>", desc = "Blame" }
     n[",gd"] = { "<cmd>vertical Gdiffsplit<cr>", desc = "Diff" }
     n[",gl"] = { "<cmd>Git log --oneline<cr>", desc = "Log" }

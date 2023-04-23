@@ -237,6 +237,15 @@ return {
         },
       },
     },
+    {
+      "jose-elias-alvarez/null-ls.nvim",
+      opts = {
+        should_attach = function(buf)
+          local file_name = vim.api.nvim_buf_get_name(buf)
+          return string.find(file_name, "node_modules") == nil
+        end,
+      },
+    },
   },
   options = {
     opt = {

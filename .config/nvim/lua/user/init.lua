@@ -2,9 +2,25 @@
 
 local editing_events = { "BufReadPost", "BufNewFile" }
 
+local ignore_patterns = {
+  "node_modules/",
+  "%.git/branches/",
+  "%.git/objects/",
+  "%.git/lfs/",
+  "%.git/logs/",
+  "%.git/refs/",
+  "%.git/rr%-cache/",
+  "%.git/index$",
+}
+
 return {
   colorscheme = "catppuccin",
   plugins = {
+    {
+      -- breaks macros replay
+      "max397574/better-escape.nvim",
+      enabled = false,
+    },
     {
       "laytan/cloak.nvim",
       event = editing_events,
@@ -180,30 +196,38 @@ return {
     },
     {
       "nvim-telescope/telescope.nvim",
-      opts = function(_, opts)
-        local ignore_patterns = {
-          "node_modules/",
-          "%.git/branches/",
-          "%.git/objects/",
-          "%.git/lfs/",
-          "%.git/logs/",
-          "%.git/refs/",
-          "%.git/rr%-cache/",
-          "%.git/index$",
-        }
-        return vim.tbl_extend("force", opts, {
-          pickers = {
-            find_files = {
-              file_ignore_patterns = ignore_patterns,
-            },
-            live_grep = {
-              file_ignore_patterns = ignore_patterns,
-            },
+      opts = {
+        defaults = {
+          preview = {
+            treesitter = false,
           },
-        })
-        -- opts.pickers.find_files.file_ignore_patterns = ignore_patterns
-        -- opts.pickers.live_grep.file_ignore_patterns = ignore_patterns
-      end,
+        },
+        pickers = {
+          find_files = {
+            file_ignore_patterns = ignore_patterns,
+          },
+          live_grep = {
+            file_ignore_patterns = ignore_patterns,
+          },
+        },
+      },
+    },
+    {
+      "nvim-treesitter/nvim-treesitter",
+      opts = {
+        auto_install = true,
+        highlight = {
+          disable = function(_, buf)
+            local file_name = vim.api.nvim_buf_get_name(buf)
+
+            if string.find(file_name, "node_modules") ~= nil then return true end
+
+            local max_filesize = 50 * 1024 -- 50 KB
+            local ok, stats = pcall(vim.loop.fs_stat, file_name)
+            if ok and stats and stats.size > max_filesize then return true end
+          end,
+        },
+      },
     },
     {
       "folke/which-key.nvim",
@@ -219,6 +243,7 @@ return {
       textwidth = 88,     -- for line wrapping with `gq`
       colorcolumn = "+0", -- line at 'textwidth' column
       list = true,        -- display whitespace characters
+      clipboard = "unnamedplus",
       listchars = {
         eol = " ",
         tab = "╶─",
@@ -231,8 +256,10 @@ return {
   },
   mappings = function(mapping)
     local n = mapping.n
+    local i = mapping.i
     local t = mapping.t
 
+    i["jj"] = { "<esc>" }
     n["Y"] = { "yy" }
     n[";"] = { ":" }
     n[",p"] = { '"0p' }

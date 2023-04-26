@@ -246,6 +246,18 @@ return {
         end,
       },
     },
+    {
+      "hrsh7th/nvim-cmp",
+      opts = function(_, opts)
+        local cmp = require "cmp"
+
+        return vim.tbl_deep_extend("force", opts, {
+          mapping = {
+            ["<Tab>"] = cmp.mapping.confirm { select = true },
+          },
+        })
+      end,
+    },
   },
   options = {
     opt = {
@@ -253,6 +265,7 @@ return {
       colorcolumn = "+0", -- line at 'textwidth' column
       list = true,        -- display whitespace characters
       clipboard = "unnamedplus",
+      completeopt = { "menu", "menuone", "noinsert" },
       listchars = {
         eol = " ",
         tab = "╶─",

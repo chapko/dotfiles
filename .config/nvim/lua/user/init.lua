@@ -110,6 +110,12 @@ return {
               fg = c.overlay0,
               bg = c.crust,
             },
+            Whitespace = {
+              fg = c.crust,
+            },
+            Colorcolumn = {
+              bg = c.crust,
+            },
           }
         end,
       },

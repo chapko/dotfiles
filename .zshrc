@@ -53,5 +53,11 @@ export PATH="$PNPM_HOME:$PATH"
 eval "$(zoxide init zsh --cmd z --hook pwd)"
 
 # fnm
-eval "$(fnm env)"
+if type fnm &> /dev/null; then
+    eval "$(fnm env)"
+fi
 
+# nvm
+if [[ -f ~/.nvm/nvm.sh ]]; then
+    source "~/.nvm/nvm.sh"
+fi

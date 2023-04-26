@@ -1,11 +1,11 @@
-local awful = require("awful")
+local gfs = require("gears.filesystem")
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 
 local tw = require("src.palettes.tailwind")
-
+local nord = require("src.palettes.nord")
 local dpi = xresources.apply_dpi
-local assets_path = awful.util.getdir("config") .. "/src/theme/assets/"
+local assets_path = gfs.get_dir("config") .. "/src/theme/assets/"
 
 local theme = {}
 
@@ -13,6 +13,40 @@ theme.monospace = "sans 8"
 
 local gray = tw.stone
 local accent = tw.lime
+
+theme.xresources_colors = {
+    color0 = nord.night0,
+    color8 = nord.night3,
+    --red
+    color1 = nord.aurora0,
+    color9 = nord.aurora0,
+    --green
+    color2 = nord.aurora3,
+    color10 = nord.aurora3,
+    --yellow
+    color3 = nord.aurora2,
+    color11 = nord.aurora2,
+    --blue
+    color4 = nord.frost3,
+    color12 = nord.frost2,
+    --purple
+    color5 = nord.aurora4,
+    color13 = nord.aurora4,
+    --cyan
+    color6 = nord.frost0,
+    color14 = nord.frost1,
+    --white
+    color7 = nord.storm0,
+    color15 = nord.storm2,
+    --
+    background = nord.night0,
+    foreground = nord.storm2,
+}
+
+-- overwrite xrdb colors for hotkeys popup
+xresources.get_current_theme = function()
+    return theme.xresources_colors
+end
 
 theme.bg_normal = gray(800)
 theme.border_normal = gray(900)
@@ -33,6 +67,8 @@ theme.bg_systray = theme.bg_normal
 theme.useless_gap = dpi(2)
 theme.border_width = dpi(2)
 theme.border_marked = "#91231c"
+
+theme.hotkeys_modifiers_fg = gray(500)
 
 -- There are other variable sets
 -- overriding the default one when
@@ -115,7 +151,7 @@ theme.titlebar_maximized_button_normal_active = assets_path
 theme.titlebar_maximized_button_focus_active = assets_path
     .. "titlebar/maximized_focus_active.png"
 
-theme.wallpaper = assets_path .. "background.png"
+theme.wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper/2.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = assets_path .. "layouts/fairhw.png"

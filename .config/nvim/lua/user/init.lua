@@ -329,7 +329,8 @@ return {
         local Path = require "plenary.path"
         local cwd = Path:new(vim.loop.cwd())
         local folder = cwd:make_relative(cwd:parents()[1])
-        utils.toggle_term_cmd("tmux attach -t '" .. folder .. "' || tmux new-session -s '" .. folder .. "'")
+        local session_name = "e:" .. folder
+        utils.toggle_term_cmd("tmux attach -t '" .. session_name .. "' || tmux new-session -s '" .. session_name .. "'")
       end,
       desc = "Toggle terminal",
     }

@@ -258,12 +258,35 @@ return {
         })
       end,
     },
+    {
+      "Exafunction/codeium.vim",
+      event = "InsertEnter",
+      config = function()
+        vim.g.codeium_disable_bindings = true
+        vim.keymap.set("i", "<M-u>", function() return vim.fn["codeium#Accept"]() end, {
+          expr = true,
+          silent = true,
+        })
+        vim.keymap.set("i", "<M-]>", function() return vim.fn["codeium#CycleCompletions"](1) end, {
+          expr = true,
+          silent = true,
+        })
+        vim.keymap.set("i", "<M-[>", function() return vim.fn["codeium#CycleCompletions"](-1) end, {
+          expr = true,
+          silent = true,
+        })
+        vim.keymap.set("i", "<C-x>", function() return vim.fn["codeium#Clear"]() end, {
+          expr = true,
+          silent = true,
+        })
+      end,
+    },
   },
   options = {
     opt = {
-      textwidth = 88,     -- for line wrapping with `gq`
+      textwidth = 88, -- for line wrapping with `gq`
       colorcolumn = "+0", -- line at 'textwidth' column
-      list = true,        -- display whitespace characters
+      list = true, -- display whitespace characters
       clipboard = "unnamedplus",
       completeopt = { "menu", "menuone", "noinsert" },
       listchars = {

@@ -20,3 +20,4 @@ alias ll='ls -lh'
 alias la='ls -lAh'
 
 alias sc='systemctl'
+alias xcb='xclip -selection clipboard'

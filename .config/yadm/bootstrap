@@ -11,13 +11,22 @@ setup_ohmyzsh() {
 setup_vim() {
     (
         cd ~/.config/nvim
-	git init
-	git remote add origin https://github.com/AstroNvim/AstroNvim
-	git fetch --depth 1
-	git checkout main
+        git init
+        git remote add origin https://github.com/AstroNvim/AstroNvim
+        git fetch --depth 1
+        git checkout main
+    )
+}
+
+setup_tmux() {
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+    (
+        mkdir -p ~/.tmux/plugins
+        cd ~/.tmux/plugins
+        ln -s ../../.config/tmux/plugins/tpm ./tpm
     )
 }
 
 setup_ohmyzsh
 setup_vim
-
+setup_tmux

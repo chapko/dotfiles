@@ -260,6 +260,7 @@ return {
         return vim.tbl_deep_extend("force", opts, {
           mapping = {
             ["<Tab>"] = cmp.mapping.confirm { select = true },
+            ["<C-e>"] = nil,
           },
         })
       end,
@@ -269,23 +270,36 @@ return {
       event = "InsertEnter",
       config = function()
         vim.g.codeium_disable_bindings = true
-        vim.keymap.set("i", "<M-u>", function() return vim.fn["codeium#Accept"]() end, {
+        vim.keymap.set("i", "<C-e>", function() return vim.fn["codeium#Accept"]() end, {
           expr = true,
           silent = true,
+          desc = "Codeium Accept",
         })
         vim.keymap.set("i", "<M-]>", function() return vim.fn["codeium#CycleCompletions"](1) end, {
           expr = true,
           silent = true,
+          desc = "Codeium Next",
         })
         vim.keymap.set("i", "<M-[>", function() return vim.fn["codeium#CycleCompletions"](-1) end, {
           expr = true,
           silent = true,
+          desc = "Codeium Previous",
         })
         vim.keymap.set("i", "<C-x>", function() return vim.fn["codeium#Clear"]() end, {
           expr = true,
           silent = true,
+          desc = "Codeium Clear",
         })
       end,
+    },
+    {
+      "rcarriga/nvim-notify",
+      opts = {
+        stages = "fade",
+        fps = 60,
+        timeout = 3000,
+        max_width = 44,
+      },
     },
   },
   options = {

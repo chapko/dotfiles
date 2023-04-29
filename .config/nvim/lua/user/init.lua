@@ -301,6 +301,17 @@ return {
         max_width = 44,
       },
     },
+    {
+      "rebelot/heirline.nvim",
+      opts = function(_, opts)
+        local status = require "astronvim.utils.status"
+        opts.statusline[3] = status.component.file_info {
+          filetype = false,
+          filename = { modify = ":p" },
+        }
+        return opts
+      end,
+    },
   },
   options = {
     opt = {

@@ -28,11 +28,13 @@ fi
 
 if ! tmux has-session -t "${selected_name}" 2> /dev/null; then
     # create detached session
-    tmux new-session -ds "${selected_name}" -c "${selected}" "${EDITOR}"
+    tmux new-session -ds "${selected_name}" -c "${selected}"
 fi
 
+
+cmd="switch-client"
 if [[ -z "${TMUX}" ]]; then
-    tmux attach -t "${selected_name}" "${EDITOR}"
-else
-    tmux switch-client -t "${selected_name}" \; split-window -c "${selected}" -vbf "${EDITOR}"
+    cmd="attach-session"
 fi
+
+tmux "${cmd}" -t "${selected_name}" \; split-window -c "${selected}" -vbf "${EDITOR}"

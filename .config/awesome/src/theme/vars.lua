@@ -48,15 +48,15 @@ xresources.get_current_theme = function()
     return theme.xresources_colors
 end
 
-theme.bg_normal = gray(800)
-theme.border_normal = gray(900)
+theme.bg_normal = gray(800) .. "cc"
+theme.border_normal = gray(800)
 theme.fg_normal = gray(300)
 
-theme.bg_focus = accent(700)
+theme.bg_focus = accent(700) .. "cc"
 theme.border_focus = accent(700)
 theme.fg_focus = tw.white
 
-theme.bg_urgent = tw.red(700)
+theme.bg_urgent = tw.red(700) .. "cc"
 theme.fg_urgent = "#ffffff"
 
 theme.bg_minimize = gray(700)
@@ -65,7 +65,7 @@ theme.fg_minimize = gray(400)
 theme.bg_systray = theme.bg_normal
 
 theme.useless_gap = dpi(2)
-theme.border_width = dpi(2)
+theme.border_width = dpi(1)
 theme.border_marked = "#91231c"
 
 theme.hotkeys_modifiers_fg = gray(500)

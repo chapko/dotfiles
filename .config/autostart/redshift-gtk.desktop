@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Redshift
+Comment=Color temperature adjustment tool
+Exec=redshift-gtk
+Icon=redshift
+Terminal=false
+Categories=Utility;
+StartupNotify=true
+

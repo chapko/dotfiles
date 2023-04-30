@@ -3,7 +3,7 @@
 pcall(require, "luarocks.loader")
 
 require("src.theme").setup({
-    font = "Noto Sans Regular 9",
+    font = "sans 9",
 })
 
 local hotkeys_popup = require("awful.hotkeys_popup")
@@ -71,167 +71,18 @@ awful.layout.layouts = {
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 
-local main_menu = awful.menu({
-    items = {
-        {
-            "awesome",
-            {
-                {
-                    "hotkeys",
-                    function()
-                        hotkeys_popup.show_help(nil, awful.screen.focused())
-                    end,
-                },
-                { "restart", awesome.restart },
-                {
-                    "quit",
-                    function()
-                        awesome.quit()
-                    end,
-                },
-            },
-            beautiful.awesome_icon,
-        },
-        { "open terminal", terminal },
-    },
-})
-
-local mylauncher =
-    awful.widget.launcher({ image = beautiful.awesome_icon, menu = main_menu })
-
 -- Menubar configuration
 -- menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
-local mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibar
--- Create a textclock widget
-local mytextclock = wibox.widget.textclock()
-
--- Create a wibox for each screen and add it
-local taglist_buttons = gears.table.join(
-    awful.button({}, 1, function(t)
-        t:view_only()
-    end),
-    awful.button({ modkey }, 1, function(t)
-        if client.focus then
-            client.focus:move_to_tag(t)
-        end
-    end),
-    awful.button({}, 3, awful.tag.viewtoggle),
-    awful.button({ modkey }, 3, function(t)
-        if client.focus then
-            client.focus:toggle_tag(t)
-        end
-    end),
-    awful.button({}, 4, function(t)
-        awful.tag.viewnext(t.screen)
-    end),
-    awful.button({}, 5, function(t)
-        awful.tag.viewprev(t.screen)
-    end)
-)
-
-local tasklist_buttons = gears.table.join(
-    awful.button({}, 1, function(c)
-        if c == client.focus then
-            c.minimized = true
-        else
-            c:emit_signal("request::activate", "tasklist", { raise = true })
-        end
-    end),
-    awful.button({}, 3, function()
-        awful.menu.client_list({ theme = { width = 250 } })
-    end),
-    awful.button({}, 4, function()
-        awful.client.focus.byidx(1)
-    end),
-    awful.button({}, 5, function()
-        awful.client.focus.byidx(-1)
-    end)
-)
-
-awful.screen.connect_for_each_screen(function(s)
-    -- Each screen has its own tag table.
-    local tags = awful.tag(
-        { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
-        s,
-        awful.layout.layouts[1]
-    )
-
-    for _, tag in pairs(tags) do
-        tag.master_width_factor = 0.625
-    end
-
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contain an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-        awful.button({}, 1, function()
-            awful.layout.inc(1)
-        end),
-        awful.button({}, 3, function()
-            awful.layout.inc(-1)
-        end),
-        awful.button({}, 4, function()
-            awful.layout.inc(1)
-        end),
-        awful.button({}, 5, function()
-            awful.layout.inc(-1)
-        end)
-    ))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist({
-        screen = s,
-        filter = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons,
-    })
-
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist({
-        screen = s,
-        filter = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons,
-    })
-
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
-
-    -- Add widgets to the wibox
-    s.mywibox:setup({
-        layout = wibox.layout.align.horizontal,
-        {
-            -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        {
-            -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
-        },
-    })
-end)
--- }}}
-
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-    awful.button({}, 3, function()
-        main_menu:toggle()
-    end),
-    awful.button({}, 4, awful.tag.viewnext),
-    awful.button({}, 5, awful.tag.viewprev)
-))
+-- root.buttons(gears.table.join(
+--     awful.button({}, 3, function()
+--         main_menu:toggle()
+--     end),
+--     awful.button({}, 4, awful.tag.viewnext),
+--     awful.button({}, 5, awful.tag.viewprev)
+-- ))
 -- }}}
 
 -- {{{ Key bindings
@@ -284,6 +135,8 @@ for i = 1, 9 do
         })
     )
 end
+
+require("src.ui.wibar")
 
 -- Set keys
 root.keys(globalkeys)
@@ -346,7 +199,7 @@ client.connect_signal("request::titlebars", function(c)
             awful.titlebar.widget.stickybutton(c),
             awful.titlebar.widget.ontopbutton(c),
             awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal(),
+            layout = wibox.layout.fixed.horizontal,
         },
         layout = wibox.layout.align.horizontal,
     })
@@ -372,3 +225,26 @@ Naughty = naughty
 Print = function(x, depth)
     return gears.debug.dump_return(x, nil, depth or 1)
 end
+
+awful.spawn.with_shell(
+    'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;'
+        .. 'xrdb -merge <<< "awesome.started:true";'
+        -- list each of your autostart commands, followed by ; inside single quotes, followed by ..
+        .. "dex --environment Awesome --autostart"
+)
+
+-- awful.spawn.easy_async(
+--     "1password --silent",
+--     function(stdout, stderr, exitreason, exitcode)
+--         if exitcode ~= 0 then
+--             naughty.notify({
+--                 preset = naughty.config.presets.critical,
+--                 title = "1Password failed to start (exit code: " .. exitcode .. ")",
+--                 text = stderr,
+--             })
+--         else
+--         end
+--     end
+-- )
+--
+-- awful.spawn.spawn("picom -b --config ~/.config/picom/picom.conf")

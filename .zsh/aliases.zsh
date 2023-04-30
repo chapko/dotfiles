@@ -4,7 +4,6 @@ alias cp="cp -i"
 alias rm="rm -i"
 alias mv="mv -i"
 
-alias e="$EDITOR"
 alias gitp="git"
 alias qgit="git"
 

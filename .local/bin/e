@@ -8,6 +8,31 @@ else
     selected="$(find ~ ~/.config ~/workspace ~/workspace/rss /etc -mindepth 1 -maxdepth 1 -type d | fzf)"
 fi
 
-(
-    cd "${selected}" && "$EDITOR"
-)
+
+if [[ -z "${selected}" ]]; then
+    exit 0
+fi
+
+if [[ -f "${selected}" ]]; then
+    "${EDITOR}" "${selected}"
+    exit 0
+fi
+
+selected_name=$(basename "${selected}" | tr . _)
+tmux_running=$(pgrep tmux || true)
+
+if [[ -z "${tmux_running}" ]]; then
+    tmux new-session -s "${selected_name}" -c "${selected}" "${EDITOR}"
+    exit 0
+fi
+
+if ! tmux has-session -t "${selected_name}" 2> /dev/null; then
+    # create detached session
+    tmux new-session -ds "${selected_name}" -c "${selected}" "${EDITOR}"
+fi
+
+if [[ -z "${TMUX}" ]]; then
+    tmux attach -t "${selected_name}" "${EDITOR}"
+else
+    tmux switch-client -t "${selected_name}" \; split-window -c "${selected}" -vbf "${EDITOR}"
+fi

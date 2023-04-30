@@ -3,7 +3,9 @@
 pcall(require, "luarocks.loader")
 
 require("src.theme").setup({
-    font = "sans 9",
+    font = "Jost* 10",
+    hotkeys_font = "Jost* Black 10",
+    hotkeys_description_font = "Jost* 10",
 })
 
 local hotkeys_popup = require("awful.hotkeys_popup")

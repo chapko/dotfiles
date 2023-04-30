@@ -15,6 +15,15 @@ local ignore_patterns = {
 
 return {
   colorscheme = "catppuccin",
+  lsp = {
+    formatting = {
+      format_on_save = true,
+      disabled = {
+        "html",
+        "jsonls",
+      },
+    },
+  },
   plugins = {
     {
       -- breaks macros replay
@@ -257,6 +266,12 @@ return {
       opts = function(_, opts)
         local cmp = require "cmp"
 
+        table.insert(opts.sources, {
+          name = "emmet_vim",
+          priority = 1500,
+          group_index = 1,
+        })
+
         return vim.tbl_deep_extend("force", opts, {
           mapping = {
             ["<Tab>"] = cmp.mapping.confirm { select = true },
@@ -311,6 +326,14 @@ return {
         }
         return opts
       end,
+    },
+    {
+      "mattn/emmet-vim",
+      ft = { "html", "xml", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+    },
+    {
+      "dcampos/cmp-emmet-vim",
+      ft = { "html", "xml", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
     },
   },
   options = {

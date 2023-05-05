@@ -60,6 +60,6 @@ if type fnm &> /dev/null; then
 fi
 
 # nvm
-if [[ -f ~/.nvm/nvm.sh ]]; then
-    source "~/.nvm/nvm.sh"
+if [[ -f "$HOME/.nvm/nvm.sh" ]]; then
+    source "$HOME/.nvm/nvm.sh"
 fi

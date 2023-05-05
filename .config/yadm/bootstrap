@@ -1,14 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-setup_ohmyzsh() {
-    if  [ ! -d ~/.antidote ]; then
-        git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+setup_zsh() {
+    if  [[ -d ~/.antidote ]]; then
+        return
     fi
+
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "${ZDOTDIR:-~}/.antidote"
 }
 
 setup_vim() {
+    if [[ -d ~/.config/nvim/.git ]]; then
+        return
+    fi
+
     (
         cd ~/.config/nvim
         git init
@@ -19,6 +25,10 @@ setup_vim() {
 }
 
 setup_tmux() {
+    if [[ -d ~/.tmux/plugins/tpm ]]; then
+        return
+    fi
+
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
     (
         mkdir -p ~/.tmux/plugins
@@ -27,6 +37,6 @@ setup_tmux() {
     )
 }
 
-setup_ohmyzsh
+setup_zsh
 setup_vim
 setup_tmux

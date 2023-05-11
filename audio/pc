@@ -1,7 +1,7 @@
 <?xml version="1.1" encoding="utf-8"?>
 <rack><plugin type="gate" instance-name="Gate" input-index="13" output-index="13">
 <preset bank="0" program="0" plugin="gate" name="">
-  <param name="bypass" value="1" />
+  <param name="bypass" value="0" />
   <param name="level_in" value="1" />
   <param name="meter_in" value="0" />
   <param name="meter_out" value="0" />

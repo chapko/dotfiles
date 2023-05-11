@@ -21,7 +21,14 @@ return {
       disabled = {
         "html",
         "jsonls",
+        "tsserver",
+        "cssmodules_ls",
+        "lua_ls",
       },
+      filter = function(cl)
+        vim.print(vim.bo.filetype .. ": " .. cl.name)
+        return true
+      end,
     },
   },
   plugins = {

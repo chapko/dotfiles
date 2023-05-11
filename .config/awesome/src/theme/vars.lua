@@ -9,10 +9,12 @@ local assets_path = gfs.get_dir("config") .. "/src/theme/assets/"
 
 local theme = {}
 
-theme.monospace = "sans 8"
+theme.font = "sans 8"
+theme.nerd_font = "FiraCode Nerd Font"
 
 local gray = tw.stone
-local accent = tw.lime
+local accent = tw.sky
+local accent_base = 800
 
 theme.xresources_colors = {
     color0 = nord.night0,
@@ -48,21 +50,22 @@ xresources.get_current_theme = function()
     return theme.xresources_colors
 end
 
-theme.bg_normal = gray(800) .. "cc"
-theme.border_normal = gray(800)
+theme.bg_normal = gray(800)
+theme.border_normal = theme.bg_normal
 theme.fg_normal = gray(300)
 
-theme.bg_focus = accent(700) .. "cc"
-theme.border_focus = accent(700)
+theme.bg_focus = accent(accent_base)
+theme.border_focus = theme.bg_focus
 theme.fg_focus = tw.white
 
-theme.bg_urgent = tw.red(700) .. "cc"
-theme.fg_urgent = "#ffffff"
+theme.bg_urgent = tw.red(700)
+theme.fg_urgent = tw.white
+
+theme.titlebar_bg_normal = theme.bg_normal .. "88"
+theme.titlebar_bg_focus = theme.bg_focus .. "d0"
 
 theme.bg_minimize = gray(700)
 theme.fg_minimize = gray(400)
-
-theme.bg_systray = theme.bg_normal
 
 theme.useless_gap = dpi(2)
 theme.border_width = dpi(1)

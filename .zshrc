@@ -44,7 +44,7 @@ source "${HOME}/.zsh/functions.zsh"
 source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/prompt.zsh"
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"

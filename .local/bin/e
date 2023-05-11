@@ -26,15 +26,21 @@ if [[ -z "${tmux_running}" ]]; then
     exit 0
 fi
 
+switch_cmd=$([[ -z "${TMUX}" ]] && echo "attach" || echo "switch-client")
+
 if ! tmux has-session -t "${selected_name}" 2> /dev/null; then
-    # create detached session
-    tmux new-session -ds "${selected_name}" -c "${selected}"
+    tmux new-session -ds "${selected_name}" -c "${selected}" "${EDITOR}"
+    tmux "${switch_cmd}" -t "${selected_name}"
+    exit 0
 fi
 
+nvim_pane=$(tmux list-panes -t "${selected_name}" -F '#{pane_id} #{pane_current_command}' | grep nvim)
 
-cmd="switch-client"
-if [[ -z "${TMUX}" ]]; then
-    cmd="attach-session"
+if [[ -n "${nvim_pane}" ]]; then
+    IFS=' ' read -ra parts <<< "${nvim_pane}"
+    selected_name="${parts[0]}"
+    tmux "${switch_cmd}" -t "${selected_name}"
+    exit 0
 fi
 
-tmux "${cmd}" -t "${selected_name}" \; split-window -c "${selected}" -vbf "${EDITOR}"
+tmux "${switch_cmd}" -t "${selected_name}" \; split-window -c "${selected}" -vbf "${EDITOR}"

@@ -47,12 +47,28 @@ M.floating = {
             "ksnip",
             "Kvantum Manager",
             "Kvantum Preview",
-            "1Password",
             "Pavucontrol",
         },
         role = {
             "calf_plugin",
             "vlc-video",
+        },
+    },
+    properties = {
+        floating = true,
+    },
+}
+
+M.under_mouse = {
+    rule_any = {
+        role = {
+            "calf_plugin",
+        },
+        class = {
+            "1Password",
+        },
+        type = {
+            "dialog",
         },
     },
     properties = {
@@ -125,6 +141,7 @@ function M.setup()
     require("awful.rules").rules = {
         M.global,
         M.floating,
+        M.under_mouse,
         M.forced_tiling,
         M.titlebars,
         M.vlc,

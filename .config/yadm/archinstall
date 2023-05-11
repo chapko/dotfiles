@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# should be already installed:
+# base-devel amd-ucode networkmanager
+
+packages=(
+    #nvidia nvidia-settings
+
+    # system
+    git openssh zsh man-{db,pages}
+    gvfs ntfs-3g
+    reflector ntp
+
+    # tools
+    tmux bat fzf ripgrep zoxide yadm lazygit git-delta
+    graphviz luarocks shellcheck zip unzip
+    yt-dlp xdg-user-dirs xclip
+
+    # audio
+    wireplumber pipewire{,-alsa,-jack,-pulse}
+    qpwgraph carla calf non-mixer pavucontrol
+
+    # gui
+    lightdm{,-gtk-greeter} xorg-{server,apps,server-xephyr}
+    awesome picom rlwrap rofi dex
+    lx{appearance,input,session,randr}-gtk3
+    network-manager-applet
+
+    # themes
+    arc-gtk-theme arc-icon-theme capitaine-cursors gtk-engine-murrine
+    kvantum kvantum-theme-arc
+
+    # fonts
+    noto-fonts{,-cjk,-emoji,-extra} ttf-firacode-nerd ttf-liberation
+
+    # development
+    go python rustup
+    docker
+
+    # apps
+    redshift python-gobject python-pyxdg
+    kitty bc feh ksnip
+    pcmanfm-gtk3
+    discord telegram-desktop
+    vlc
+
+    neovim code
+
+    #wine
+    #krita
+)
+
+pacman -S --needed "${packages[@]}"
+
+yay -S 1password brave-bin fnm-bin otf-jost
+
+luarocks install rubato

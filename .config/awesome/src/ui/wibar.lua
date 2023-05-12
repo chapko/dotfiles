@@ -1,16 +1,22 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
+local xresources = require("beautiful.xresources")
 -- local naughty = require("naughty")
 
--- Create a textclock widget
-local clock = wibox.widget.textclock()
+local dpi = xresources.apply_dpi
+
+local wibar_width = dpi(48)
+local icon_size = dpi(32)
+local spacing = dpi(12)
+
+local clock = wibox.widget.textclock("%a\n%b %d\n%I:%M\n%p")
+clock.align = "center"
+
 local keyboardlayout = awful.widget.keyboardlayout()
-local launcher = awful.widget.launcher({
-    image = beautiful.awesome_icon,
-    menu = require("src.ui.bar.menu"),
-})
+keyboardlayout.widget.align = "center"
+keyboardlayout.widget.font = beautiful.font_name .. " " .. (beautiful.font_size * 1.5)
 
 awful.screen.connect_for_each_screen(function(s)
     s.ui = {}
@@ -51,32 +57,46 @@ awful.screen.connect_for_each_screen(function(s)
         position = "left",
         stretch = true,
         screen = s,
-        layout = wibox.layout.fixed.vertical,
         ontop = false,
-        width = 48,
+        width = wibar_width,
     })
 
     s.ui.systray = wibox.widget.systray()
     s.ui.systray:set_horizontal(false)
 
+    local m = (wibar_width - icon_size) / 2
+    local tray = wibox.container.margin(s.ui.systray, m, m, 0, 0)
+
     -- Add widgets to the wibox
     s.ui.wibox:setup({
         layout = wibox.layout.align.vertical,
         {
-            -- Left widgets
             layout = wibox.layout.fixed.vertical,
-            launcher,
+            wibox.widget({
+                widget = wibox.widget.separator,
+                orientation = "horizontal",
+                forced_height = 5,
+            }),
+            spacing = spacing,
+            clock,
             s.ui.taglist,
             s.ui.prompt,
         },
-        s.ui.tasklist, -- Middle widget
         {
-            -- Right widgets
             layout = wibox.layout.fixed.vertical,
+            s.ui.tasklist,
+        },
+        {
+            layout = wibox.layout.fixed.vertical,
+            spacing = spacing,
             keyboardlayout,
-            s.ui.systray,
-            clock,
-            s.ui.layoutbox,
+            tray,
+            wibox.container.margin(s.ui.layoutbox, m, m, 0, 0),
+            wibox.widget({
+                widget = wibox.widget.separator,
+                orientation = "horizontal",
+                forced_height = 5,
+            }),
         },
     })
 end)

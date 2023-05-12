@@ -9,7 +9,8 @@ local assets_path = gfs.get_dir("config") .. "/src/theme/assets/"
 
 local theme = {}
 
-theme.font = "sans 8"
+theme.font_name = "sans"
+theme.font_size = 8
 theme.nerd_font = "FiraCode Nerd Font"
 
 local gray = tw.stone

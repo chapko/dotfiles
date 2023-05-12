@@ -239,7 +239,7 @@ M.globalkeys = gears.table.join(
 
     -- Standard program
     key({
-        k = { { modkey }, "t" },
+        k = { { modkey }, "Return" },
         data = { description = "open a terminal", group = "launcher" },
         press = function()
             awful.spawn(settings.terminal)

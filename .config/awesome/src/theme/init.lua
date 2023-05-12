@@ -19,6 +19,7 @@ end
 
 function M.setup(opts)
     local theme = gears.table.join(theme_vars, opts)
+    theme.font = theme.font_name .. " " .. theme.font_size
 
     beautiful.wallpaper = theme.wallpaper
     beautiful.init(theme)

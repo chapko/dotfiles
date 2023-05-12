@@ -171,6 +171,13 @@ M.globalkeys = gears.table.join(
         end,
     }),
     key({
+        k = { { modkey }, "." },
+        data = { description = "emoji picker", group = "client" },
+        press = function()
+            awful.spawn("rofi -show emoji")
+        end,
+    }),
+    key({
         k = { { modkey, "Shift" }, "s" },
         data = { description = "screenshot", group = "screen" },
         press = function()
@@ -179,7 +186,7 @@ M.globalkeys = gears.table.join(
     }),
     key({
         k = { { modkey }, "e" },
-        data = { description = "file manager", group = "scren" },
+        data = { description = "file manager", group = "screen" },
         press = function()
             awful.spawn.spawn("pcmanfm")
         end,
@@ -232,7 +239,7 @@ M.globalkeys = gears.table.join(
 
     -- Standard program
     key({
-        k = { { modkey }, "." },
+        k = { { modkey }, "t" },
         data = { description = "open a terminal", group = "launcher" },
         press = function()
             awful.spawn(settings.terminal)
@@ -331,6 +338,13 @@ M.globalkeys = gears.table.join(
         end,
     }),
     key({
+        k = { { modkey }, "p" },
+        data = { description = "launch program", group = "launcher" },
+        press = function()
+            awful.spawn("rofi -show drun -show-icons")
+        end,
+    }),
+    key({
         k = { { modkey }, "x" },
         data = { description = "lua execute prompt", group = "awesome" },
         press = function()
@@ -343,15 +357,6 @@ M.globalkeys = gears.table.join(
                 end,
                 history_path = awful.util.get_cache_dir() .. "/history_eval",
             })
-        end,
-    }),
-
-    -- Menubar
-    key({
-        k = { { modkey }, "p" },
-        data = { description = "show the menubar", group = "launcher" },
-        press = function()
-            menubar.show()
         end,
     })
 )

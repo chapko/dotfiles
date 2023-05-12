@@ -1,0 +1,30 @@
+configuration {
+  modes: "drun,run,emoji";
+  font: "Jost* 14";
+  show-icons: true;
+  icon-theme: "arc-icon-theme";
+  drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
+
+  timeout {
+    action: "kb-cancel";
+    delay:  0;
+  }
+  filebrowser {
+    directories-first: true;
+    sorting-method:    "name";
+  }
+}
+
+@theme "Arc-Dark"
+
+element {
+  spacing: 0.5em;
+}
+
+element-text {
+  vertical-align: 0.5;
+}
+
+element-icon {
+  size: 1.5em;
+}

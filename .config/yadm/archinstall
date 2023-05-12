@@ -22,7 +22,7 @@ packages=(
 
     # gui
     lightdm{,-gtk-greeter} xorg-{server,apps,server-xephyr}
-    awesome picom rlwrap rofi dex
+    awesome picom rlwrap rofi rofi-emoji xdotool dex
     lx{appearance,input,session,randr}-gtk3
     network-manager-applet
 

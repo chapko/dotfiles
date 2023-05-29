@@ -35,6 +35,8 @@ setup_tmux() {
         cd ~/.tmux/plugins
         ln -s ../../.config/tmux/plugins/tpm ./tpm
     )
+
+    tmux run-shell ~/.tmux/plugins/tpm/bindings/install_plugins
 }
 
 setup_zsh

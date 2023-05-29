@@ -49,7 +49,9 @@ export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+if [[ -f "$HOME/.config/tabtab/zsh/__tabtab.zsh" ]]; then
+    source "$HOME/.config/tabtab/zsh/__tabtab.zsh"
+fi
 
 # z
 eval "$(zoxide init zsh --cmd z --hook pwd)"
@@ -62,4 +64,10 @@ fi
 # nvm
 if [[ -f "$HOME/.nvm/nvm.sh" ]]; then
     source "$HOME/.nvm/nvm.sh"
+fi
+
+
+# local config
+if [[ -f "$HOME/.zshrc.local" ]]; then
+    source "$HOME/.zshrc.local"
 fi

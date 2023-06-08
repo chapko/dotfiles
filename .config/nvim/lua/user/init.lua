@@ -37,26 +37,14 @@ return {
       "max397574/better-escape.nvim",
       enabled = false,
     },
-    {
-      "laytan/cloak.nvim",
-      event = editing_events,
-      config = true,
-    },
-    {
-      "tpope/vim-surround",
-      event = editing_events,
-    },
-    {
-      "tpope/vim-repeat",
-      event = editing_events,
-    },
-    {
-      "chapko/vim-fugitive", -- fork with 4-pane mergetool
-      event = "BufEnter",
-    },
+    { "laytan/cloak.nvim", event = editing_events, config = true },
+    { "tpope/vim-surround", event = editing_events },
+    { "tpope/vim-repeat", event = editing_events },
+    -- fork with 4-pane mergetool
+    { "chapko/vim-fugitive", event = "BufEnter" },
     {
       "iamcco/markdown-preview.nvim",
-      cmd = "MarkdownPreview",
+      ft = "markdown",
       build = ":call mkdp#util#install()",
     },
     {
@@ -139,6 +127,7 @@ return {
     {
       "folke/tokyonight.nvim",
       lazy = true,
+      enabled = false,
       opts = {
         style = "light",
         styles = {
@@ -282,6 +271,24 @@ return {
         return vim.tbl_deep_extend("force", opts, {
           mapping = {
             ["<Tab>"] = cmp.mapping.confirm { select = true },
+            ["<C-n>"] = cmp.mapping(function(fallback)
+              local call_fallback = false
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                call_fallback = not cmp.complete()
+              end
+              if call_fallback then fallback() end
+            end, { "i", "c" }),
+            ["<C-j>"] = cmp.mapping(function(fallback)
+              local call_fallback = false
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                call_fallback = not cmp.complete()
+              end
+              if call_fallback then fallback() end
+            end, { "i", "c" }),
             ["<C-e>"] = nil,
           },
         })
@@ -290,6 +297,7 @@ return {
     {
       "Exafunction/codeium.vim",
       event = "InsertEnter",
+      enabled = true,
       config = function()
         vim.g.codeium_disable_bindings = true
         vim.keymap.set("i", "<C-e>", function() return vim.fn["codeium#Accept"]() end, {
@@ -404,6 +412,11 @@ return {
     n[",gd"] = { "<cmd>vertical Gdiffsplit<cr>", desc = "Diff" }
     n[",gl"] = { "<cmd>Git log --oneline<cr>", desc = "Log" }
     n[",gm"] = { "<cmd>Git mergetool -y<cr>", desc = "Run mergetool" }
+
+    i["<C-J>"] = {
+      function() vim.lsp.buf.signature_help() end,
+      desc = "Signature help",
+    }
 
     return mapping
   end,

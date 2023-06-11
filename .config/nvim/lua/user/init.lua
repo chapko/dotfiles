@@ -280,7 +280,7 @@ return {
               end
               if call_fallback then fallback() end
             end, { "i", "c" }),
-            ["<C-j>"] = cmp.mapping(function(fallback)
+            ["<C-p>"] = cmp.mapping(function(fallback)
               local call_fallback = false
               if cmp.visible() then
                 cmp.select_prev_item()
@@ -290,6 +290,8 @@ return {
               if call_fallback then fallback() end
             end, { "i", "c" }),
             ["<C-e>"] = nil,
+            ["<C-j>"] = nil,
+            ["<C-k>"] = nil,
           },
         })
       end,

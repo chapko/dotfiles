@@ -5,7 +5,7 @@ set -e
 if [[ $# -gt 0 ]]; then
     selected="$1"
 else
-    selected="$(find ~ ~/.config ~/workspace ~/workspace/rss /etc -mindepth 1 -maxdepth 1 -type d | fzf)"
+    selected="$(find ~ ~/.config ~/workspace ~/workspace/rss ~/workspace/clones /etc -mindepth 1 -maxdepth 1 -type d | fzf)"
 fi
 
 

@@ -30,12 +30,6 @@ antidote load
 compinit
 handle_completion_insecurities &|
 
-# export COLORTERM=truecolor
-export LANG=en_US.UTF-8
-export EDITOR=nvim
-export GPG_TTY=$(tty)      # https://stackoverflow.com/a/40528629
-export BAT_THEME="Solarized (light)"
-
 WORDCHARS=''
 
 source "${HOME}/.zsh/aliases.zsh"
@@ -44,7 +38,6 @@ source "${HOME}/.zsh/functions.zsh"
 source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/prompt.zsh"
 
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"

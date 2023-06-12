@@ -38,14 +38,24 @@
     diffFilter = delta --color-only
 
 [delta]
+    features = "side-by-side"
     navigate = true
     light = true
-    side-by-side = true
     true-color = always
-    minus-style = syntax "#efe2e6"  # ff00000f
+
+    ; # ff00000f
+    minus-style = syntax "#efe2e6"
     minus-emph-style = syntax "#f1c3c6"
-    plus-style = syntax "#e0f1e6"  # 00ff000f
+    ; # 00ff000f
+    plus-style = syntax "#e0f1e6"
     plus-emph-style = syntax "#c2f3c6"
+
+[delta "side-by-side"]
+    side-by-side = true
+
+[delta "lazygit"]
+    width = "-0"
+    line-numbers = true
 
 [color]
     diff = auto

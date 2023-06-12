@@ -3,44 +3,46 @@
 set -e
 
 if [[ $# -gt 0 ]]; then
-    selected="$1"
+    selected_path="$1"
 else
-    selected="$(find ~ ~/.config ~/workspace ~/workspace/rss ~/workspace/clones /etc -mindepth 1 -maxdepth 1 -type d | fzf)"
+    selected_path="$(find ~ ~/.config ~/workspace ~/workspace/rss ~/workspace/clones /etc -mindepth 1 -maxdepth 1 -type d | fzf)"
 fi
 
 
-if [[ -z "${selected}" ]]; then
+if [[ -z "${selected_path}" ]]; then
     exit 0
 fi
 
-if [[ -f "${selected}" ]]; then
-    "${EDITOR}" "${selected}"
+if [[ -f "${selected_path}" ]]; then
+    "${EDITOR}" "${selected_path}"
     exit 0
 fi
 
-selected_name=$(basename "${selected}" | tr . _)
+has_session() {
+    tmux has-session -t "$1" 2> /dev/null
+}
+
+target_session=$(basename "${selected_path}" | tr . _)
 tmux_running=$(pgrep tmux || true)
-
-if [[ -z "${tmux_running}" ]]; then
-    tmux new-session -s "${selected_name}" -c "${selected}" "${EDITOR}"
-    exit 0
-fi
-
 switch_cmd=$([[ -z "${TMUX}" ]] && echo "attach" || echo "switch-client")
 
-if ! tmux has-session -t "${selected_name}" 2> /dev/null; then
-    tmux new-session -ds "${selected_name}" -c "${selected}" "${EDITOR}"
-    tmux "${switch_cmd}" -t "${selected_name}"
+if [[ -z "${tmux_running}" ]]; then
+    tmux new-session -s "${target_session}" -c "${selected_path}" \; send-keys "${EDITOR}" Enter
     exit 0
 fi
 
-nvim_pane=$(tmux list-panes -t "${selected_name}" -F '#{pane_id} #{pane_current_command}' | grep nvim)
-
-if [[ -n "${nvim_pane}" ]]; then
-    IFS=' ' read -ra parts <<< "${nvim_pane}"
-    selected_name="${parts[0]}"
-    tmux "${switch_cmd}" -t "${selected_name}"
+if ! has_session "${target_session}" ; then
+    tmux new-session -ds "${target_session}" -c "${selected_path}"
+    tmux "${switch_cmd}" -t "${target_session}" \; send-keys "${EDITOR}" Enter
     exit 0
 fi
 
-tmux "${switch_cmd}" -t "${selected_name}" \; split-window -c "${selected}" -vbf "${EDITOR}"
+first_nvim_pane=$(tmux list-panes -a -F '#{pane_id}' -f "#{&&:#{==:#{session_name},${target_session}},#{==:#{pane_current_command},nvim}}" | head -n 1)
+
+if [[ -n "${first_nvim_pane}" ]]; then
+    target_session="${first_nvim_pane}"
+    tmux "${switch_cmd}" -t "${first_nvim_pane}"
+    exit 0
+fi
+
+tmux "${switch_cmd}" -t "${target_session}" \; split-window -c "${selected_path}" -vbf \; send-keys "${EDITOR}" Enter

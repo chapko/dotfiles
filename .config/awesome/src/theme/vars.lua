@@ -14,8 +14,6 @@ theme.font_size = 8
 theme.nerd_font = "FiraCode Nerd Font"
 
 local gray = tw.stone
-local accent = tw.sky
-local accent_base = 800
 
 theme.xresources_colors = {
     color0 = nord.night0,
@@ -55,7 +53,7 @@ theme.bg_normal = gray(800)
 theme.border_normal = theme.bg_normal
 theme.fg_normal = gray(300)
 
-theme.bg_focus = accent(accent_base)
+theme.bg_focus = tw.lime(700)
 theme.border_focus = theme.bg_focus
 theme.fg_focus = tw.white
 

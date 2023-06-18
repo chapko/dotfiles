@@ -140,7 +140,7 @@
     # [user]
     #     name = ...
     #     email = ...
-    # [includeIf "gitdir:~/work"]
+    # [includeIf "gitdir:~/work/"]
     #     path = ~/.gitconfig.d/work
 
     # ~/.gitconfig.d/work

@@ -361,4 +361,60 @@ M.globalkeys = gears.table.join(
     })
 )
 
+for i = 1, settings.tags_number do
+    M.globalkeys = gears.table.join(
+        M.globalkeys,
+
+        key({
+            k = { { modkey }, "#" .. i + 9 },
+            data = { description = "view tag #" .. i, group = "tag" },
+            press = function()
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    tag:view_only()
+                end
+            end,
+        }),
+        key({
+            k = { { modkey, "Control" }, "#" .. i + 9 },
+            data = { description = "toggle tag #" .. i, group = "tag" },
+            press = function()
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    awful.tag.viewtoggle(tag)
+                end
+            end,
+        }),
+        key({
+            k = { { modkey, "Shift" }, "#" .. i + 9 },
+            data = { description = "move focused client to tag #" .. i, group = "tag" },
+            press = function()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:move_to_tag(tag)
+                    end
+                end
+            end,
+        }),
+        key({
+            k = { { modkey, "Control", "Shift" }, "#" .. i + 9 },
+            data = {
+                description = "toggle focused client on tag #" .. i,
+                group = "tag",
+            },
+            press = function()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:toggle_tag(tag)
+                    end
+                end
+            end,
+        })
+    )
+end
+
 return M

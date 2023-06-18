@@ -3,6 +3,8 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
 local xresources = require("beautiful.xresources")
+local settings = require("src.settings")
+
 -- local naughty = require("naughty")
 
 local dpi = xresources.apply_dpi
@@ -21,8 +23,12 @@ keyboardlayout.widget.font = beautiful.font_name .. " " .. (beautiful.font_size 
 awful.screen.connect_for_each_screen(function(s)
     s.ui = {}
 
+    local tag_names = {}
+    for i = 1, settings.tags_number, 1 do
+        table.insert(tag_names, i)
+    end
     -- Each screen has its own tag table.
-    local tags = awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+    local tags = awful.tag(tag_names, s, awful.layout.layouts[1])
 
     for _, tag in pairs(tags) do
         tag.master_width_factor = 0.625

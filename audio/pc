@@ -3,12 +3,12 @@
 <preset bank="0" program="0" plugin="gate" name="">
   <param name="bypass" value="0" />
   <param name="level_in" value="1" />
-  <param name="meter_in" value="0" />
-  <param name="meter_out" value="0" />
+  <param name="meter_in" value="0.00318193" />
+  <param name="meter_out" value="5.20161e-07" />
   <param name="clip_in" value="0" />
   <param name="clip_out" value="0" />
   <param name="range" value="1.5849e-05" />
-  <param name="threshold" value="0.0195052" />
+  <param name="threshold" value="0.00803215" />
   <param name="ratio" value="2" />
   <param name="attack" value="20" />
   <param name="release" value="250" />
@@ -16,15 +16,15 @@
   <param name="knee" value="2.82843" />
   <param name="detection" value="0" />
   <param name="stereo_link" value="0" />
-  <param name="gating" value="1" />
+  <param name="gating" value="1.5849e-05" />
 </preset>
 </plugin>
 <plugin type="compressor" instance-name="Compressor" input-index="17" output-index="17">
 <preset bank="0" program="0" plugin="compressor" name="">
   <param name="bypass" value="0" />
   <param name="level_in" value="1" />
-  <param name="meter_in" value="0.000864201" />
-  <param name="meter_out" value="0.004412" />
+  <param name="meter_in" value="5.20161e-07" />
+  <param name="meter_out" value="2.65558e-06" />
   <param name="clip_in" value="0" />
   <param name="clip_out" value="0" />
   <param name="threshold" value="0.0211969" />

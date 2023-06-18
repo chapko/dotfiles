@@ -24,10 +24,10 @@
   <param name="bypass" value="0" />
   <param name="level_in" value="1" />
   <param name="level_out" value="1" />
-  <param name="meter_inL" value="0.111088" />
-  <param name="meter_inR" value="0.111088" />
-  <param name="meter_outL" value="0.0707599" />
-  <param name="meter_outR" value="0.0707599" />
+  <param name="meter_inL" value="4.25119e-07" />
+  <param name="meter_inR" value="4.25119e-07" />
+  <param name="meter_outL" value="1.51928e-07" />
+  <param name="meter_outR" value="1.51928e-07" />
   <param name="clip_inL" value="0" />
   <param name="clip_inR" value="0" />
   <param name="clip_outL" value="0" />

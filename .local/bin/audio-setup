@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+default_link_id=$(pw-link -loI "alsa_input" "mic-input.vincent" | grep input_MONO | awk '{ print $1 }')
+pw-link -d "$default_link_id"
+
 calfjackhost --no-tray --client "output" --input "i_out" --output "o_out" --load "$HOME/audio/voice-out" &
 calfjackhost --no-tray --client "mic" --input "i_mic" --output "o_mic" --load "$HOME/audio/pc" &
+pw-jack non-mixer "$HOME/audio/mixer" &
 
 sleep 1
 

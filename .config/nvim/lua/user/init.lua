@@ -32,6 +32,9 @@ return {
         return true
       end,
     },
+    on_attach = function(client, bufnr)
+      if client.name == "tsserver" then require("twoslash-queries").attach(client, bufnr) end
+    end,
   },
   plugins = {
     {
@@ -360,6 +363,16 @@ return {
       "dcampos/cmp-emmet-vim",
       ft = { "html", "xml", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
     },
+    {
+      "marilari88/twoslash-queries.nvim",
+      ft = { "typescript", "typescriptreact" },
+      cmd = { "EnableTwoslashQueries", "InspectTwoslashQueries" },
+      config = true,
+      opts = {
+        is_enabled = false,
+        highlight = "Comment",
+      },
+    },
   },
   options = {
     opt = {
@@ -396,19 +409,8 @@ return {
     }
 
     -- terminal
-    local toggle_term_cmd = {
-      function()
-        local utils = require "astronvim.utils"
-        local Path = require "plenary.path"
-        local cwd = Path:new(vim.loop.cwd())
-        local folder = cwd:make_relative(cwd:parents()[1])
-        local session_name = "e:" .. folder
-        utils.toggle_term_cmd("tmux attach -t '" .. session_name .. "' || tmux new-session -s '" .. session_name .. "'")
-      end,
-      desc = "Toggle terminal",
-    }
-    n["<M-`>"] = toggle_term_cmd
-    t["<M-`>"] = toggle_term_cmd
+    n["<M-`>"] = n["<F7>"]
+    t["<M-`>"] = t["<F7>"]
     t["<C-l>"] = nil
 
     n[",d"] = { name = "Diff" }
@@ -416,7 +418,7 @@ return {
     n[",dt"] = { "<cmd>diffthis<cr>", desc = ":diffthis" }
 
     -- fugitive
-    n[",g"] = { name = " Fugitive" }
+    n[",g"] = { name = "󰊢 Fugitive" }
     n[",gs"] = { "<cmd>Git<cr>", desc = "Status" }
     n[",gb"] = { "<cmd>Git blame<cr>", desc = "Blame" }
     n[",gd"] = { "<cmd>vertical Gdiffsplit<cr>", desc = "Diff" }

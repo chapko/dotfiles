@@ -1,7 +1,7 @@
 gui:
   sidePanelWidth: 0.25
   expandFocusedSidePanel: true
-  showIcons: true
+  nerdFontsVersion: "3"
   theme:
     activeBorderColor:
       - "#40a02b" # Green

@@ -22,7 +22,7 @@ has_session() {
     tmux has-session -t "$1" 2> /dev/null
 }
 
-target_session=$(basename "${selected_path}" | tr . _)
+target_session=$(basename "$(realpath "${selected_path}")" | tr . _)
 tmux_running=$(pgrep tmux || true)
 switch_cmd=$([[ -z "${TMUX}" ]] && echo "attach" || echo "switch-client")
 

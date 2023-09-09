@@ -32,7 +32,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      auto_install = true,
+      auto_install = false,
       highlight = {
         disable = function(_, buf)
           local file_name = vim.api.nvim_buf_get_name(buf)

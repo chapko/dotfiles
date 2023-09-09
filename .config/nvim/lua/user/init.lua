@@ -26,6 +26,9 @@ return {
   },
 
   options = {
+    g = {
+      resession_enabled = true,
+    },
     opt = {
       textwidth = 88, -- for line wrapping with `gq`
       colorcolumn = "+0", -- line at 'textwidth' column
@@ -81,6 +84,16 @@ return {
     return mapping
   end,
 
+  heirline = {
+    attributes = {
+      -- disable italic
+      buffer_active = { bold = true, italic = false },
+    },
+    separators = {
+      path = "  ",
+    },
+  },
+
   polish = function()
     vim.api.nvim_create_user_command("Vimrc", "edit ~/.config/nvim/lua/user/init.lua", {})
 
@@ -91,6 +104,21 @@ return {
       vim.g.neovide_cursor_antialiasing = true
       vim.g.neovide_cursor_trail_size = 0.15
       vim.g.neovide_refresh_rate = 144
+    end
+
+    if require("astronvim.utils").is_available "resession.nvim" then
+      vim.api.nvim_create_autocmd("VimEnter", {
+        group = vim.api.nvim_create_augroup("resession_load_on_start", { clear = true }),
+        callback = function()
+          -- Only load the session if nvim was started with no args
+          if vim.fn.argc(-1) == 0 then
+            require("resession").load(vim.fn.getcwd(), {
+              dir = "dirsession",
+              silence_errors = true,
+            })
+          end
+        end,
+      })
     end
   end,
 }

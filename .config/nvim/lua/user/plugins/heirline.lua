@@ -69,14 +69,10 @@ return {
       local status = require "astronvim.utils.status"
 
       opts.opts.disable_winbar_cb = function(args)
+        if not vim.api.nvim_buf_is_valid(args.buf) then return true end
+
         local bufopts = vim.bo[args.buf or 0]
         return bufopts.buftype == "terminal" or bufopts.buftype == "quickfix" or bufopts.buftype == "nofile"
-        -- vim.print {
-        --   ft = vim.bo[args.buf or 0].filetype,
-        --   bt = vim.bo[args.buf or 0].buftype,
-        --   buflisted = vim.bo[args.buf or 0].buflisted,
-        --   valid = require("astronvim.utils.buffer").is_valid(args.buf),
-        -- }
         -- return not require("astronvim.utils.buffer").is_valid(args.buf)
         --   or status.condition.buffer_matches({
         --     buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },

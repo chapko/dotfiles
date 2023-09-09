@@ -70,7 +70,7 @@ return {
 
       opts.opts.disable_winbar_cb = function(args)
         local bufopts = vim.bo[args.buf or 0]
-        return bufopts.buftype == "terminal" or bufopts.buftype == "quickfix"
+        return bufopts.buftype == "terminal" or bufopts.buftype == "quickfix" or bufopts.buftype == "nofile"
         -- vim.print {
         --   ft = vim.bo[args.buf or 0].filetype,
         --   bt = vim.bo[args.buf or 0].buftype,

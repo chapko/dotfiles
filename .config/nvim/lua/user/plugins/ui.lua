@@ -50,4 +50,13 @@ return {
       top_down = true,
     },
   },
+
+  {
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
+    opts = {
+      hint = "floating-big-letter",
+      picker_config = {},
+    },
+  },
 }

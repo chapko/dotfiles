@@ -2,7 +2,7 @@ local editing_events = { "BufReadPost", "BufNewFile" }
 
 return {
   --
-  { "laytan/cloak.nvim", event = editing_events, config = true },
+  { "laytan/cloak.nvim", lazy = false, config = true },
   { "tpope/vim-surround", event = editing_events },
   { "tpope/vim-repeat", event = editing_events },
 
@@ -13,6 +13,20 @@ return {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     build = ":call mkdp#util#install()",
+  },
+
+  {
+    "stevearc/resession.nvim",
+    config = function(_, opts)
+      local resession = require "resession"
+      resession.setup(opts)
+      if require("astronvim.utils").is_available "cloak.nvim" then
+        resession.add_hook("post_load", function()
+          -- dispatch TextChanged event to trigger .env cloaking
+          vim.cmd [[ windo doautocmd TextChanged ]]
+        end)
+      end
+    end,
   },
 
   {

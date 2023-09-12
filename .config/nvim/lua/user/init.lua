@@ -76,6 +76,11 @@ return {
     n[",gm"] = { "<cmd>Git mergetool -y<cr>", desc = "Run mergetool" }
     n[",gw"] = { "<cmd>Git blame<cr>", desc = "Toggle blame" }
 
+    -- toggle cloaking
+    if require("astronvim.utils").is_available "cloak.nvim" then
+      n["<leader>u."] = { "<cmd>CloakToggle<cr>", desc = "Toggle cloaking" }
+    end
+
     i["<C-J>"] = {
       function() vim.lsp.buf.signature_help() end,
       desc = "Signature help",

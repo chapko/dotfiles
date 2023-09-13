@@ -16,20 +16,6 @@ return {
   },
 
   {
-    "stevearc/resession.nvim",
-    config = function(_, opts)
-      local resession = require "resession"
-      resession.setup(opts)
-      if require("astronvim.utils").is_available "cloak.nvim" then
-        resession.add_hook("post_load", function()
-          -- dispatch TextChanged event to trigger .env cloaking
-          vim.cmd [[ windo doautocmd TextChanged ]]
-        end)
-      end
-    end,
-  },
-
-  {
     "lewis6991/gitsigns.nvim",
     opts = {
       current_line_blame = true,

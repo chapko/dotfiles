@@ -25,6 +25,21 @@ return {
     end,
   },
 
+  highlights = {
+    ["catppuccin-latte"] = function()
+      local c = require("catppuccin.palettes").get_palette "latte"
+
+      return {
+        Folded = { fg = c.overlay0, bg = c.crust },
+        Whitespace = { fg = c.surface0 },
+        ColorColumn = { bg = c.mantle },
+        UfoFoldedEllipsis = { bg = c.surface0, fg = c.subtext0 },
+        IndentBlanklineChar = { fg = c.mantle },
+        IndentBlanklineContextChar = { fg = c.crust },
+      }
+    end,
+  },
+
   options = {
     g = {
       resession_enabled = true,
@@ -57,6 +72,11 @@ return {
     n[",p"] = { '"0p' }
 
     n["<C-w><C-p>"] = { "<cmd>pclose<cr>", desc = "Close preview" }
+
+    n["<leader>fH"] = {
+      function() require("telescope.builtin").highlights() end,
+      desc = "Find highlights",
+    }
 
     -- terminal
     n["<M-`>"] = n["<F7>"]
@@ -100,8 +120,6 @@ return {
   },
 
   polish = function()
-    vim.api.nvim_create_user_command("Vimrc", "edit ~/.config/nvim/lua/user/init.lua", {})
-
     --- @diagnostic disable-next-line: undefined-field
     if vim.g.neovide then
       vim.o.guifont = "FiraCode NF,Segoe UI Emoji:h14"
@@ -116,12 +134,17 @@ return {
         group = vim.api.nvim_create_augroup("resession_load_on_start", { clear = true }),
         callback = function()
           -- Only load the session if nvim was started with no args
-          if vim.fn.argc(-1) == 0 then
-            require("resession").load(vim.fn.getcwd(), {
-              dir = "dirsession",
-              silence_errors = true,
-            })
-          end
+          if vim.fn.argc(-1) ~= 0 then return end
+
+          -- wait for other plugins (cloak, color-highlight, etc.) to initialize
+          vim.schedule(
+            function()
+              require("resession").load(vim.fn.getcwd(), {
+                dir = "dirsession",
+                silence_errors = true,
+              })
+            end
+          )
         end,
       })
     end

@@ -36,6 +36,12 @@ return {
           live_grep = {
             file_ignore_patterns = ignore_patterns,
           },
+          colorscheme = {
+            enable_preview = true,
+          },
+          buffers = {
+            sort_mru = true,
+          },
         },
       })
     end,

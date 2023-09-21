@@ -2,10 +2,32 @@
 
 set -e
 
+# TODO: move into env
+root_dirs=(\
+    ~ \
+    ~/.config \
+    ~/workspace \
+    ~/workspace/rss \
+    ~/workspace/clones \
+)
+
+fzf_prompt() {
+    find "${root_dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf --query="$1"
+}
+
 if [[ $# -gt 0 ]]; then
     selected_path="$1"
+
+    if [[ -f "${selected_path}" ]]; then
+        "${EDITOR}" "${selected_path}"
+        exit 0
+    fi
+
+    if [[ ! -d "${selected_path}" ]]; then
+        selected_path="$(fzf_prompt "${selected_path}")"
+    fi
 else
-    selected_path="$(find ~ ~/.config ~/workspace ~/workspace/rss ~/workspace/clones /etc -mindepth 1 -maxdepth 1 -type d | fzf)"
+    selected_path="$(fzf_prompt)"
 fi
 
 
@@ -13,10 +35,7 @@ if [[ -z "${selected_path}" ]]; then
     exit 0
 fi
 
-if [[ -f "${selected_path}" ]]; then
-    "${EDITOR}" "${selected_path}"
-    exit 0
-fi
+
 
 has_session() {
     tmux has-session -t "$1" 2> /dev/null

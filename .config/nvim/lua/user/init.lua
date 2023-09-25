@@ -14,6 +14,7 @@ return {
         "lua_ls",
         "cssls",
         "tailwindcss",
+        "terraformls",
       },
       -- filter = function(cl)
       --   vim.print(vim.bo.filetype .. ": " .. cl.name)

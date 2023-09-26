@@ -24,6 +24,14 @@ return {
     on_attach = function(client, bufnr)
       if client.name == "tsserver" then require("twoslash-queries").attach(client, bufnr) end
     end,
+    config = {
+      tsserver = function(opts)
+        local has_config = require("lspconfig.util").root_pattern("tsconfig.json", "jsconfig.json", "package.json")
+        local has_git = require("lspconfig.util").root_pattern ".git"
+        opts.root_dir = function(fname) return has_git(fname) or has_config(fname) end
+        return opts
+      end,
+    },
   },
 
   highlights = {

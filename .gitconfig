@@ -79,6 +79,7 @@
     lg = lgg -20
 
     purr = pull --rebase
+    puff = push --force-with-lease
     ush = push  # gitp ush
 
     hash = rev-list --max-count=1

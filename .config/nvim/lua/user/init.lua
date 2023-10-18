@@ -43,8 +43,8 @@ return {
         Whitespace = { fg = c.surface0 },
         ColorColumn = { bg = c.mantle },
         UfoFoldedEllipsis = { bg = c.surface0, fg = c.subtext0 },
-        IndentBlanklineChar = { fg = c.mantle },
-        IndentBlanklineContextChar = { fg = c.crust },
+        IblIndent = { fg = c.mantle },
+        IblScope = { fg = c.surface0 },
       }
     end,
   },

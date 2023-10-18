@@ -15,24 +15,29 @@ return {
     build = ":call mkdp#util#install()",
   },
 
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      current_line_blame = true,
-      current_line_blame_opts = {
-        virt_text = true,
-        virt_text_pos = "eol",
-        delay = 500,
-        ignore_whitespace = false,
-      },
-      current_line_blame_formatter = "      <author>, <author_time:%Y-%m-%d> - <summary>",
-    },
-  },
+  -- {
+  --   "lewis6991/gitsigns.nvim",
+  --   opts = {
+  --     current_line_blame = true,
+  --     current_line_blame_opts = {
+  --       virt_text = true,
+  --       virt_text_pos = "eol",
+  --       delay = 2000,
+  --       ignore_whitespace = false,
+  --     },
+  --     current_line_blame_formatter = "      <author>, <author_time:%Y-%m-%d> - <summary>",
+  --   },
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       auto_install = false,
+      autotag = {
+        enable = true,
+        -- remove when https://github.com/windwp/nvim-ts-autotag/issues/125 closed.
+        enable_close_on_slash = false,
+      },
       highlight = {
         disable = function(_, buf)
           local file_name = vim.api.nvim_buf_get_name(buf)
@@ -155,5 +160,15 @@ return {
       },
       shade_terminals = false,
     },
+  },
+
+  {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-neo-tree/neo-tree.nvim",
+    },
+    ft = { "neo-tree" },
+    config = true,
   },
 }

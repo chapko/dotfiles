@@ -30,6 +30,9 @@ return {
           },
         },
         pickers = {
+          lsp_references = {
+            fname_width = 100,
+          },
           find_files = {
             file_ignore_patterns = ignore_patterns,
           },

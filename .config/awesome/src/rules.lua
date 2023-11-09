@@ -125,6 +125,17 @@ M.current_screen = {
     },
 }
 
+M.chrome_popups = {
+    rule = {
+        class = "Brave-browser",
+        role = "pop-up",
+    },
+    properties = {
+        floating = true,
+        placement = awful.placement.centered,
+    },
+}
+
 M.chrome_apps = {
     rule = {
         class = "Brave-browser",
@@ -147,6 +158,7 @@ function M.setup()
         M.vlc,
         M.dock,
         M.current_screen,
+        M.chrome_popups,
         M.chrome_apps,
     }
 end

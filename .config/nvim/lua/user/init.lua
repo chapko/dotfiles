@@ -55,6 +55,8 @@ return {
     },
     opt = {
       textwidth = 88, -- for line wrapping with `gq`
+      scrolloff = 3,
+      sidescrolloff = 6,
       colorcolumn = "+0", -- line at 'textwidth' column
       list = true, -- display whitespace characters
       clipboard = "unnamedplus",

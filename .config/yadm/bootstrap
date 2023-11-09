@@ -7,7 +7,7 @@ setup_zsh() {
         return
     fi
 
-    git clone --depth=1 https://github.com/mattmc3/antidote.git "${ZDOTDIR:-~}/.antidote"
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "${ZDOTDIR:-$HOME}/.antidote"
 }
 
 setup_vim() {

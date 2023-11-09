@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # should be already installed:
 # base-devel amd-ucode networkmanager
 
@@ -28,7 +30,7 @@ packages=(
 
     # themes
     arc-gtk-theme arc-icon-theme capitaine-cursors gtk-engine-murrine
-    kvantum kvantum-theme-arc
+    kvantum
 
     # fonts
     noto-fonts{,-cjk,-emoji,-extra} ttf-firacode-nerd ttf-liberation
@@ -50,8 +52,8 @@ packages=(
     #krita
 )
 
-pacman -S --needed "${packages[@]}"
+sudo pacman -S --needed "${packages[@]}"
 
-yay -S 1password brave-bin fnm-bin otf-jost
+yay -S 1password brave-bin fnm-bin otf-jost kvantum-theme-arc
 
 luarocks install rubato

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+cat << "EOF" > /etc/X11/xorg.conf.d/20-keyboard.conf
+Section "InputClass"
+    Identifier "system-keyboard"
+    MatchIsKeyboard "on"
+    Option "XkbLayout" "us,ru"
+    Option "XkbModel" "pc104"
+    Option "XkbOptions" "grp:win_space_toggle,ctrl:swapcaps"
+EndSection
+EOF
+
+cat << "EOF" > /etc/X11/xorg.conf.d/30-touchpad.conf
+# man 4 libinput
+
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    MatchIsTouchpad "on"
+    Option "Tapping" "on"
+    Option "TappingButtonMap" "lrm"
+    Option "NaturalScrolling" "true"
+EndSection
+EOF

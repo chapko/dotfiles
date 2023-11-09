@@ -6,12 +6,16 @@ set -e
 # base-devel amd-ucode networkmanager
 
 packages=(
-    #nvidia nvidia-settings
+    # nvidia nvidia-settings
+    # mesa vulkan-intel intel-media-driver xf86-video-intel
 
     # system
     git openssh zsh man-{db,pages}
     gvfs ntfs-3g
     reflector ntp
+
+    # laptop
+    light
 
     # tools
     tmux bat fzf ripgrep zoxide yadm lazygit git-delta
@@ -57,3 +61,6 @@ sudo pacman -S --needed "${packages[@]}"
 yay -S 1password brave-bin fnm-bin otf-jost kvantum-theme-arc
 
 luarocks install rubato
+
+sudo usermod -aG wheel,docker,video "${USER}"
+

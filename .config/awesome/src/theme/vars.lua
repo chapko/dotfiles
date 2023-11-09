@@ -153,7 +153,7 @@ theme.titlebar_maximized_button_normal_active = assets_path
 theme.titlebar_maximized_button_focus_active = assets_path
     .. "titlebar/maximized_focus_active.png"
 
-theme.wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper/2.jpg"
+theme.wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = assets_path .. "layouts/fairhw.png"

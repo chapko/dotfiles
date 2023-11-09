@@ -358,6 +358,18 @@ M.globalkeys = gears.table.join(
                 history_path = awful.util.get_cache_dir() .. "/history_eval",
             })
         end,
+    }),
+    key({
+        k = { {}, "XF86MonBrightnessDown" },
+        press = function()
+            awful.spawn("xbacklight -5")
+        end,
+    }),
+    key({
+        k = { {}, "XF86MonBrightnessUp" },
+        press = function()
+            awful.spawn("xbacklight +5")
+        end,
     })
 )
 

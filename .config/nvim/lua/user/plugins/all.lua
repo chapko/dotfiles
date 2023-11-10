@@ -32,7 +32,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      auto_install = false,
+      auto_install = true,
       autotag = {
         enable = true,
         -- remove when https://github.com/windwp/nvim-ts-autotag/issues/125 closed.

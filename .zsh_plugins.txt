@@ -7,4 +7,6 @@ ohmyzsh/ohmyzsh path:lib/theme-and-appearance.zsh
 ohmyzsh/ohmyzsh path:plugins/docker kind:fpath
 ohmyzsh/ohmyzsh path:plugins/docker-compose kind:fpath
 ohmyzsh/ohmyzsh path:plugins/yarn kind:fpath
+
+ohmyzsh/ohmyzsh path:plugins/dotenv
 ohmyzsh/ohmyzsh path:plugins/vi-mode

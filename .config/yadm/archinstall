@@ -46,7 +46,7 @@ packages=(
     # apps
     redshift python-gobject python-pyxdg
     kitty bc feh ksnip
-    pcmanfm-gtk3
+    pcmanfm-gtk3 engrampa
     discord telegram-desktop
     vlc
 
@@ -63,4 +63,3 @@ yay -S 1password brave-bin fnm-bin otf-jost kvantum-theme-arc
 luarocks install rubato
 
 sudo usermod -aG wheel,docker,video "${USER}"
-

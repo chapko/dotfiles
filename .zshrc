@@ -23,6 +23,7 @@ unsetopt flow_control      # Disable start/stop characters in shell editor.
 
 setopt auto_cd
 
+export ZSH="$HOME/.zsh"
 
 source "${HOME}/.antidote/antidote.zsh"
 antidote load

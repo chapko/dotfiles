@@ -48,6 +48,7 @@ M.floating = {
             "Kvantum Manager",
             "Kvantum Preview",
             "Pavucontrol",
+            "Blueman-manager",
         },
         role = {
             "calf_plugin",

@@ -15,7 +15,7 @@ packages=(
     reflector ntp
 
     # laptop
-    light
+    light bluez bluez-utils blueman pulseaudio-bluetooth
 
     # tools
     tmux bat fzf ripgrep zoxide yadm lazygit git-delta

@@ -149,6 +149,16 @@ M.chrome_apps = {
     },
 }
 
+M.titlebarless = {
+    rule_any = {
+        class = { "Brave-browser" },
+    },
+    properties = {
+        titlebars_enabled = false,
+        border_width = 0,
+    },
+}
+
 function M.setup()
     require("awful.rules").rules = {
         M.global,
@@ -161,6 +171,7 @@ function M.setup()
         M.current_screen,
         M.chrome_popups,
         M.chrome_apps,
+        M.titlebarless,
     }
 end
 

@@ -3,15 +3,15 @@
 <preset bank="0" program="0" plugin="compressor" name="">
   <param name="bypass" value="0" />
   <param name="level_in" value="1" />
-  <param name="meter_in" value="0" />
-  <param name="meter_out" value="0" />
+  <param name="meter_in" value="0.00311265" />
+  <param name="meter_out" value="0.0421232" />
   <param name="clip_in" value="0" />
   <param name="clip_out" value="0" />
-  <param name="threshold" value="0.00680118" />
-  <param name="ratio" value="3.70495" />
+  <param name="threshold" value="0.00560139" />
+  <param name="ratio" value="2.99904" />
   <param name="attack" value="20" />
   <param name="release" value="250" />
-  <param name="makeup" value="12.7462" />
+  <param name="makeup" value="13.5329" />
   <param name="knee" value="2.82843" />
   <param name="detection" value="0" />
   <param name="stereo_link" value="0" />
@@ -24,10 +24,10 @@
   <param name="bypass" value="0" />
   <param name="level_in" value="1" />
   <param name="level_out" value="1" />
-  <param name="meter_inL" value="4.25119e-07" />
-  <param name="meter_inR" value="4.25119e-07" />
-  <param name="meter_outL" value="1.51928e-07" />
-  <param name="meter_outR" value="1.51928e-07" />
+  <param name="meter_inL" value="0.0553383" />
+  <param name="meter_inR" value="0.0507956" />
+  <param name="meter_outL" value="0.0483539" />
+  <param name="meter_outR" value="0.0476439" />
   <param name="clip_inL" value="0" />
   <param name="clip_inR" value="0" />
   <param name="clip_outL" value="0" />

@@ -17,6 +17,10 @@
  <ExternalPatchbay>
   <Connection>
    <Source>Vincent:&apos;vincent&apos;_MONO</Source>
+   <Target>WEBRTC VoiceEngine:input_MONO</Target>
+  </Connection>
+  <Connection>
+   <Source>Vincent:&apos;vincent&apos;_MONO</Source>
    <Target>Non-Mixer/HP.Monitoring:in-2</Target>
   </Connection>
   <Connection>
@@ -24,11 +28,7 @@
    <Target>Non-Mixer/HP.Monitoring:in-1</Target>
   </Connection>
   <Connection>
-   <Source>Vincent:&apos;vincent&apos;_MONO</Source>
-   <Target>WEBRTC VoiceEngine:input_MONO</Target>
-  </Connection>
-  <Connection>
-   <Source>Scarlett 2i4 USB Input 1:capture_MONO</Source>
+   <Source>Scarlett 2i4 USB Pro:capture_AUX0</Source>
    <Target>mic:Gate In #1</Target>
   </Connection>
   <Connection>
@@ -36,16 +36,8 @@
    <Target>Non-Mixer/HP.Music:in-1</Target>
   </Connection>
   <Connection>
-   <Source>Miley:output_RL</Source>
-   <Target>Scarlett 2i4 USB Line 1-2:playback_FL</Target>
-  </Connection>
-  <Connection>
    <Source>Miley:output_RR</Source>
    <Target>Non-Mixer/HP.Music:in-2</Target>
-  </Connection>
-  <Connection>
-   <Source>Miley:output_RR</Source>
-   <Target>Scarlett 2i4 USB Line 1-2:playback_FR</Target>
   </Connection>
   <Connection>
    <Source>Violetta:output_RL</Source>
@@ -57,7 +49,7 @@
   </Connection>
   <Connection>
    <Source>Daisy:output_RL</Source>
-   <Target>Scarlett 2i4 USB Line 1-2:playback_FL</Target>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX0</Target>
   </Connection>
   <Connection>
    <Source>Daisy:output_RL</Source>
@@ -65,11 +57,19 @@
   </Connection>
   <Connection>
    <Source>Daisy:output_RR</Source>
-   <Target>Scarlett 2i4 USB Line 1-2:playback_FR</Target>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX1</Target>
   </Connection>
   <Connection>
    <Source>Daisy:output_RR</Source>
    <Target>Non-Mixer/HP.Desktop:in-2</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Monitoring:out-1</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX2</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Monitoring:out-2</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX3</Target>
   </Connection>
   <Connection>
    <Source>mic:Gate Out #1</Source>
@@ -77,31 +77,59 @@
   </Connection>
   <Connection>
    <Source>mic:Compressor Out #1</Source>
+   <Target>mic:Limiter In #1</Target>
+  </Connection>
+  <Connection>
+   <Source>mic:Limiter Out #1</Source>
    <Target>Non-Mixer/Microphone:in-1</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Desktop:out-1</Source>
+   <Target>output:Equalizer 8 Band In #1</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Desktop:out-1</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX0</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Desktop:out-2</Source>
+   <Target>output:Equalizer 8 Band In #2</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Desktop:out-2</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX1</Target>
   </Connection>
   <Connection>
    <Source>output:Compressor Out #1</Source>
    <Target>Non-Mixer/HP.Voice:in-1</Target>
   </Connection>
   <Connection>
-   <Source>output:Compressor Out #1</Source>
-   <Target>Scarlett 2i4 USB Line 1-2:playback_FL</Target>
-  </Connection>
-  <Connection>
    <Source>output:Compressor Out #2</Source>
    <Target>Non-Mixer/HP.Voice:in-2</Target>
   </Connection>
   <Connection>
-   <Source>output:Compressor Out #2</Source>
-   <Target>Scarlett 2i4 USB Line 1-2:playback_FR</Target>
-  </Connection>
-  <Connection>
    <Source>output:Equalizer 8 Band Out #1</Source>
-   <Target>Scarlett 2i4 USB Line 3-4:playback_FL</Target>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX2</Target>
   </Connection>
   <Connection>
    <Source>output:Equalizer 8 Band Out #2</Source>
-   <Target>Scarlett 2i4 USB Line 3-4:playback_FR</Target>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX3</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Music:out-1</Source>
+   <Target>output:Equalizer 8 Band In #1</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Music:out-1</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX0</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Music:out-2</Source>
+   <Target>output:Equalizer 8 Band In #2</Target>
+  </Connection>
+  <Connection>
+   <Source>Non-Mixer/HP.Music:out-2</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX1</Target>
   </Connection>
   <Connection>
    <Source>Non-Mixer/Microphone:out-1</Source>
@@ -112,32 +140,16 @@
    <Target>output:Equalizer 8 Band In #1</Target>
   </Connection>
   <Connection>
+   <Source>Non-Mixer/HP.Voice:out-1</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX0</Target>
+  </Connection>
+  <Connection>
    <Source>Non-Mixer/HP.Voice:out-2</Source>
    <Target>output:Equalizer 8 Band In #2</Target>
   </Connection>
   <Connection>
-   <Source>Non-Mixer/HP.Music:out-1</Source>
-   <Target>output:Equalizer 8 Band In #1</Target>
-  </Connection>
-  <Connection>
-   <Source>Non-Mixer/HP.Music:out-2</Source>
-   <Target>output:Equalizer 8 Band In #2</Target>
-  </Connection>
-  <Connection>
-   <Source>Non-Mixer/HP.Desktop:out-1</Source>
-   <Target>output:Equalizer 8 Band In #1</Target>
-  </Connection>
-  <Connection>
-   <Source>Non-Mixer/HP.Desktop:out-2</Source>
-   <Target>output:Equalizer 8 Band In #2</Target>
-  </Connection>
-  <Connection>
-   <Source>Non-Mixer/HP.Monitoring:out-1</Source>
-   <Target>output:Equalizer 8 Band In #1</Target>
-  </Connection>
-  <Connection>
-   <Source>Non-Mixer/HP.Monitoring:out-2</Source>
-   <Target>output:Equalizer 8 Band In #2</Target>
+   <Source>Non-Mixer/HP.Voice:out-2</Source>
+   <Target>Scarlett 2i4 USB Pro:playback_AUX1</Target>
   </Connection>
   <Connection>
    <Source>WEBRTC VoiceEngine:output_FL</Source>
@@ -147,56 +159,51 @@
    <Source>WEBRTC VoiceEngine:output_FR</Source>
    <Target>Violetta:&apos;c-violetta&apos;_FR</Target>
   </Connection>
+  <Connection>
+   <Source>Midi-Bridge:M-Audio Oxygen Pro Mini at usb-0000:0b:00-3-2- full speed:(capture_0) Oxygen Pro Mini USB MIDI</Source>
+   <Target>mic:Automation MIDI In</Target>
+  </Connection>
   <Positions>
-   <Position x1="976" y1="1238">
+   <Position x1="1222" y1="1456">
     <Name>Vincent</Name>
    </Position>
-   <Position x1="183" y1="1316" x2="2008" y2="1274">
-    <Name>Scarlett 2i4 USB Input 2</Name>
+   <Position x1="366" y1="1408" x2="2845" y2="1188">
+    <Name>Scarlett 2i4 USB Pro</Name>
    </Position>
-   <Position x1="172" y1="1180" x2="2008" y2="1348">
-    <Name>Scarlett 2i4 USB Input 1</Name>
-   </Position>
-   <Position x1="1672" y1="1353">
+   <Position x1="1648" y1="1257">
     <Name>Miley</Name>
    </Position>
-   <Position x1="1618" y1="1054">
+   <Position x1="1601" y1="1018">
     <Name>Violetta</Name>
    </Position>
-   <Position x1="1658" y1="1530">
+   <Position x1="1674" y1="1425">
     <Name>Daisy</Name>
    </Position>
-   <Position x1="426" y1="1210">
+   <Position x1="1788" y1="1654">
+    <Name>Non-Mixer/HP.Monitoring</Name>
+   </Position>
+   <Position x1="711" y1="1412">
     <Name>mic</Name>
    </Position>
-   <Position x1="2186" y1="1063">
+   <Position x1="1928" y1="1380">
+    <Name>Non-Mixer/HP.Desktop</Name>
+   </Position>
+   <Position x1="2251" y1="1080">
     <Name>output</Name>
    </Position>
-   <Position x1="742" y1="1240">
+   <Position x1="1930" y1="1234">
+    <Name>Non-Mixer/HP.Music</Name>
+   </Position>
+   <Position x1="1030" y1="1456">
     <Name>Non-Mixer/Microphone</Name>
    </Position>
    <Position x1="2241" y1="908">
     <Name>Non-Mixer/HP.Voice</Name>
    </Position>
-   <Position x1="1923" y1="1266">
-    <Name>Non-Mixer/HP.Music</Name>
-   </Position>
-   <Position x1="1929" y1="1419">
-    <Name>Non-Mixer/HP.Desktop</Name>
-   </Position>
-   <Position x1="1885" y1="1166">
-    <Name>Non-Mixer/HP.Monitoring</Name>
-   </Position>
-   <Position x1="1232" y1="1100">
+   <Position x1="1385" y1="1176">
     <Name>WEBRTC VoiceEngine</Name>
    </Position>
-   <Position x1="161" y1="1478" x2="2731" y2="1104">
-    <Name>Scarlett 2i4 USB Line 3-4</Name>
-   </Position>
-   <Position x1="165" y1="1381" x2="2445" y2="1356">
-    <Name>Scarlett 2i4 USB Line 1-2</Name>
-   </Position>
-   <Position x1="249" y1="1638" x2="932" y2="1655">
+   <Position x1="95" y1="1590" x2="921" y2="1667">
     <Name>Midi-Bridge</Name>
    </Position>
   </Positions>

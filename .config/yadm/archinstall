@@ -40,8 +40,9 @@ packages=(
     noto-fonts{,-cjk,-emoji,-extra} ttf-firacode-nerd ttf-liberation
 
     # development
-    go python rustup
+    go python python-pip rustup
     docker
+    tree-sitter tree-sitter-cli
 
     # apps
     redshift python-gobject python-pyxdg

@@ -78,6 +78,18 @@ M.under_mouse = {
     },
 }
 
+M.centered = {
+    rule_any = {
+        class = {
+            "feh",
+        },
+    },
+    properties = {
+        floating = true,
+        placement = awful.placement.centered,
+    },
+}
+
 M.forced_tiling = {
     rule_any = {
         role = { "calf_rack" },
@@ -164,6 +176,7 @@ function M.setup()
         M.global,
         M.floating,
         M.under_mouse,
+        M.centered,
         M.forced_tiling,
         M.titlebars,
         M.vlc,

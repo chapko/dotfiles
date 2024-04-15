@@ -3,11 +3,11 @@ return {
   opts = function(_, opts)
     local cmp = require "cmp"
 
-    table.insert(opts.sources, {
-      name = "emmet_vim",
-      priority = 1500,
-      group_index = 1,
-    })
+    -- table.insert(opts.sources, {
+    --   name = "emmet_vim",
+    --   priority = 1500,
+    --   group_index = 1,
+    -- })
 
     return vim.tbl_deep_extend("force", opts, {
       mapping = {

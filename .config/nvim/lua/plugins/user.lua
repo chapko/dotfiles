@@ -6,7 +6,7 @@ return {
   { "max397574/better-escape.nvim", enabled = false }, -- breaks macros replay
   { "stevearc/aerial.nvim", enabled = false },
   { "goolord/alpha-nvim", enabled = false },
-  { "mfussenegger/nvim-dap", enabled = false },
+  { "L3MON4D3/LuaSnip", enabled = false },
 
   --
 
@@ -58,17 +58,17 @@ return {
     config = true,
   },
 
-  {
-    "L3MON4D3/LuaSnip",
-    config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
-      require("luasnip.loaders.from_vscode").lazy_load { paths = { "./lua/user/snippets" } } -- load snippets paths
-
-      -- add more custom luasnip configuration such as filetype extend or custom snippets
-      -- local luasnip = require "luasnip"
-      -- luasnip.filetype_extend("javascript", { "javascriptreact" })
-    end,
-  },
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   config = function(plugin, opts)
+  --     require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
+  --     require("luasnip.loaders.from_vscode").lazy_load { paths = { "./lua/user/snippets" } } -- load snippets paths
+  --
+  --     -- add more custom luasnip configuration such as filetype extend or custom snippets
+  --     -- local luasnip = require "luasnip"
+  --     -- luasnip.filetype_extend("javascript", { "javascriptreact" })
+  --   end,
+  -- },
 
   {
     "folke/which-key.nvim",

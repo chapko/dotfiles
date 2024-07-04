@@ -7,19 +7,14 @@ return {
     "nvimtools/none-ls-extras.nvim",
   },
   opts = function(_, config)
-    -- config variable is the default configuration table for the setup function call
-    -- local null_ls = require "null-ls"
-
     -- Check supported formatters and linters
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 
-    -- config.sources = {
-    --   -- Set a formatter
-    --   -- require "none-ls.diagnostics.eslint_d",
-    --   -- null_ls.builtins.formatting.stylua,
-    --   -- null_ls.builtins.formatting.prettierd,
-    -- }
+    config.sources = {
+      require "none-ls.diagnostics.eslint_d",
+      require "none-ls.formatting.eslint_d",
+    }
 
     config.should_attach = function(buf)
       local file_name = vim.api.nvim_buf_get_name(buf)

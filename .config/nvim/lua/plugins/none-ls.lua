@@ -14,6 +14,7 @@ return {
     config.sources = {
       require "none-ls.diagnostics.eslint_d",
       require "none-ls.formatting.eslint_d",
+      require "none-ls.code_actions.eslint_d",
     }
 
     config.should_attach = function(buf)

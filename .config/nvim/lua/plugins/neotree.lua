@@ -42,6 +42,16 @@ return {
           ["On"] = "order_by_name",
           ["Os"] = "order_by_size",
           ["Ot"] = "order_by_type",
+
+          ["F"] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = node.path
+              if node.type == "file" then path = node:get_parent_id() end
+              require("telescope.builtin").live_grep { cwd = path }
+            end,
+            desc = "grep folder",
+          },
         },
       },
     },

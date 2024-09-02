@@ -3,24 +3,37 @@
 set -e
 
 # should be already installed:
-# base-devel amd-ucode networkmanager
+# base-devel amd-ucode networkmanager git yadm
 
-packages=(
+common_packages=(
+    openssh zsh man-{db,pages}
+
+    # tools
+    tmux bat fzf ripgrep zoxide lazygit git-delta
+    luarocks shellcheck zip unzip
+    yt-dlp
+
+    # development
+    go python python-pip rustup
+    tree-sitter tree-sitter-cli
+
+    # apps
+    neovim
+)
+
+linux_desktop_packages=(
     # nvidia nvidia-settings
     # mesa vulkan-intel intel-media-driver xf86-video-intel
 
     # system
-    git openssh zsh man-{db,pages}
     gvfs ntfs-3g
     reflector ntp
 
+    # Linux desktop
+    xdg-user-dirs xclip
+
     # laptop
     light bluez bluez-utils blueman pulseaudio-bluetooth
-
-    # tools
-    tmux bat fzf ripgrep zoxide yadm lazygit git-delta
-    graphviz luarocks shellcheck zip unzip
-    yt-dlp xdg-user-dirs xclip
 
     # audio
     wireplumber pipewire{,-alsa,-jack,-pulse}
@@ -40,9 +53,8 @@ packages=(
     noto-fonts{,-cjk,-emoji,-extra} ttf-firacode-nerd ttf-liberation
 
     # development
-    go python python-pip rustup
     docker
-    tree-sitter tree-sitter-cli
+    graphviz 
 
     # apps
     redshift python-gobject python-pyxdg
@@ -51,16 +63,52 @@ packages=(
     discord telegram-desktop
     vlc
 
-    neovim code
+    code
 
     #wine
     #krita
 )
 
+common_aur_packages=(
+    fnm-bin
+)
+
+linux_desktop_aur_packages=(
+    1password brave-bin otf-jost kvantum-theme-arc
+)
+
+# ---
+
+system_type="$(uname -s)"
+
+if [ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ]; then
+    system_type="WSL"
+fi
+
+
+packages=common_packages
+aur_packages=common_aur_packages
+
+case "$system_type" in
+    "WSL")
+        packages=( "${common_packages[@]}" )
+        aur_packages=( "${common_aur_packages[@]}" )
+        ;;
+    "Linux")
+        packages=( "${common_packages[@]}" "${linux_desktop_packages[@]}")
+        aur_packages=( "${common_aur_packages[@]}" "${linux_desktop_aur_packages[@]}" )
+        ;;
+    *)
+        ;;
+esac
+
+# ---
+
 sudo pacman -S --needed "${packages[@]}"
+yay -S --needed "${aur_packages[@]}"
 
-yay -S 1password brave-bin fnm-bin otf-jost kvantum-theme-arc
+sudo luarocks install rubato
 
-luarocks install rubato
+# ---
 
-sudo usermod -aG wheel,docker,video "${USER}"
+# sudo usermod -aG wheel,docker,video "${USER}"

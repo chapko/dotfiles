@@ -10,3 +10,4 @@ ohmyzsh/ohmyzsh path:plugins/yarn kind:fpath
 
 ohmyzsh/ohmyzsh path:plugins/dotenv
 ohmyzsh/ohmyzsh path:plugins/vi-mode
+ohmyzsh/ohmyzsh path:plugins/fnm

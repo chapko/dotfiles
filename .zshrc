@@ -25,6 +25,16 @@ setopt auto_cd
 
 export ZSH="$HOME/.zsh"
 
+# setup zsh cache dir for for omz completions
+export ZSH_CACHE_DIR="${ZSH}/cache"
+mkdir -p "$ZSH_CACHE_DIR/completions"
+(( ${fpath[(Ie)$ZSH_CACHE_DIR/completions]} )) || fpath=("$ZSH_CACHE_DIR/completions" $fpath)
+
+
+# Disable async prompts
+# https://github.com/ohmyzsh/ohmyzsh/blob/b8c69d265257fae88fe504ea43cbcf2728bc1308/README.md#disable-async-git-prompt
+zstyle ':omz:alpha:lib:git' async-prompt no
+
 source "${HOME}/.antidote/antidote.zsh"
 antidote load
 

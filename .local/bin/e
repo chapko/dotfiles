@@ -2,17 +2,10 @@
 
 set -e
 
-# TODO: move into env
-root_dirs=(\
-    ~ \
-    ~/.config \
-    ~/workspace \
-    ~/workspace/rss \
-    ~/workspace/clones \
-)
+IFS=':' read -r -a root_dirs <<< "${E_PROJECTS_PATH}"
 
 fzf_prompt() {
-    find "${root_dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf --query="$1"
+    find "${root_dirs[@]}" -mindepth 1 -maxdepth "${E_PROJECTS_DEPTH:-1}" -type d | fzf --query="$1"
 }
 
 if [[ $# -gt 0 ]]; then

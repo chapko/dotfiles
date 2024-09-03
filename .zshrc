@@ -30,6 +30,10 @@ export ZSH_CACHE_DIR="${ZSH}/cache"
 mkdir -p "$ZSH_CACHE_DIR/completions"
 (( ${fpath[(Ie)$ZSH_CACHE_DIR/completions]} )) || fpath=("$ZSH_CACHE_DIR/completions" $fpath)
 
+# configure .local/bin/e folders
+export E_PROJECTS_PATH="$HOME/.config:$HOME/workspace"
+export E_PROJECTS_DEPTH="1"
+
 
 # Disable async prompts
 # https://github.com/ohmyzsh/ohmyzsh/blob/b8c69d265257fae88fe504ea43cbcf2728bc1308/README.md#disable-async-git-prompt

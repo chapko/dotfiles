@@ -48,16 +48,6 @@ return {
     },
   },
 
-  {
-    "antosha417/nvim-lsp-file-operations",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-neo-tree/neo-tree.nvim",
-    },
-    ft = { "neo-tree" },
-    config = true,
-  },
-
   -- {
   --   "L3MON4D3/LuaSnip",
   --   config = function(plugin, opts)

@@ -53,19 +53,6 @@ return {
       -- enable servers that you already have installed without mason
       -- table.insert(opts.servers, "pyright")
 
-      -- customize language server configuration options passed to `lspconfig`
-      opts.config.jsonls = {
-        settings = {
-          ---@diagnostic disable-next-line: missing-fields
-          json = {
-            schemas = require("schemastore").json.schemas(),
-            schemaDownload = {
-              enable = true,
-            },
-          },
-        },
-      }
-
       -- customize how language servers are attached
       -- handlers = {
       --   -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server

@@ -27,4 +27,5 @@ require("lazy").setup({
       },
     },
   },
+  local_spec = true,
 } --[[@as LazyConfig]])

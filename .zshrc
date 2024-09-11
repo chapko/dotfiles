@@ -74,7 +74,6 @@ if [[ -f "$HOME/.nvm/nvm.sh" ]]; then
     source "$HOME/.nvm/nvm.sh"
 fi
 
-
 # local config
 if [[ -f "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"

@@ -16,5 +16,11 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}] %{$fg[red]%}✗ %{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}] %{$fg[green]%}✓ %{$reset_color%}"
 MODE_INDICATOR="%{$fg_bold[magenta]%}[vi] %{$reset_color%}"
 
+SHOW_AWS_PROMPT=true
+ZSH_THEME_AWS_PROFILE_PREFIX="%{$fg[yellow]%}[aws:"
+ZSH_THEME_AWS_PROFILE_SUFFIX="%{$reset_color%} "
+ZSH_THEME_AWS_DIVIDER=""
+ZSH_THEME_AWS_REGION_PREFIX="%{$fg[yellow]%}("
+ZSH_THEME_AWS_REGION_SUFFIX=")]%{$reset_color%} "
 
 

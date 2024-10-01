@@ -79,6 +79,7 @@ return {
 
         -- TODO: figure out plugin mappings (use mapping only if plugin is available)
         ["<leader>u."] = { "<Cmd>CloakToggle<cr>", desc = "Toggle cloaking" },
+        ["<leader>."] = { "<Cmd>CloakPreviewLine<cr>", desc = "Preview cloaked line" },
       },
       i = {
         ["jj"] = { "<Esc>" },

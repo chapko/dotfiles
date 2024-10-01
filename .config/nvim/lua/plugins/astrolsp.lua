@@ -37,6 +37,7 @@ return {
           "html",
           "jsonls",
           "tsserver",
+          "vtsls",
           "cssmodules_ls",
           "lua_ls",
           "cssls",
@@ -49,6 +50,9 @@ return {
         --   return true
         -- end,
       }
+
+      -- disable tsserver in favor of vtsls
+      opts.handlers.tsserver = false
 
       -- enable servers that you already have installed without mason
       -- table.insert(opts.servers, "pyright")

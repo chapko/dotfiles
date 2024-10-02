@@ -52,6 +52,9 @@ return {
             end,
             desc = "grep folder",
           },
+
+          ["<C-j>"] = { "scroll_preview", config = { direction = -10 } },
+          ["<C-k>"] = { "scroll_preview", config = { direction = 10 } },
         },
       },
     },

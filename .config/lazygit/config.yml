@@ -29,5 +29,10 @@ git:
   branchLogCmd: "git log --color=always --graph --abbrev-commit --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' {{branchName}} --"
   allBranchesLogCmd: "git log --color=always --graph --abbrev-commit --all --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
   autoFetch: false
+  mainBranches:
+    - master
+    - main
+    - develop
+    - development
 
 notARepository: "skip"

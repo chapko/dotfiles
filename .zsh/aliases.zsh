@@ -18,5 +18,7 @@ alias l='ls -lah'
 alias ll='ls -lh'
 alias la='ls -lAh'
 
+alias lg='TERM=screen-256color lazygit'
+
 alias sc='systemctl'
 alias xcb='xclip -selection clipboard'

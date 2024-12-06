@@ -10,20 +10,6 @@ setup_zsh() {
     git clone --depth=1 https://github.com/mattmc3/antidote.git "${ZDOTDIR:-$HOME}/.antidote"
 }
 
-setup_vim() {
-    if [[ -d ~/.config/nvim/.git ]]; then
-        return
-    fi
-
-    (
-        cd ~/.config/nvim
-        git init
-        git remote add origin https://github.com/AstroNvim/AstroNvim
-        git fetch --depth 1
-        git checkout main
-    )
-}
-
 setup_tmux() {
     if [[ -d ~/.tmux/plugins/tpm ]]; then
         return
@@ -40,5 +26,4 @@ setup_tmux() {
 }
 
 setup_zsh
-setup_vim
 setup_tmux

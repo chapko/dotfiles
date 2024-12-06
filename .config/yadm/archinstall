@@ -26,28 +26,29 @@ linux_desktop_packages=(
     # mesa vulkan-intel intel-media-driver xf86-video-intel
 
     # system
-    gvfs ntfs-3g
+    gvfs
     reflector ntp
 
     # Linux desktop
-    xdg-user-dirs xclip
+    # xdg-user-dirs xclip
 
     # laptop
-    light bluez bluez-utils blueman pulseaudio-bluetooth
+    # light
+    # bluez bluez-utils blueman pulseaudio-bluetooth
 
     # audio
     wireplumber pipewire{,-alsa,-jack,-pulse}
-    qpwgraph carla calf non-mixer pavucontrol
+    # qpwgraph carla calf non-mixer pavucontrol
 
     # gui
-    lightdm{,-gtk-greeter} xorg-{server,apps,server-xephyr}
-    awesome picom rlwrap rofi rofi-emoji xdotool dex
-    lx{appearance,input,session,randr}-gtk3
-    network-manager-applet
+    # lightdm{,-gtk-greeter} xorg-{server,apps,server-xephyr}
+    # awesome picom rlwrap rofi rofi-emoji xdotool dex
+    # lx{appearance,input,session,randr}-gtk3
+    # network-manager-applet
 
     # themes
-    arc-gtk-theme arc-icon-theme capitaine-cursors gtk-engine-murrine
-    kvantum
+    # arc-gtk-theme arc-icon-theme capitaine-cursors gtk-engine-murrine
+    # kvantum
 
     # fonts
     noto-fonts{,-cjk,-emoji,-extra} ttf-firacode-nerd ttf-liberation
@@ -57,13 +58,15 @@ linux_desktop_packages=(
     graphviz 
 
     # apps
-    redshift python-gobject python-pyxdg
-    kitty bc feh ksnip
-    pcmanfm-gtk3 engrampa
+    # redshift python-gobject python-pyxdg
+    kitty
+    bc
+    # feh ksnip
+    # pcmanfm-gtk3 engrampa
     discord telegram-desktop
     vlc
 
-    code
+    # code
 
     #wine
     #krita
@@ -74,7 +77,10 @@ common_aur_packages=(
 )
 
 linux_desktop_aur_packages=(
-    1password brave-bin otf-jost kvantum-theme-arc
+    1password
+    brave-bin
+    # otf-jost
+    # kvantum-theme-arc
 )
 
 # ---
@@ -104,7 +110,7 @@ esac
 
 # ---
 
-sudo pacman -S --needed "${packages[@]}"
+sudo pacman -Sy --needed "${packages[@]}"
 yay -S --needed "${aur_packages[@]}"
 
 sudo luarocks install rubato

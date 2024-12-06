@@ -27,7 +27,6 @@ return {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
-        spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
 
@@ -46,6 +45,10 @@ return {
           precedes = "…",
           nbsp = "•", -- ↙
         },
+
+        spell = true,
+        spelllang = "en_us",
+        spelloptions = "camel",
       },
     },
     -- Mappings can be configured through AstroCore as well.

@@ -4,7 +4,6 @@ local editing_events = { "BufReadPost", "BufNewFile" }
 return {
   -- disabled
   { "max397574/better-escape.nvim", enabled = false }, -- breaks macros replay
-  { "stevearc/aerial.nvim", enabled = false },
   { "goolord/alpha-nvim", enabled = false },
   { "L3MON4D3/LuaSnip", enabled = false },
 

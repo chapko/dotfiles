@@ -5,6 +5,7 @@ command -v tmux &> /dev/null &&
 [[ ! "$TERM" =~ tmux ]] &&
 [ -z "$TMUX" ] &&
 [ -z "$DISABLE_TMUX" ] &&
+[ -z "$VSCODE_INJECTION" ]
 then
     tmux attach -t default &>/dev/null || tmux new-session -s default # do not exec to be able to exit from tmux to the zsh
 fi
@@ -57,9 +58,6 @@ source "${HOME}/.zsh/prompt.zsh"
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-if [[ -f "$HOME/.config/tabtab/zsh/__tabtab.zsh" ]]; then
-    source "$HOME/.config/tabtab/zsh/__tabtab.zsh"
-fi
 
 # z
 eval "$(zoxide init zsh --cmd z --hook pwd)"

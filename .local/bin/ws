@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+path=$(readlink -f "${1:-.}")
+
+if [[ -n "$WSL_DISTRO_NAME" ]]; then
+  path="vscode-remote://wsl+${WSL_DISTRO_NAME}${path}"
+fi
+
+windsurf --folder-uri "${path}"

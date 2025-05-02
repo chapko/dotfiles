@@ -58,6 +58,7 @@ source "${HOME}/.zsh/prompt.zsh"
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+source "$HOME/.zsh/pnpm.completion.zsh"
 
 # z
 eval "$(zoxide init zsh --cmd z --hook pwd)"
@@ -75,4 +76,14 @@ fi
 # local config
 if [[ -f "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"
+fi
+
+# go
+if command -v go >/dev/null 2>&1; then
+  export PATH="$PATH:$(go env GOPATH)/bin"
+fi
+
+# gpg pinentry in vscode
+if  [[ -n "$VSCODE_INJECTION" ]]; then
+  export GPG_TTY=$(tty)
 fi

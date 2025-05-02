@@ -1,6 +1,5 @@
 ohmyzsh/ohmyzsh path:lib/compfix.zsh
 ohmyzsh/ohmyzsh path:lib/git.zsh
-ohmyzsh/ohmyzsh path:lib/nvm.zsh
 ohmyzsh/ohmyzsh path:lib/spectrum.zsh
 ohmyzsh/ohmyzsh path:lib/theme-and-appearance.zsh
 

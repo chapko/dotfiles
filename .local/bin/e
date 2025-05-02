@@ -28,7 +28,7 @@ if [[ -z "${selected_path}" ]]; then
     exit 0
 fi
 
-
+tmux_command=("send-keys" "${EDITOR}" "Enter")
 
 has_session() {
     tmux has-session -t "$1" 2> /dev/null
@@ -39,13 +39,13 @@ tmux_running=$(pgrep tmux || true)
 switch_cmd=$([[ -z "${TMUX}" ]] && echo "attach" || echo "switch-client")
 
 if [[ -z "${tmux_running}" ]]; then
-    tmux new-session -s "${target_session}" -c "${selected_path}" \; send-keys "${EDITOR}" Enter
+    tmux new-session -s "${target_session}" -c "${selected_path}" \; "${tmux_command[@]}"
     exit 0
 fi
 
 if ! has_session "${target_session}" ; then
     tmux new-session -ds "${target_session}" -c "${selected_path}"
-    tmux "${switch_cmd}" -t "${target_session}" \; send-keys "${EDITOR}" Enter
+    tmux "${switch_cmd}" -t "${target_session}" \; "${tmux_command[@]}"
     exit 0
 fi
 
@@ -57,4 +57,4 @@ if [[ -n "${first_nvim_pane}" ]]; then
     exit 0
 fi
 
-tmux "${switch_cmd}" -t "${target_session}" \; split-window -c "${selected_path}" -vbf \; send-keys "${EDITOR}" Enter
+tmux "${switch_cmd}" -t "${target_session}" \; split-window -c "${selected_path}" -vbf \; "${tmux_command[@]}"

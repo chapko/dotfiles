@@ -105,7 +105,7 @@
     bl = for-each-ref --format='%(color:green)%(authorname) %(color:reset)[%(color:blue)%(refname:short)%(color:reset)] - %(color:reset)%(subject)' refs/heads
     blr = for-each-ref --format='%(color:green)%(authorname) %(color:reset)[%(color:blue)%(refname:short)%(color:reset)] - %(color:reset)%(subject)' refs/remotes/origin
 
-    copyb = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD) && echo $branch | tr -d '\n' | tr -d ' ' | xclip; };f"
+    # copyb = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD) && echo $branch | tr -d '\n' | tr -d ' ' | xclip; };f"
 
     # new branch
     nb = "!f(){ git branch ${1} ${2} && git checkout ${1}; }; f"

@@ -53,6 +53,7 @@ return {
 
       -- disable tsserver in favor of vtsls
       opts.handlers.tsserver = false
+      opts.handlers.ts_ls = false
 
       -- enable servers that you already have installed without mason
       -- table.insert(opts.servers, "pyright")

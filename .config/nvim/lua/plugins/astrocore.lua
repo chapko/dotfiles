@@ -83,6 +83,19 @@ return {
         -- TODO: figure out plugin mappings (use mapping only if plugin is available)
         ["<leader>u."] = { "<Cmd>CloakToggle<cr>", desc = "Toggle cloaking" },
         ["<leader>."] = { "<Cmd>CloakPreviewLine<cr>", desc = "Preview cloaked line" },
+        ["<leader>uW"] = {
+          function()
+            if vim.o.diffopt:match "iwhite" then
+              vim.o.diffopt = vim.o.diffopt:gsub("iwhite", "")
+            else
+              vim.o.diffopt = vim.o.diffopt .. ",iwhite"
+            end
+          end,
+          desc = "Toggle whitespace diff",
+        },
+      },
+      v = {
+        [",p"] = { '"0p' },
       },
       i = {
         ["jj"] = { "<Esc>" },

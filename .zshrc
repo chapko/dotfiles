@@ -61,7 +61,9 @@ export PATH="$PNPM_HOME:$PATH"
 source "$HOME/.zsh/pnpm.completion.zsh"
 
 # z
-eval "$(zoxide init zsh --cmd z --hook pwd)"
+if type zoxide &> /dev/null; then
+    eval "$(zoxide init zsh --cmd z --hook pwd)"
+fi
 
 # fnm
 if type fnm &> /dev/null; then

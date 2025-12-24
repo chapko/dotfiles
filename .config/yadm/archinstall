@@ -87,10 +87,9 @@ linux_desktop_aur_packages=(
 
 system_type="$(uname -s)"
 
-if [ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ]; then
+if [[ "$(uname -r)" == *"WSL"* ]]; then
     system_type="WSL"
 fi
-
 
 packages=common_packages
 aur_packages=common_aur_packages

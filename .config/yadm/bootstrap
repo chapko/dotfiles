@@ -11,16 +11,14 @@ setup_zsh() {
 }
 
 setup_tmux() {
-    if [[ -d ~/.tmux/plugins/tpm ]]; then
-        return
+    if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+        (
+            mkdir -p ~/.tmux/plugins
+            cd ~/.tmux/plugins
+            ln -s ../../.config/tmux/plugins/tpm ./tpm
+        )
     fi
-
-    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-    (
-        mkdir -p ~/.tmux/plugins
-        cd ~/.tmux/plugins
-        ln -s ../../.config/tmux/plugins/tpm ./tpm
-    )
 
     tmux run-shell ~/.tmux/plugins/tpm/bindings/install_plugins
 }

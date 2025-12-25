@@ -23,9 +23,9 @@ gui:
     defaultFgColor:
       - black
 git:
-  paging:
+  pagers:
     # pager: truecolor-test && delta --features="lazygit" --paging=never
-    pager: delta --features="lazygit" --paging=never
+    - pager: delta --features="lazygit" --paging=never
   branchLogCmd: "git log --color=always --graph --abbrev-commit --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' {{branchName}} --"
   autoFetch: false
   mainBranches:

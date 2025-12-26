@@ -48,7 +48,7 @@ return {
               local node = state.tree:get_node()
               local path = node.path
               if node.type == "file" then path = node:get_parent_id() end
-              require("telescope.builtin").live_grep { cwd = path }
+              require("snacks").picker.grep { dirs = { path } }
             end,
             desc = "grep folder",
           },

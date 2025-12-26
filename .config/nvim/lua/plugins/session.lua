@@ -2,15 +2,7 @@ return {
   "AstroNvim/astrocore",
   ---@type AstroCoreOpts
   opts = {
-    sessions = {
-      autosave = {
-        last = true,
-        cwd = true,
-      },
-    },
     autocmds = {
-      alpha_autostart = false,
-
       restore_session = {
         {
           event = "VimEnter",

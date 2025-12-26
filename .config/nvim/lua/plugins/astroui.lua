@@ -1,5 +1,7 @@
 -- AstroUI provides the basis for configuring the AstroNvim User Interface
 -- Configuration documentation can be found with `:h astroui`
+-- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
+--       as this provides autocomplete and documentation while editing
 
 ---@type LazySpec
 return {
@@ -13,18 +15,6 @@ return {
       init = { -- this table overrides highlights in all themes
         -- Normal = { bg = "#000000" },
       },
-      ["catppuccin-latte"] = function()
-        local c = require("catppuccin.palettes").get_palette "latte"
-
-        return {
-          Folded = { fg = c.overlay0, bg = c.crust },
-          Whitespace = { fg = c.surface0 },
-          ColorColumn = { bg = c.mantle },
-          UfoFoldedEllipsis = { bg = c.surface0, fg = c.subtext0 },
-          IblIndent = { fg = c.mantle },
-          IblScope = { fg = c.surface0 },
-        }
-      end,
     },
     -- Icons can be configured throughout the interface
     icons = {

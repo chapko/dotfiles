@@ -50,6 +50,18 @@ return {
           crust     = '#dce0e8', -- '#dce0e8',
         },
       },
+      highlight_overrides = {
+        latte = function(latte)
+          return {
+            Folded = { fg = latte.overlay0, bg = latte.crust },
+            Whitespace = { fg = latte.surface0 },
+            ColorColumn = { bg = latte.mantle },
+            UfoFoldedEllipsis = { bg = latte.surface0, fg = latte.subtext0 },
+            SnacksIndent = { fg = latte.mantle },
+            SnacksIndentScope = { fg = latte.surface0 },
+          }
+        end,
+      },
     },
   },
 }

@@ -15,6 +15,7 @@ return {
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
+
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
       virtual_text = true,
@@ -40,6 +41,7 @@ return {
         number = true,
         signcolumn = "yes",
         wrap = false,
+        clipboard = "unnamedplus",
 
         textwidth = 88, -- for line wrapping with `gq`
         scrolloff = 3,
@@ -59,6 +61,7 @@ return {
         spelloptions = "camel",
       },
       g = { -- vim.g.<key>
+        clipboard = "xclip",
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file

@@ -9,16 +9,16 @@ common_packages=(
     openssh zsh man-{db,pages}
 
     # tools
-    tmux bat fzf ripgrep zoxide lazygit git-delta
+    tmux bat fzf ripgrep zoxide bottom gdu
+    lazygit git-delta
     luarocks shellcheck zip unzip
     yt-dlp
 
     # development
-    go python python-pip rustup
-    tree-sitter tree-sitter-cli
+    go python uv rustup
 
     # apps
-    neovim
+    tree-sitter tree-sitter-cli xclip neovim
 )
 
 linux_desktop_packages=(

@@ -1,6 +1,6 @@
 [core]
     editor = 'nvim'
-    excludesfile = ~/.gitconfig.d/.gitignore
+    excludesfile = ~/.config/git/.gitignore
     pager = delta
     autocrlf = false
 
@@ -139,19 +139,20 @@
     count = !git shortlog -sn
 
 [include]
-    path = ~/.gitconfig.local
+    path = ~/.config/git/local.gitconfig
 
-    # ~/.gitconfig.local
+    # ~/.config/git/local.gitconfig
     # ---
     # [user]
     #     name = ...
     #     email = ...
-    # [includeIf "gitdir:~/work/"]
-    #     path = ~/.gitconfig.d/work
+    # [includeIf "hasconfig:remote.*.url:git@work.com:**/*"]
+    #     path = ~/.config/git/work.gitconfig
 
-    # ~/.gitconfig.d/work
+    # ~/.config/git/work.gitconfig
     # ---
     # [user]
+    #     email = ...
     #     singingKey = ...
     # [commit]
     #     gpgsign = true

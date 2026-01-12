@@ -22,5 +22,3 @@ ZSH_THEME_AWS_PROFILE_SUFFIX="%{$reset_color%} "
 ZSH_THEME_AWS_DIVIDER=""
 ZSH_THEME_AWS_REGION_PREFIX="%{$fg[yellow]%}("
 ZSH_THEME_AWS_REGION_SUFFIX=")]%{$reset_color%} "
-
-

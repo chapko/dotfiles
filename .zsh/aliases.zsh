@@ -1,4 +1,4 @@
-alias sudo="sudo "  # http://serverfault.com/a/178956/253138
+alias sudo="sudo " # http://serverfault.com/a/178956/253138
 # prevent accidental overwriting
 alias cp="cp -i"
 alias rm="rm -i"

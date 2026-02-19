@@ -61,7 +61,6 @@ return {
         spelloptions = "camel",
       },
       g = { -- vim.g.<key>
-        clipboard = "xclip",
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
@@ -112,6 +111,7 @@ return {
           end,
           desc = "Toggle whitespace diff",
         },
+        ["<D-Space>"] = { "<Nop>" }, -- conflicts with hyprland Win+Space language switch
       },
       v = {
         [",p"] = { '"0p' },
@@ -122,6 +122,7 @@ return {
           function() vim.lsp.buf.signature_help() end,
           desc = "Signature help",
         },
+        ["<D-Space>"] = { "<Nop>" }, -- conflicts with hyprland Win+Space language switch
       },
     },
     sessions = {

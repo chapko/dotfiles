@@ -36,3 +36,4 @@ git:
   allBranchesLogCmds:
     - git log --color=always --graph --abbrev-commit --all --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 notARepository: "skip"
+

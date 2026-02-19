@@ -9,13 +9,21 @@
 
 [branch]
     defaultName = main
+    sort = -committerdate
+
+[tag]
+    sort = -version:refname
 
 [push]
     default = simple
     autoSetupRemote = true
 
+[pull]
+    rebase = true
+
 [rerere]
     enabled = true
+    autoupdate = true
 
 [merge]
     defaultToUpstream = true
@@ -69,7 +77,10 @@
     meta = reverse  # separate files more obviously
 
 [diff]
+    algorithm = histogram
     colorMoved = default
+    mnemonicPrefix = true    # More intuitive refs in diff output
+
 [gpg]
     program = gpg2
 
@@ -105,9 +116,6 @@
     blr = for-each-ref --format='%(color:green)%(authorname) %(color:reset)[%(color:blue)%(refname:short)%(color:reset)] - %(color:reset)%(subject)' refs/remotes/origin
 
     # copyb = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD) && echo $branch | tr -d '\n' | tr -d ' ' | xclip; };f"
-
-    # new branch
-    nb = "!f(){ git branch ${1} ${2} && git checkout ${1}; }; f"
 
     ; lb = "!git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 10 | awk -F' ~ HEAD@{' '{printf(\" \\033[33m%s: \\033[37m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'"
     ; lb = "!git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 10 | awk -F' ~ HEAD@{' '{printf(\" \\033[33m%-15s: \\033[32m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'"

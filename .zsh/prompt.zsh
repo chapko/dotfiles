@@ -8,7 +8,7 @@ PROMPT='
 %{%(!.${fg[red]}!.${fg[green]})%}» %{$reset_color%}'
 
 PROMPT2='%{%(!.${fg[red]}!.${fg[green]})%}«%{$reset_color%} '
-RPROMPT='%{$fg[green]%}[node $(fnm current)]%{$reset_color%} %(0?..%{$fg[red]%}%?)%{$reset_color%}'
+RPROMPT='%{$fg[green]%}[node $(node -v)]%{$reset_color%} %(0?..%{$fg[red]%}%?)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"

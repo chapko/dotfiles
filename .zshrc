@@ -5,9 +5,11 @@ if
         [[ ! "$TERM" =~ tmux ]] &&
         [ -z "$TMUX" ] &&
         [ -z "$DISABLE_TMUX" ] &&
-        [ -z "$VSCODE_INJECTION" ]
+        [ -z "$VSCODE_INJECTION" ] &&
+        ! tmux info &>/dev/null  # run tmux only in one terminal window
 then
-    tmux attach -t default &>/dev/null || tmux new-session -s default # do not exec to be able to exit from tmux to the zsh
+    tmux new-session -s default
+    # do not exit to be able to quit from tmux
 fi
 
 autoload -Uz promptinit
@@ -71,6 +73,10 @@ fi
 # nvm
 if [[ -f "$HOME/.nvm/nvm.sh" ]]; then
     source "$HOME/.nvm/nvm.sh"
+fi
+
+if type mise &>/dev/null; then
+    eval "$(mise activate zsh)"
 fi
 
 # local config

@@ -15,6 +15,8 @@ alias -g ......='../../../../..'
 alias ls='ls --color=tty'
 alias l='ls -lah'
 
+alias task='go-task'
+
 if command -v eza &> /dev/null; then
   alias ls='eza -lh --group-directories-first --icons=auto'
   alias l='ls -a'

@@ -7,7 +7,6 @@ ohmyzsh/ohmyzsh path:plugins/docker/completions kind:fpath
 ohmyzsh/ohmyzsh path:plugins/docker-compose kind:fpath
 ohmyzsh/ohmyzsh path:plugins/yarn kind:fpath
 
-ohmyzsh/ohmyzsh path:plugins/dotenv
 ohmyzsh/ohmyzsh path:plugins/vi-mode
 ohmyzsh/ohmyzsh path:plugins/fnm
 ohmyzsh/ohmyzsh path:plugins/aws kind:defer

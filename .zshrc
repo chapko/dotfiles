@@ -1,17 +1,3 @@
-if
-    command -v tmux &>/dev/null &&
-        [ -n "$PS1" ] &&
-        [[ ! "$TERM" =~ screen ]] &&
-        [[ ! "$TERM" =~ tmux ]] &&
-        [ -z "$TMUX" ] &&
-        [ -z "$DISABLE_TMUX" ] &&
-        [ -z "$VSCODE_INJECTION" ] &&
-        ! tmux info &>/dev/null  # run tmux only in one terminal window
-then
-    tmux new-session -s default
-    # do not exit to be able to quit from tmux
-fi
-
 autoload -Uz promptinit
 autoload -Uz compinit
 

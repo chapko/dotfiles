@@ -5,17 +5,19 @@ return {
   opts = {
     -- Configure core features of AstroNvim
     features = {
-      large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
+      large_buf = {
+        size = 1024 * 256,
+        lines = 10000,
+      }, -- set global limits for large files for disabling features like treesitter
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
-      diagnostics = { -- diagnostic settings on startup
+      diagnostics = {
         virtual_text = true,
         virtual_lines = false,
-      },
+      }, -- diagnostic settings on startup
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
-
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
       virtual_text = true,
@@ -37,8 +39,8 @@ return {
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
-        relativenumber = true,
-        number = true,
+        relativenumber = true, -- sets vim.opt.relativenumber
+        number = true, -- sets vim.opt.number
         signcolumn = "yes",
         wrap = false,
         clipboard = "unnamedplus",
@@ -46,7 +48,7 @@ return {
         textwidth = 88, -- for line wrapping with `gq`
         scrolloff = 3,
         sidescrolloff = 6,
-        colorcolumn = "+0", -- line at 'textwidth' column
+        colorcolumn = "88,120", -- line at 'textwidth' column
         list = true, -- display whitespace characters
         listchars = {
           eol = " ",
@@ -69,6 +71,7 @@ return {
     -- Mappings can be configured through AstroCore as well.
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
+      -- first key is the mode
       n = {
         ["Y"] = { "yy" },
         [";"] = { ":" },
@@ -83,7 +86,21 @@ return {
         [",d"] = { name = "Diff" },
         [",do"] = { "<Cmd>diffoff<cr>", desc = ":diffoff" },
         [",dt"] = { "<Cmd>diffthis<cr>", desc = ":diffthis" },
-        --
+
+        -- navigate buffer tabs
+        ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+
+        -- mappings seen under group name "Buffer"
+        ["<Leader>bd"] = {
+          function()
+            require("astroui.status.heirline").buffer_picker(
+              function(bufnr) require("astrocore.buffer").close(bufnr) end
+            )
+          end,
+          desc = "Close buffer from tabline",
+        },
+
         -- fugitive
         [",g"] = { name = "󰊢 Fugitive" },
         [",gs"] = { "<Cmd>Git<cr>", desc = "Status" },

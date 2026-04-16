@@ -15,9 +15,6 @@ return {
       null_ls.builtins.formatting.shfmt.with {
         filetypes = { "sh", "bash", "zsh" },
       },
-      -- Set a formatter
-      -- null_ls.builtins.formatting.stylua,
-      -- null_ls.builtins.formatting.prettier,
     })
   end,
 }

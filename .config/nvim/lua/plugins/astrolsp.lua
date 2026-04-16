@@ -1,3 +1,8 @@
+-- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
+-- Configuration documentation can be found with `:h astrolsp`
+-- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
+--       as this provides autocomplete and documentation while editing
+
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -14,27 +19,29 @@ return {
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
-        -- allow_filetypes = { -- enable format on save for specified filetypes only
-        --   -- "go",
-        -- },
+        allow_filetypes = { -- enable format on save for specified filetypes only
+          -- "go",
+        },
         ignore_filetypes = { -- disable format on save for specified filetypes
           -- "python",
         },
       },
       disabled = { -- disable formatting capabilities for the listed language servers
+        -- prefer oxfmt
         "html",
         "jsonls",
         "tsserver",
         "vtsls",
         "cssmodules_ls",
-        "lua_ls",
         "cssls",
         "tailwindcss",
-        "terraformls",
+        -- "oxlint",
+
+        -- prefer stylua
+        "lua_ls",
       },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
-      --   vim.print(vim.bo.filetype .. ": " .. cl.name)
       --   return true
       -- end
     },
@@ -42,20 +49,21 @@ return {
     servers = {
       -- "pyright"
     },
-    -- customize language server configuration options passed to `lspconfig`
-    ---@diagnostic disable: missing-fields
+    -- customize language server configuration passed to `vim.lsp.config`
+    -- client specific configuration can also go in `lsp/` in your configuration root (see `:h lsp-config`)
     config = {
-      bashls = { filetypes = { "sh", "bash", "zsh" } },
-      -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      -- ["*"] = { capabilities = {} }, -- modify default LSP client settings such as capabilities
+      bashls = {
+        filetypes = { "sh", "bash", "zsh" },
+      },
     },
     -- customize how language servers are attached
     handlers = {
-      -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
-      -- function(server, opts) require("lspconfig")[server].setup(opts) end
+      -- a function with the key `*` modifies the default handler, functions takes the server name as the parameter
+      -- ["*"] = function(server) vim.lsp.enable(server) end
 
-      -- the key is the server that is being setup with `lspconfig`
-      -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server
-      -- pyright = function(_, opts) require("lspconfig").pyright.setup(opts) end -- or a custom handler function can be passed
+      -- the key is the server that is being setup with `vim.lsp.config`
+      vtsls = false,
     },
     -- Configure buffer local auto commands to add when attaching a language server
     autocmds = {
@@ -98,10 +106,10 @@ return {
       },
     },
     -- A custom `on_attach` function to be run after the default `on_attach` function
-    -- takes two parameters `client` and `bufnr`  (`:h lspconfig-setup`)
-    -- on_attach = function(client, bufnr)
-    --   -- this would disable semanticTokensProvider for all clients
-    --   -- client.server_capabilities.semanticTokensProvider = nil
-    -- end,
+    -- takes two parameters `client` and `bufnr`  (`:h lsp-attach`)
+    on_attach = function(client, bufnr)
+      -- this would disable semanticTokensProvider for all clients
+      -- client.server_capabilities.semanticTokensProvider = nil
+    end,
   },
 }

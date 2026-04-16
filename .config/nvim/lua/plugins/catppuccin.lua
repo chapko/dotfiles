@@ -56,6 +56,7 @@ return {
             Folded = { fg = latte.overlay0, bg = latte.crust },
             Whitespace = { fg = latte.surface0 },
             ColorColumn = { bg = latte.mantle },
+            -- todo: ufo has been removed in v6
             UfoFoldedEllipsis = { bg = latte.surface0, fg = latte.subtext0 },
             SnacksIndent = { fg = latte.mantle },
             SnacksIndentScope = { fg = latte.surface0 },

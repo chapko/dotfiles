@@ -1,20 +1,15 @@
-local editing_events = { "BufReadPost", "BufNewFile" }
-
 ---@type LazySpec
 return {
+
   -- disabled
   { "max397574/better-escape.nvim", enabled = false },
   { "L3MON4D3/LuaSnip", enabled = false },
 
   { "laytan/cloak.nvim", lazy = false, config = true },
-  { "tpope/vim-surround", event = editing_events },
-  { "tpope/vim-repeat", event = editing_events },
-
   {
-    "folke/snacks.nvim",
-    opts = {
-      dashboard = { enabled = false },
-    },
+    "kylechui/nvim-surround",
+    version = "^4.0.0", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
   },
 
   {

@@ -51,16 +51,6 @@ if type zoxide &>/dev/null; then
     eval "$(zoxide init zsh --cmd z --hook pwd)"
 fi
 
-# fnm
-if type fnm &>/dev/null; then
-    eval "$(fnm env)"
-fi
-
-# nvm
-if [[ -f "$HOME/.nvm/nvm.sh" ]]; then
-    source "$HOME/.nvm/nvm.sh"
-fi
-
 if type mise &>/dev/null; then
     eval "$(mise activate zsh)"
 fi
@@ -68,11 +58,6 @@ fi
 # local config
 if [[ -f "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"
-fi
-
-# go
-if command -v go >/dev/null 2>&1; then
-    export PATH="$PATH:$(go env GOPATH)/bin"
 fi
 
 # gpg pinentry in vscode

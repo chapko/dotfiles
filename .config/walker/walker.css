@@ -1,5 +1,0 @@
-@define-color selected-background #e6e9ef;
-
-child:selected .item-box {
-  background: @selected-background;
-}

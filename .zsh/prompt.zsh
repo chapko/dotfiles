@@ -4,7 +4,7 @@ autoload -U colors && colors
 setopt prompt_subst
 
 PROMPT='
-%{$fg_bold[gray]%}%~%{$fg_bold[blue]%}%{$fg_bold[blue]%} % %{$reset_color%} $(vi_mode_prompt_info)$(_omz_git_prompt_info)
+%{$fg_bold[white]%}%~%{$fg_bold[blue]%}%{$fg_bold[blue]%} % %{$reset_color%} $(vi_mode_prompt_info)$(_omz_git_prompt_info)
 %{%(!.${fg[red]}!.${fg[green]})%}» %{$reset_color%}'
 
 PROMPT2='%{%(!.${fg[red]}!.${fg[green]})%}«%{$reset_color%} '

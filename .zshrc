@@ -41,19 +41,26 @@ source "${HOME}/.zsh/functions.zsh"
 source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/prompt.zsh"
 
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-source "$HOME/.zsh/pnpm.completion.zsh"
+if type mise &>/dev/null; then
+    eval "$(mise activate zsh)"
+fi
 
-# z
 if type zoxide &>/dev/null; then
     eval "$(zoxide init zsh --cmd z --hook pwd)"
 fi
 
-if type mise &>/dev/null; then
-    eval "$(mise activate zsh)"
+if type pnpm &>/dev/null; then
+    export PNPM_HOME="$HOME/.local/share/pnpm"
+    export PATH="$PNPM_HOME/bin:$PATH"
+    local completion_file="$HOME/.local/share/zsh/pnpm@$(pnpm -v).completion.zsh"
+
+    if [[ ! -f "$completion_file" ]]; then
+        mkdir -p "$(dirname "$completion_file")"
+        pnpm completion zsh > "$completion_file"
+    fi
+    source "$completion_file"
 fi
+
 
 # local config
 if [[ -f "$HOME/.zshrc.local" ]]; then

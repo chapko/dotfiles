@@ -21,11 +21,11 @@ gui:
     unstagedChangesColor:
       - red # Red
     defaultFgColor:
-      - black
+      - "#4c4f69"
 git:
-  pagers:
+  diffRenderers:
     # pager: truecolor-test && delta --features="lazygit" --paging=never
-    - pager: delta --features="lazygit" --paging=never
+    - command: delta --features="lazygit" --paging=never
   branchLogCmd: "git log --color=always --graph --abbrev-commit --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' {{branchName}} --"
   autoFetch: false
   mainBranches:
@@ -36,4 +36,3 @@ git:
   allBranchesLogCmds:
     - git log --color=always --graph --abbrev-commit --all --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 notARepository: "skip"
-

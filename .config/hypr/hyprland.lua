@@ -6,7 +6,6 @@ require("config.colors")
 require("config.decorations")
 require("config.variables")
 require("config.environment")
-pcall(require, "config.environment.local")
 require("config.inputs")
 require("config.binds")
 require("config.misc")
@@ -16,3 +15,6 @@ require("config.workspaces")
 
 -- For Noctalia Color templates
 require("noctalia").apply_theme()
+
+-- optional per machine configuration
+pcall(require, "local")

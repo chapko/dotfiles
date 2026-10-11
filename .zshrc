@@ -52,11 +52,30 @@ fi
 if type pnpm &>/dev/null; then
     export PNPM_HOME="$HOME/.local/share/pnpm"
     export PATH="$PNPM_HOME/bin:$PATH"
-    local completion_file="$HOME/.local/share/zsh/pnpm@$(pnpm -v).completion.zsh"
 
+    local completion_file="$HOME/.local/share/zsh/pnpm@$(pnpm -v).completion.zsh"
     if [[ ! -f "$completion_file" ]]; then
         mkdir -p "$(dirname "$completion_file")"
         pnpm completion zsh > "$completion_file"
+    fi
+    source "$completion_file"
+fi
+
+if type gh &>/dev/null; then
+    local version="$(gh --version | head -n 1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
+    local completion_file="$HOME/.local/share/zsh/gh@${version}.completion.zsh"
+    if [[ ! -f "$completion_file" ]]; then
+        mkdir -p "$(dirname "$completion_file")"
+        gh completion -s zsh > "$completion_file"
+    fi
+    source "$completion_file"
+fi
+
+if type uv &>/dev/null; then
+    local completion_file="$HOME/.local/share/zsh/uv@$(uv self version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
+    if [[ ! -f "$completion_file" ]]; then
+        mkdir -p "$(dirname "$completion_file")"
+        uv generate-shell-completion zsh > "$completion_file"
     fi
     source "$completion_file"
 fi

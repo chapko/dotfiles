@@ -63,7 +63,7 @@ return {
       -- ["*"] = function(server) vim.lsp.enable(server) end
 
       -- the key is the server that is being setup with `vim.lsp.config`
-      vtsls = false,
+      -- vtsls = false,
     },
     -- Configure buffer local auto commands to add when attaching a language server
     autocmds = {

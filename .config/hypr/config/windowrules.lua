@@ -14,7 +14,7 @@ hl.window_rule({
 
 -- Gaming
 local gamingApps = "^(steam_app.*|gamescope)$"
-local gamingWorkspace = "4"
+local gamingWorkspace = "5"
 
 hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
 hl.window_rule({
@@ -113,6 +113,7 @@ local floatApps = {
 	{ class = "^(kvantummanager|qt[56]ct|nwg-look)$" },
 	{ class = "^(org.pulseaudio.pavucontrol|blueman-manager|nm-applet|nm-connection-editor)$" },
 	{ title = "^(Winetricks.*|Protontricks.*)$" },
+	{ class = "^(wine.*|steam_app_default)$" },
 }
 for _, m in ipairs(floatApps) do
 	hl.window_rule({ match = m, float = true })

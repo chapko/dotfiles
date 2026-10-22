@@ -84,6 +84,9 @@
 [gpg]
     program = gpg2
 
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
+
 [alias]
     lgg = log --color --graph --pretty=format:'%C(green)[%G?]%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lgs = log --color --graph --pretty=format:'%Cred%h%Creset - %Cgreen[%G? %GS - %GK]%Creset %s' --abbrev-commit

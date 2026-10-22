@@ -1,3 +1,5 @@
 .vscode/
-.lazy.lua
+_local/
 
+.lazy.lua
+mise.toml

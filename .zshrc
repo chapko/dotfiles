@@ -42,44 +42,37 @@ source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/prompt.zsh"
 
 if type mise &>/dev/null; then
-    eval "$(mise activate zsh)"
+    source <(mise activate zsh)
 fi
 
 if type zoxide &>/dev/null; then
-    eval "$(zoxide init zsh --cmd z --hook pwd)"
+    source <(zoxide init zsh --cmd z --hook pwd)
+fi
+
+if type gh &>/dev/null; then
+    source <(gh completion -s zsh)
 fi
 
 if type pnpm &>/dev/null; then
     export PNPM_HOME="$HOME/.local/share/pnpm"
     export PATH="$PNPM_HOME/bin:$PATH"
-
-    local completion_file="$HOME/.local/share/zsh/pnpm@$(pnpm -v).completion.zsh"
-    if [[ ! -f "$completion_file" ]]; then
-        mkdir -p "$(dirname "$completion_file")"
-        pnpm completion zsh > "$completion_file"
-    fi
-    source "$completion_file"
+    source <(pnpm completion zsh)
 fi
 
-if type gh &>/dev/null; then
-    local version="$(gh --version | head -n 1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
-    local completion_file="$HOME/.local/share/zsh/gh@${version}.completion.zsh"
-    if [[ ! -f "$completion_file" ]]; then
-        mkdir -p "$(dirname "$completion_file")"
-        gh completion -s zsh > "$completion_file"
-    fi
-    source "$completion_file"
+if type fzf &>/dev/null; then
+    source <(fzf --zsh)
 fi
 
 if type uv &>/dev/null; then
-    local completion_file="$HOME/.local/share/zsh/uv@$(uv self version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
+    # uv shell completion generation is kinda slow, caching it is x3-4 times faster
+    local version="${$(uv --version)[(w)2]}"
+    local completion_file="$HOME/.local/share/zsh/uv@${version}.completion.zsh"
     if [[ ! -f "$completion_file" ]]; then
         mkdir -p "$(dirname "$completion_file")"
         uv generate-shell-completion zsh > "$completion_file"
     fi
     source "$completion_file"
 fi
-
 
 # local config
 if [[ -f "$HOME/.zshrc.local" ]]; then
